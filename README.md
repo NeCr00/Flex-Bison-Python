@@ -1,14 +1,14 @@
 # Python-Indentation-flex
-Making a flex file for python indentation
-Just a basic form for python indentation.
-How to run it:
-1 -  flex test.l
-2 -  g++ lex.yy.c -o "[a random name]"
-3  ./"a random name"
+Making a flex file for python indentation <br />
+Just a basic form for python indentation.<br />
+How to run it: <br />
+1 -  flex test.l<br />
+2 -  g++ lex.yy.c -o "[a random name]" <br />
+3  ./"a random name" <br />
 
-Give simple instruction for testcases \n
-Example: \n
-import hi
-if(1):
- print(hi)
+Give simple instruction for testcases <br />
+Example: <br />
+import hi <br />
+if(1): <br />
+ print(hi) <br />
 
