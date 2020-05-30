@@ -806,11 +806,11 @@ int yy_flex_debug = 0;
 #define YY_MORE_ADJ 0
 #define YY_RESTORE_YY_MORE_OFFSET
 char *yytext;
-#line 1 "scan.lex"
-#line 2 "scan.lex"
+#line 1 "test.l"
+#line 2 "test.l"
 #include <stdlib.h>
 #include <stdio.h>
-#include "parser.h" // Get tokens from bison
+#include "parser.tab.h" // Get tokens from bison
 
 
 
@@ -1046,7 +1046,7 @@ YY_DECL
 		}
 
 	{
-#line 51 "scan.lex"
+#line 51 "test.l"
 
 
 
@@ -1111,438 +1111,438 @@ do_action:	/* This label is used only to access EOF actions. */
 case 1:
 /* rule 1 can match eol */
 YY_RULE_SETUP
-#line 54 "scan.lex"
+#line 54 "test.l"
 {/* Ignore blank lines. */  ;} 			
 	YY_BREAK
 case 2:
 /* rule 2 can match eol */
 YY_RULE_SETUP
-#line 55 "scan.lex"
+#line 55 "test.l"
 {/* Ignore blank lines. */ ;}
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 56 "scan.lex"
+#line 56 "test.l"
 {  process_indent(yytext); unputt(yyleng);/*Reads every line*/ }
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 59 "scan.lex"
+#line 59 "test.l"
 {level++ ; flag = 1;  return IF;}
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 60 "scan.lex"
+#line 60 "test.l"
 {level++ ; flag = 1;  return FOR;}
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 61 "scan.lex"
+#line 61 "test.l"
 {level++ ; flag = 1;  return DEF;}
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 64 "scan.lex"
+#line 64 "test.l"
 { return FALSE; }
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 65 "scan.lex"
+#line 65 "test.l"
 { return NONE; }
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 66 "scan.lex"
+#line 66 "test.l"
 { return TRUE; }
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 67 "scan.lex"
+#line 67 "test.l"
 { return AND; }
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 68 "scan.lex"
+#line 68 "test.l"
 { return AS; }
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 69 "scan.lex"
+#line 69 "test.l"
 { return ASSERT; }
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 70 "scan.lex"
+#line 70 "test.l"
 { return BREAK; }
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 71 "scan.lex"
+#line 71 "test.l"
 { return CLASS; }
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 72 "scan.lex"
+#line 72 "test.l"
 { return CONTINUE; }
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 73 "scan.lex"
+#line 73 "test.l"
 { return DEL; }
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 74 "scan.lex"
+#line 74 "test.l"
 { return ELIF; }
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 75 "scan.lex"
+#line 75 "test.l"
 { return ELSE; }
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 76 "scan.lex"
+#line 76 "test.l"
 { return EXCEPT; }
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 77 "scan.lex"
+#line 77 "test.l"
 { return FINALLY; }
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 78 "scan.lex"
+#line 78 "test.l"
 { return FROM; }
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 79 "scan.lex"
+#line 79 "test.l"
 { return GLOBAL; }
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 80 "scan.lex"
+#line 80 "test.l"
 { return IMPORT; }
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
-#line 81 "scan.lex"
+#line 81 "test.l"
 { return IN; }
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
-#line 82 "scan.lex"
+#line 82 "test.l"
 { return IS; }
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
-#line 83 "scan.lex"
+#line 83 "test.l"
 { return LAMBDA; }
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
-#line 84 "scan.lex"
+#line 84 "test.l"
 { return NOT; }
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
-#line 85 "scan.lex"
+#line 85 "test.l"
 { return OR; }
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
-#line 86 "scan.lex"
+#line 86 "test.l"
 { return PASS; }
 	YY_BREAK
 case 30:
 YY_RULE_SETUP
-#line 87 "scan.lex"
+#line 87 "test.l"
 { return RAISE; }
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
-#line 88 "scan.lex"
+#line 88 "test.l"
 { return RETURN; }
 	YY_BREAK
 case 32:
 YY_RULE_SETUP
-#line 89 "scan.lex"
+#line 89 "test.l"
 { return TRY; }
 	YY_BREAK
 case 33:
 YY_RULE_SETUP
-#line 90 "scan.lex"
+#line 90 "test.l"
 { return WHILE; }
 	YY_BREAK
 case 34:
 YY_RULE_SETUP
-#line 91 "scan.lex"
+#line 91 "test.l"
 { return WITH; }
 	YY_BREAK
 case 35:
 YY_RULE_SETUP
-#line 92 "scan.lex"
+#line 92 "test.l"
 { return YIELD; }
 	YY_BREAK
 case 36:
 YY_RULE_SETUP
-#line 94 "scan.lex"
+#line 94 "test.l"
 { return PRINT; }
 	YY_BREAK
 case 37:
 YY_RULE_SETUP
-#line 95 "scan.lex"
+#line 95 "test.l"
 { return EXEC; }
 	YY_BREAK
 case 38:
 YY_RULE_SETUP
-#line 97 "scan.lex"
+#line 97 "test.l"
 { return 'L'; }
 	YY_BREAK
 case 39:
 YY_RULE_SETUP
-#line 98 "scan.lex"
+#line 98 "test.l"
 { return 'l'; }
 	YY_BREAK
 case 40:
 YY_RULE_SETUP
-#line 100 "scan.lex"
+#line 100 "test.l"
 {return EX;}
 	YY_BREAK
 case 41:
 YY_RULE_SETUP
-#line 102 "scan.lex"
+#line 102 "test.l"
 { return ELLIPSIS; }
 	YY_BREAK
 case 42:
 YY_RULE_SETUP
-#line 103 "scan.lex"
+#line 103 "test.l"
 { return RIGHT_ASSIGN; }
 	YY_BREAK
 case 43:
 YY_RULE_SETUP
-#line 104 "scan.lex"
+#line 104 "test.l"
 { return LEFT_ASSIGN; }
 	YY_BREAK
 case 44:
 YY_RULE_SETUP
-#line 105 "scan.lex"
+#line 105 "test.l"
 { return ADD_ASSIGN; }
 	YY_BREAK
 case 45:
 YY_RULE_SETUP
-#line 106 "scan.lex"
+#line 106 "test.l"
 { return SUB_ASSIGN; }
 	YY_BREAK
 case 46:
 YY_RULE_SETUP
-#line 107 "scan.lex"
+#line 107 "test.l"
 { return MUL_ASSIGN; }
 	YY_BREAK
 case 47:
 YY_RULE_SETUP
-#line 108 "scan.lex"
+#line 108 "test.l"
 { return POW_ASSIGN; }
 	YY_BREAK
 case 48:
 YY_RULE_SETUP
-#line 109 "scan.lex"
+#line 109 "test.l"
 { return DIV_ASSIGN; }
 	YY_BREAK
 case 49:
 YY_RULE_SETUP
-#line 110 "scan.lex"
+#line 110 "test.l"
 { return MOD_ASSIGN; }
 	YY_BREAK
 case 50:
 YY_RULE_SETUP
-#line 111 "scan.lex"
+#line 111 "test.l"
 { return AND_ASSIGN; }
 	YY_BREAK
 case 51:
 YY_RULE_SETUP
-#line 112 "scan.lex"
+#line 112 "test.l"
 { return XOR_ASSIGN; }
 	YY_BREAK
 case 52:
 YY_RULE_SETUP
-#line 113 "scan.lex"
+#line 113 "test.l"
 { return OR_ASSIGN; }
 	YY_BREAK
 case 53:
 YY_RULE_SETUP
-#line 114 "scan.lex"
+#line 114 "test.l"
 { return RIGHT_OP; }
 	YY_BREAK
 case 54:
 YY_RULE_SETUP
-#line 115 "scan.lex"
+#line 115 "test.l"
 { return LEFT_OP; }
 	YY_BREAK
 case 55:
 YY_RULE_SETUP
-#line 116 "scan.lex"
+#line 116 "test.l"
 { return LE_OP; }
 	YY_BREAK
 case 56:
 YY_RULE_SETUP
-#line 117 "scan.lex"
+#line 117 "test.l"
 { return GE_OP; }
 	YY_BREAK
 case 57:
 YY_RULE_SETUP
-#line 118 "scan.lex"
+#line 118 "test.l"
 { return EQ_OP; }
 	YY_BREAK
 case 58:
 YY_RULE_SETUP
-#line 119 "scan.lex"
+#line 119 "test.l"
 { return NE_OP; }
 	YY_BREAK
 case 59:
 YY_RULE_SETUP
-#line 120 "scan.lex"
+#line 120 "test.l"
 {return LR_OP;}
 	YY_BREAK
 case 60:
 YY_RULE_SETUP
-#line 122 "scan.lex"
+#line 122 "test.l"
 {return COLON;}
 	YY_BREAK
 case 61:
 YY_RULE_SETUP
-#line 123 "scan.lex"
+#line 123 "test.l"
 {return '_';}
 	YY_BREAK
 case 62:
 YY_RULE_SETUP
-#line 124 "scan.lex"
+#line 124 "test.l"
 { return COMMA; }
 	YY_BREAK
 case 63:
 YY_RULE_SETUP
-#line 125 "scan.lex"
+#line 125 "test.l"
 { return ':'; }
 	YY_BREAK
 case 64:
 YY_RULE_SETUP
-#line 126 "scan.lex"
+#line 126 "test.l"
 { return '='; }
 	YY_BREAK
 case 65:
 YY_RULE_SETUP
-#line 127 "scan.lex"
-{ return '('; }
+#line 127 "test.l"
+{ return RPAR; }
 	YY_BREAK
 case 66:
 YY_RULE_SETUP
-#line 128 "scan.lex"
-{ return ')'; }
+#line 128 "test.l"
+{ return LPAR; }
 	YY_BREAK
 case 67:
 YY_RULE_SETUP
-#line 129 "scan.lex"
+#line 129 "test.l"
 { return '['; }
 	YY_BREAK
 case 68:
 YY_RULE_SETUP
-#line 130 "scan.lex"
+#line 130 "test.l"
 { return ']'; }
 	YY_BREAK
 case 69:
 YY_RULE_SETUP
-#line 131 "scan.lex"
+#line 131 "test.l"
 { return '{'; }
 	YY_BREAK
 case 70:
 YY_RULE_SETUP
-#line 132 "scan.lex"
+#line 132 "test.l"
 { return '}'; }
 	YY_BREAK
 case 71:
 YY_RULE_SETUP
-#line 133 "scan.lex"
+#line 133 "test.l"
 { return '.'; }
 	YY_BREAK
 case 72:
 YY_RULE_SETUP
-#line 134 "scan.lex"
+#line 134 "test.l"
 { return AND_EXP; }
 	YY_BREAK
 case 73:
 YY_RULE_SETUP
-#line 135 "scan.lex"
+#line 135 "test.l"
 { return '@'; }
 	YY_BREAK
 case 74:
 YY_RULE_SETUP
-#line 136 "scan.lex"
+#line 136 "test.l"
 { return '~'; }
 	YY_BREAK
 case 75:
 YY_RULE_SETUP
-#line 137 "scan.lex"
+#line 137 "test.l"
 { return MINUS; }
 	YY_BREAK
 case 76:
 YY_RULE_SETUP
-#line 138 "scan.lex"
+#line 138 "test.l"
 { return PLUS; }
 	YY_BREAK
 case 77:
 YY_RULE_SETUP
-#line 139 "scan.lex"
+#line 139 "test.l"
 { return PERCENT; }
 	YY_BREAK
 case 78:
 YY_RULE_SETUP
-#line 140 "scan.lex"
+#line 140 "test.l"
 { return LESS_THAN_OP; }
 	YY_BREAK
 case 79:
 YY_RULE_SETUP
-#line 141 "scan.lex"
+#line 141 "test.l"
 { return GREATER_THAN_OP; }
 	YY_BREAK
 case 80:
 YY_RULE_SETUP
-#line 142 "scan.lex"
+#line 142 "test.l"
 { return XOR; }
 	YY_BREAK
 case 81:
 YY_RULE_SETUP
-#line 143 "scan.lex"
+#line 143 "test.l"
 { return OR_SIGN; }
 	YY_BREAK
 case 82:
 YY_RULE_SETUP
-#line 144 "scan.lex"
+#line 144 "test.l"
 { return '`'; }
 	YY_BREAK
 case 83:
 YY_RULE_SETUP
-#line 145 "scan.lex"
+#line 145 "test.l"
 { return STAR;}
 	YY_BREAK
 case 84:
 YY_RULE_SETUP
-#line 146 "scan.lex"
+#line 146 "test.l"
 { return DOUBLESTAR; }
 	YY_BREAK
 case 85:
 YY_RULE_SETUP
-#line 147 "scan.lex"
+#line 147 "test.l"
 { return SLASH; }
 	YY_BREAK
 case 86:
 YY_RULE_SETUP
-#line 148 "scan.lex"
+#line 148 "test.l"
 { return DOUBLESLASH; }
 	YY_BREAK
 case 87:
 YY_RULE_SETUP
-#line 150 "scan.lex"
+#line 150 "test.l"
 {
 						printf("IDENTIFIER: %s\n", yytext);
 						return IDENTIFIER;
@@ -1550,7 +1550,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 88:
 YY_RULE_SETUP
-#line 155 "scan.lex"
+#line 155 "test.l"
 {
 						printf("DECINTEGER: %s\n", yytext);
 						return DECINTEGER;
@@ -1558,7 +1558,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 89:
 YY_RULE_SETUP
-#line 160 "scan.lex"
+#line 160 "test.l"
 {
 						printf("OCTINTEGER: %s\n", yytext);
 						return OCTINTEGER;
@@ -1566,7 +1566,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 90:
 YY_RULE_SETUP
-#line 165 "scan.lex"
+#line 165 "test.l"
 {
 						printf("HEXINTEGER: %s\n", yytext);
 						return HEXINTEGER;
@@ -1574,7 +1574,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 91:
 YY_RULE_SETUP
-#line 170 "scan.lex"
+#line 170 "test.l"
 {
 						printf("POINTFLOAT: %s\n", yytext);
 						return POINTFLOAT;
@@ -1582,7 +1582,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 92:
 YY_RULE_SETUP
-#line 175 "scan.lex"
+#line 175 "test.l"
 {
 						printf("EXPONENTFLOAT: %s\n", yytext);
 						return EXPONENTFLOAT;
@@ -1590,7 +1590,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 93:
 YY_RULE_SETUP
-#line 180 "scan.lex"
+#line 180 "test.l"
 {
 						printf("IMAGNUMBER: %s\n", yytext);
 						return IMAGNUMBER;
@@ -1598,7 +1598,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 94:
 YY_RULE_SETUP
-#line 186 "scan.lex"
+#line 186 "test.l"
 {
 						printf("SHORTSTRING: %s\n", yytext);
 						return SHORTSTRING;
@@ -1607,7 +1607,7 @@ YY_RULE_SETUP
 case 95:
 /* rule 95 can match eol */
 YY_RULE_SETUP
-#line 191 "scan.lex"
+#line 191 "test.l"
 {
 						printf("LONGSTRING: %s\n", yytext);
 						return LONGSTRING;
@@ -1615,13 +1615,13 @@ YY_RULE_SETUP
 	YY_BREAK
 case 96:
 YY_RULE_SETUP
-#line 196 "scan.lex"
+#line 196 "test.l"
 
 	YY_BREAK
 case 97:
 /* rule 97 can match eol */
 YY_RULE_SETUP
-#line 198 "scan.lex"
+#line 198 "test.l"
 {
 						linee++;
 						return NEWLINE;
@@ -1629,16 +1629,16 @@ YY_RULE_SETUP
 	YY_BREAK
 case 98:
 YY_RULE_SETUP
-#line 204 "scan.lex"
+#line 204 "test.l"
 {/* Do nothing */}
 	YY_BREAK
 case YY_STATE_EOF(INITIAL):
-#line 207 "scan.lex"
+#line 207 "test.l"
 { return 0 ; }
 	YY_BREAK
 case 99:
 YY_RULE_SETUP
-#line 209 "scan.lex"
+#line 209 "test.l"
 ECHO;
 	YY_BREAK
 #line 1645 "lex.yy.c"
@@ -2647,7 +2647,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 209 "scan.lex"
+#line 209 "test.l"
 
 //Python Indentation 
 void unputt(int leng){

@@ -1,2 +1,1 @@
-(x and and y)
-g and c
+x // 10

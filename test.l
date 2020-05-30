@@ -1,7 +1,7 @@
 %{
 #include <stdlib.h>
 #include <stdio.h>
-#include "parser.h" // Get tokens from bison
+#include "parser.tab.h" // Get tokens from bison
 
 
 
@@ -124,8 +124,8 @@ WHITESPACE		[ \t\v\n\f]
 ","					{ return COMMA; }
 ":"					{ return ':'; }
 "="					{ return '='; }
-"("					{ return '('; }
-")"					{ return ')'; }
+"("					{ return RPAR; }
+")"					{ return LPAR; }
 "["					{ return '['; }
 "]"					{ return ']'; }
 "{"					{ return '{'; }

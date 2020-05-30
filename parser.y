@@ -1,6 +1,8 @@
 
 %{
  
+#include <stdio.h>
+#include <stdlib.h>
 
   // Declare stuff from Flex that Bison needs to know about:
   extern int yylex();
@@ -14,7 +16,7 @@
 
 %token IN IS LAMBDA NOT OR PASS RAISE RETURN TRY WHILE WITH YIELD PRINT EXEC IDENTIFIER SHORTSTRING LONGSTRING EX
 
-%token DECINTEGER OCTINTEGER HEXINTEGER POINTFLOAT EXPONENTFLOAT IMAGNUMBER LESS_THAN_OP GREATER_THAN_OP MINUS AND_EXP NEWLINE
+%token DECINTEGER OCTINTEGER LPAR RPAR HEXINTEGER POINTFLOAT EXPONENTFLOAT IMAGNUMBER LESS_THAN_OP GREATER_THAN_OP MINUS AND_EXP NEWLINE
 
 
 %token ELLIPSIS RIGHT_ASSIGN LEFT_ASSIGN ADD_ASSIGN COLON SUB_ASSIGN MUL_ASSIGN POW_ASSIGN DIV_ASSIGN MOD_ASSIGN AND_ASSIGN PERCENT OR_SIGN
@@ -63,8 +65,8 @@ literal:
 		| imagnumber;
 
 parenth_form:
-		"(" ")"
-		| "(" expression_list ")";
+		RPAR LPAR
+		| RPAR expression_list LPAR;
 
 primary: atom| attributeref|;
 
@@ -142,8 +144,8 @@ expression_stmt: expression_list;
 
 
 
-modules_import:	IMPORT module{cout<<"hi import"<<endl;} 
-	|	IMPORT module AS name{cout<<"import"<<endl;}
+modules_import:	IMPORT module
+	|	IMPORT module AS name
 	|	FROM module IMPORT name;
 
 
@@ -163,14 +165,10 @@ statement:
 		| statements statement;
 		
 	stmt_list:
-		simple_stmt
-		| simple_stmt COLON
-		| simple_stmt simple_stmts
-		| simple_stmt simple_stmts COLON;
+		 simple_stmt;
 		
-	simple_stmts:
-		COLON simple_stmt
-		| simple_stmts COLON simple_stmt;
+		
+		
 
 
 newlines:
@@ -185,15 +183,26 @@ input:
 %%
 
 
-int main(int, char**) {
+int main() {
+  //extern int yydebug;
+    //yydebug = 1;
+  // Open a file 
+  FILE *myfile = fopen("example.py", "r");
+  //  is valid?
+  if (!myfile) {
+    
+    return -1;
+  }
+  // read the file
+  yyin = myfile;
   
-    yydebug = 1;
-    yyparse();
+  // Parse through the input:
+  yyparse();
   
 }
 
-void yyerror(const char *s) {
-  cout << "EEK, parse error!  Message: " << s << endl;
-  // might as well halt now:
-  exit(-1);
+
+void yyerror(const char* s) {
+	fprintf(stderr, "Parse error: %s\n", s);
+	exit(1);
 }
