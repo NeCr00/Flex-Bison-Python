@@ -12,23 +12,211 @@
   void yyerror(const char *s);
 %}
 
-%token FALSE NONE TRUE AND AS ASSERT BREAK CLASS CONTINUE DEF DEL ELIF ELSE EXCEPT FINALLY FOR FROM GLOBAL IF IMPORT COMMA 
+%token FALSE NONE TRUE AND AS ASSERT BREAK CLASS CONTINUE DEF DEL ELIF ELSE EXCEPT FINALLY FOR FROM GLOBAL IF IMPORT COMMA DOT COL
 
-%token IN IS LAMBDA NOT OR PASS RAISE RETURN TRY WHILE WITH YIELD PRINT EXEC IDENTIFIER SHORTSTRING LONGSTRING EX
+%token IN IS LAMBDA NOT OR COLON PASS RAISE RETURN TRY WHILE WITH YIELD PRINT EXEC IDENTIFIER SHORTSTRING LONGSTRING INC DEC EQUAL
 
 %token DECINTEGER OCTINTEGER LPAR RPAR HEXINTEGER POINTFLOAT EXPONENTFLOAT IMAGNUMBER LESS_THAN_OP GREATER_THAN_OP MINUS AND_EXP NEWLINE
 
 
-%token ELLIPSIS RIGHT_ASSIGN LEFT_ASSIGN ADD_ASSIGN COLON SUB_ASSIGN MUL_ASSIGN POW_ASSIGN DIV_ASSIGN MOD_ASSIGN AND_ASSIGN PERCENT OR_SIGN
+%token ELLIPSIS RIGHT_ASSIGN LEFT_ASSIGN ADD_ASSIGN  SUB_ASSIGN MUL_ASSIGN POW_ASSIGN DIV_ASSIGN MOD_ASSIGN AND_ASSIGN PERCENT OR_SIGN
 
-%token XOR_ASSIGN OR_ASSIGN RIGHT_OP LEFT_OP PTR_OP LE_OP GE_OP EQ_OP NE_OP STAR DOUBLESTAR SLASH DOUBLESLASH  LR_OP PLUS XOR
+%token XOR_ASSIGN OR_ASSIGN RIGHT_OP LEFT_OP PTR_OP LE_OP GE_OP EQ_OP NE_OP STAR DOUBLESTAR SLASH DOUBLESLASH RANGE  LR_OP PLUS XOR NOT_SIGN 
 
 
-%start input
+
 
 %%
+
+program: 
+	//empty
+	| statement_list;
+
+statement_list : 
+	statement_list statement 
+	| statement
+	| expression_list ;
+
+statement:
+	import_stmt 
+	| assignment
+	| if_stmt
+	| for_stmt
+	| expression_stmt ;  
+
+	
+expression_stmt: expression_list;	
+
+
+assignment: 
+	identifier assignment_op expression
+	| INC identifier
+	| identifier INC
+	| DEC identifier
+	| identifier DEC;
+
+
+expression_list: 
+	expression_list COMMA expression
+	| expression;
+
+
+expression : 
+	LPAR expression RPAR
+	| literal
+	| identifier
+	| expression arithmetic_op expression
+	| expression comparison_op expression
+	| expression logical_op expression
+	| expression bitwise_op expression;
+
+
+
+	
+assignment_op:
+	 EQUAL
+	| ADD_ASSIGN
+	| SUB_ASSIGN
+	| MUL_ASSIGN
+	| POW_ASSIGN
+	| DIV_ASSIGN
+	| MOD_ASSIGN
+	| AND_ASSIGN
+	| XOR_ASSIGN
+	| OR_ASSIGN
+	| RIGHT_ASSIGN
+	| LEFT_ASSIGN    ;          
+
+arithmetic_op: 
+	PLUS
+	| MINUS
+	| STAR
+	| SLASH
+	| PERCENT
+	| DOUBLESTAR
+	| DOUBLESLASH;
+
+comparison_op: 
+	EQ_OP
+	| NE_OP
+	| GREATER_THAN_OP
+	| LESS_THAN_OP
+	| LE_OP
+	| GE_OP;
+
+logical_op: 
+	AND
+	| NOT
+	| OR
+	| IS 
+	| IN
+	| IS NOT
+	| NOT IN;
+
+bitwise_op: 
+	AND_EXP
+	| OR_SIGN
+	| XOR
+	name:
+		identifier
+	| NOT_SIGN
+	| LEFT_OP
+	| RIGHT_OP;
+
+        
+literal:  
+	integer
+	| floatnumber
+	| stringliteral
+	| longinteger
+	| imagnumber;
+
+
+
+
+
+
+import_stmt: 
+
+	IMPORT module
+	| IMPORT module AS name
+	| IMPORT modules modules
+	| IMPORT modules AS name modules
+	| FROM relative_module IMPORT identifier
+	| FROM relative_module IMPORT identifier AS name
+	| FROM relative_module IMPORT identifier import_stmt_identifiers
+	| FROM relative_module IMPORT identifier AS name import_stmt_identifiers
+	| FROM relative_module IMPORT LPAR identifier RPAR
+	| FROM relative_module IMPORT LPAR identifier AS name RPAR
+	| FROM relative_module IMPORT LPAR identifier import_stmt_identifiers RPAR
+	| FROM relative_module IMPORT LPAR identifier AS name import_stmt_identifiers RPAR
+	| FROM relative_module IMPORT LPAR identifier COMMA RPAR
+	| FROM relative_module IMPORT LPAR identifier AS name COMMA RPAR
+	| FROM relative_module IMPORT LPAR identifier import_stmt_identifiers COMMA RPAR
+	| FROM relative_module IMPORT LPAR identifier AS name import_stmt_identifiers COMMA RPAR
+	| FROM relative_module IMPORT STAR;	
+
+
+
+
+
+
+module: 
+	module DOT identifier 
+	| identifier;
+
+relative_module:
+	 module 
+	| dots module
+	| dots;
+
+
+dots: DOT
+	| dots DOT;
+
+modules: modules COMMA  module
+	| modules COMMA  module AS name
+	| COMMA module
+	| COMMA module AS name;
+
+
+import_stmt_identifiers:
+	COMMA identifier
+	| COMMA identifier AS name
+	| import_stmt_identifiers COMMA identifier
+	| import_stmt_identifiers COMMA identifier AS name;
+
+name: IDENTIFIER;
+
+
+if_stmt:
+	IF expression COLON statement_list
+	| IF expression COLON statement_list ELSE COLON statement_list
+	| IF expression COLON statement_list elif_stmt
+	| IF expression COLON statement_list elif_stmt ELSE COLON statement_list;
+		
+elif_stmt:
+	ELIF expression COLON statement_list
+	| elif_stmt ELIF expression COLON statement_list;
+
+
+for_stmt:
+	FOR target_list IN expression_list COLON statement_list
+	|FOR target_list IN RANGE LPAR expression_list RPAR  COLON statement_list
+	| FOR target_list IN expression_list COLON statement_list ELSE COLON statement_list;
+
+target_list:
+	target
+	| target_list COMMA target
+	| target_list COMMA;
+
+target:
+	identifier;
+	
+
 identifier:
 		IDENTIFIER;
+
 	
 stringliteral:
 		SHORTSTRING | LONGSTRING;
@@ -45,147 +233,12 @@ floatnumber:
 imagnumber:
 		IMAGNUMBER;
 
-
-
-
-
-atom:
-		identifier
-		| literal
-		| enclosure;	
-		
-enclosure:
-		parenth_form;
-		
-literal:
-		stringliteral
-		| integer
-		| longinteger
-		| floatnumber
-		| imagnumber;
-
-parenth_form:
-		RPAR LPAR
-		| RPAR expression_list LPAR;
-
-primary: atom| attributeref|;
-
-attributeref: primary "." identifier;
-
-power :
-             primary DOUBLESTAR u_expr | primary;
-
-u_expr :
-             power | MINUS u_expr
-              | PLUS u_expr | "~" u_expr;
-
-m_expr :
-             u_expr | m_expr STAR u_expr
-              | m_expr DOUBLESLASH u_expr
-              | m_expr SLASH u_expr
-                | m_expr PERCENT u_expr;
-
-a_expr : m_expr | a_expr PLUS m_expr
-              | a_expr MINUS m_expr;
-
-
-shift_expr :
-             a_expr
-              | shift_expr  RIGHT_OP  a_expr | shift_expr  LEFT_OP  a_expr;
-
-and_expr : shift_expr | and_expr AND_EXP shift_expr;
-
-xor_expr : 
-             and_expr | xor_expr XOR and_expr;
-or_expr : 
-             xor_expr | or_expr OR_SIGN xor_expr;
-
-comparison:
-		or_expr
-		| comparison comp_operator or_expr;
-		
-
-comp_operator :
-             LESS_THAN_OP | GREATER_THAN_OP | EQ_OP | GE_OP | LE_OP| LR_OP| NE_OP  | IS | IS NOT | IN | NOT IN;
-
-expression :conditional_expression;
-
-conditional_expression:
-		or_test
-		| or_test IF or_test ELSE expression;
-		
-or_test:
-		and_test
-		| or_test OR and_test;
-		
-and_test:
-		not_test
-		| and_test AND not_test;
-		
-not_test:
-		comparison
-		| NOT not_test;
-
-expression_list:
-		expression
-		| expression COMMA
-		| expression expressions
-		| expression expressions COMMA;
-
-expressions:
-		COMMA expression
-		| expressions COMMA expression;
-
-
-simple_stmt: modules_import|expression_stmt;
-
-
-expression_stmt: expression_list;
-
-
-
-modules_import:	IMPORT module
-	|	IMPORT module AS name
-	|	FROM module IMPORT name;
-
-
-		
-module : module '.' name | name ;
-
-
-
-name : IDENTIFIER;
-
-statement:
-		stmt_list NEWLINE;
-		
-		
-	statements:
-		statement
-		| statements statement;
-		
-	stmt_list:
-		 simple_stmt;
-		
-		
-		
-
-
-newlines:
-		NEWLINE
-		| newlines NEWLINE;
-		
-input:
-		newlines
-		| statements;
-
-
 %%
 
 
 int main() {
-  //extern int yydebug;
-    //yydebug = 1;
+  extern int yydebug;
+    yydebug = 1;
   // Open a file 
   FILE *myfile = fopen("example.py", "r");
   //  is valid?
