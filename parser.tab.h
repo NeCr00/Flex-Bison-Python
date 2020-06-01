@@ -38,7 +38,7 @@
 # define YY_YY_PARSER_TAB_H_INCLUDED
 /* Debug traces.  */
 #ifndef YYDEBUG
-# define YYDEBUG 1
+# define YYDEBUG 0
 #endif
 #if YYDEBUG
 extern int yydebug;
@@ -87,61 +87,73 @@ extern int yydebug;
     YIELD = 293,
     PRINT = 294,
     EXEC = 295,
-    IDENTIFIER = 296,
-    SHORTSTRING = 297,
-    LONGSTRING = 298,
-    INC = 299,
-    DEC = 300,
-    EQUAL = 301,
-    DECINTEGER = 302,
-    OCTINTEGER = 303,
-    LPAR = 304,
-    RPAR = 305,
-    HEXINTEGER = 306,
-    POINTFLOAT = 307,
-    EXPONENTFLOAT = 308,
-    IMAGNUMBER = 309,
-    LESS_THAN_OP = 310,
-    GREATER_THAN_OP = 311,
-    MINUS = 312,
-    AND_EXP = 313,
-    NEWLINE = 314,
-    ELLIPSIS = 315,
-    RIGHT_ASSIGN = 316,
-    LEFT_ASSIGN = 317,
-    ADD_ASSIGN = 318,
-    SUB_ASSIGN = 319,
-    MUL_ASSIGN = 320,
-    POW_ASSIGN = 321,
-    DIV_ASSIGN = 322,
-    MOD_ASSIGN = 323,
-    AND_ASSIGN = 324,
-    PERCENT = 325,
-    OR_SIGN = 326,
-    XOR_ASSIGN = 327,
-    OR_ASSIGN = 328,
-    RIGHT_OP = 329,
-    LEFT_OP = 330,
-    PTR_OP = 331,
-    LE_OP = 332,
-    GE_OP = 333,
-    EQ_OP = 334,
-    NE_OP = 335,
-    STAR = 336,
-    DOUBLESTAR = 337,
-    SLASH = 338,
-    DOUBLESLASH = 339,
-    RANGE = 340,
-    LR_OP = 341,
-    PLUS = 342,
-    XOR = 343,
-    NOT_SIGN = 344
+    INC = 296,
+    DEC = 297,
+    EQUAL = 298,
+    LPAR = 299,
+    RPAR = 300,
+    LESS_THAN_OP = 301,
+    GREATER_THAN_OP = 302,
+    MINUS = 303,
+    AND_EXP = 304,
+    NEWLINE = 305,
+    ELLIPSIS = 306,
+    RIGHT_ASSIGN = 307,
+    LEFT_ASSIGN = 308,
+    ADD_ASSIGN = 309,
+    SUB_ASSIGN = 310,
+    MUL_ASSIGN = 311,
+    POW_ASSIGN = 312,
+    DIV_ASSIGN = 313,
+    MOD_ASSIGN = 314,
+    AND_ASSIGN = 315,
+    PERCENT = 316,
+    OR_SIGN = 317,
+    XOR_ASSIGN = 318,
+    OR_ASSIGN = 319,
+    RIGHT_OP = 320,
+    LEFT_OP = 321,
+    PTR_OP = 322,
+    LE_OP = 323,
+    GE_OP = 324,
+    EQ_OP = 325,
+    NE_OP = 326,
+    STAR = 327,
+    DOUBLESTAR = 328,
+    SLASH = 329,
+    DOUBLESLASH = 330,
+    RANGE = 331,
+    LR_OP = 332,
+    PLUS = 333,
+    XOR = 334,
+    NOT_SIGN = 335,
+    DECINTEGER = 336,
+    OCTINTEGER = 337,
+    HEXINTEGER = 338,
+    POINTFLOAT = 339,
+    EXPONENTFLOAT = 340,
+    IMAGNUMBER = 341,
+    IDENTIFIER = 342,
+    SHORTSTRING = 343,
+    LONGSTRING = 344
   };
 #endif
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
-typedef int YYSTYPE;
+union YYSTYPE
+{
+#line 15 "parser.y"
+
+   int             intVal;
+   double          floatVal;
+   char*           ident;
+ 
+
+#line 154 "parser.tab.h"
+
+};
+typedef union YYSTYPE YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define YYSTYPE_IS_DECLARED 1
 #endif

@@ -12,11 +12,18 @@
   void yyerror(const char *s);
 %}
 
+%union {
+   int             intVal;
+   double          floatVal;
+   char*           ident;
+ 
+}
+
 %token FALSE NONE TRUE AND AS ASSERT BREAK CLASS CONTINUE DEF DEL ELIF ELSE EXCEPT FINALLY FOR FROM GLOBAL IF IMPORT COMMA DOT COL
 
-%token IN IS LAMBDA NOT OR COLON PASS RAISE RETURN TRY WHILE WITH YIELD PRINT EXEC IDENTIFIER SHORTSTRING LONGSTRING INC DEC EQUAL
+%token IN IS LAMBDA NOT OR COLON PASS RAISE RETURN TRY WHILE WITH YIELD PRINT EXEC   INC DEC EQUAL
 
-%token DECINTEGER OCTINTEGER LPAR RPAR HEXINTEGER POINTFLOAT EXPONENTFLOAT IMAGNUMBER LESS_THAN_OP GREATER_THAN_OP MINUS AND_EXP NEWLINE
+%token  LPAR RPAR  LESS_THAN_OP GREATER_THAN_OP MINUS AND_EXP NEWLINE
 
 
 %token ELLIPSIS RIGHT_ASSIGN LEFT_ASSIGN ADD_ASSIGN  SUB_ASSIGN MUL_ASSIGN POW_ASSIGN DIV_ASSIGN MOD_ASSIGN AND_ASSIGN PERCENT OR_SIGN
@@ -24,7 +31,15 @@
 %token XOR_ASSIGN OR_ASSIGN RIGHT_OP LEFT_OP PTR_OP LE_OP GE_OP EQ_OP NE_OP STAR DOUBLESTAR SLASH DOUBLESLASH RANGE  LR_OP PLUS XOR NOT_SIGN 
 
 
-
+%token <intVal> DECINTEGER 
+%token  OCTINTEGER   
+%token HEXINTEGER 
+%token POINTFLOAT 
+%token EXPONENTFLOAT 
+%token IMAGNUMBER 
+%token IDENTIFIER 
+%token SHORTSTRING
+%token LONGSTRING
 
 %%
 
@@ -42,22 +57,37 @@ statement:
 	| assignment
 	| if_stmt
 	| for_stmt
-	| expression_stmt ;  
+	| expression_stmt 
+	| print_stmt
+	|funcdef
+	|classdef;  
 
-	
-expression_stmt: expression_list;	
+//----------------------- Print field ------------------------------------
 
+print_stmt:
+		PRINT
+		| PRINT expression
+		| PRINT expression_list
+		| PRINT RIGHT_OP expression
+		| PRINT RIGHT_OP expression_list;
 
+//----------------------- Assignment field ------------------------------------
 assignment: 
 	identifier assignment_op expression
 	| INC identifier
 	| identifier INC
 	| DEC identifier
 	| identifier DEC;
+		
+//----------------------- Expressions field ------------------------------------
+expression_stmt: 
+	expression_list;
+
 
 
 expression_list: 
 	expression_list COMMA expression
+	|LPAR expression_list COMMA expression RPAR
 	| expression;
 
 
@@ -70,7 +100,7 @@ expression :
 	| expression logical_op expression
 	| expression bitwise_op expression;
 
-
+//----------------------- Operators field ------------------------------------
 
 	
 assignment_op:
@@ -117,8 +147,6 @@ bitwise_op:
 	AND_EXP
 	| OR_SIGN
 	| XOR
-	name:
-		identifier
 	| NOT_SIGN
 	| LEFT_OP
 	| RIGHT_OP;
@@ -134,8 +162,7 @@ literal:
 
 
 
-
-
+//----------------------- Import filed --------------------------------------
 import_stmt: 
 
 	IMPORT module
@@ -155,10 +182,6 @@ import_stmt:
 	| FROM relative_module IMPORT LPAR identifier import_stmt_identifiers COMMA RPAR
 	| FROM relative_module IMPORT LPAR identifier AS name import_stmt_identifiers COMMA RPAR
 	| FROM relative_module IMPORT STAR;	
-
-
-
-
 
 
 module: 
@@ -189,6 +212,9 @@ import_stmt_identifiers:
 name: IDENTIFIER;
 
 
+//----------------------- Compound_stmt field ------------------------------------------------
+
+//=================================== If =============================================
 if_stmt:
 	IF expression COLON statement_list
 	| IF expression COLON statement_list ELSE COLON statement_list
@@ -198,7 +224,7 @@ if_stmt:
 elif_stmt:
 	ELIF expression COLON statement_list
 	| elif_stmt ELIF expression COLON statement_list;
-
+//=================================== For ===========================================
 
 for_stmt:
 	FOR target_list IN expression_list COLON statement_list
@@ -211,9 +237,84 @@ target_list:
 	| target_list COMMA;
 
 target:
+	identifier
+	|LPAR target_list RPAR;
+
+//================================== Function Field ================================
+
+funcdef:
+	DEF funcname LPAR RPAR COLON statement_list
+	| decorators DEF funcname LPAR RPAR COLON statement_list
+	| DEF funcname LPAR parameter_list RPAR COLON statement_list
+	| decorators DEF funcname LPAR parameter_list RPAR COLON statement_list;
+		
+decorators:
+	decorator
+	| decorators decorator;
+		
+decorator:
+	'@' dotted_name NEWLINE
+	| '@' dotted_name '(' ')' NEWLINE;
+
+dotted_name:
+	identifier
+	| identifier dot_identifiers;
+		
+dot_identifiers:
+	'.' identifier
+	| dot_identifiers '.' identifier;
+		
+parameter_list:
+	STAR identifier
+	| STAR identifier COMMA DOUBLESTAR identifier
+	| DOUBLESTAR identifier
+	| defparameter
+	| defparameter COMMA
+	| defparameters STAR identifier
+	| defparameters STAR identifier COMMA DOUBLESTAR identifier
+	| defparameters DOUBLESTAR identifier
+	| defparameters defparameter
+	| defparameters defparameter COMMA;
+		
+defparameter:
+	parameter
+	| parameter EQUAL expression;
+		
+defparameters:
+	defparameter COMMA
+	| defparameters defparameter COMMA;
+	
+sublist:
+	parameter
+	| parameter COMMA
+	| parameter parameters
+	| parameter parameters COMMA;
+	
+parameter:
+	identifier
+	| LPAR sublist RPAR;
+		
+parameters:
+	COMMA parameter
+	| parameters COMMA parameter;
+		
+funcname:
+	identifier;
+
+//=================================== Class ===========================================
+
+classdef:
+	CLASS classname COLON statement_list
+	| CLASS classname inheritance COLON statement_list;
+		
+inheritance:
+	LPAR RPAR
+	| LPAR expression_list RPAR;
+		
+classname:
 	identifier;
 	
-
+//----------------------- etc -------------------------------------------------
 identifier:
 		IDENTIFIER;
 
@@ -225,7 +326,7 @@ longinteger:
 		integer 'l' | integer 'L';
 		
 integer:
-		DECINTEGER | OCTINTEGER | HEXINTEGER;
+		DECINTEGER  | OCTINTEGER | HEXINTEGER;
 		
 floatnumber:
 		POINTFLOAT | EXPONENTFLOAT;
@@ -237,8 +338,8 @@ imagnumber:
 
 
 int main() {
-  extern int yydebug;
-    yydebug = 1;
+  //extern int yydebug;
+  //  yydebug = 1;
   // Open a file 
   FILE *myfile = fopen("example.py", "r");
   //  is valid?

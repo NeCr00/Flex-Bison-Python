@@ -365,27 +365,27 @@ struct yy_trans_info
 	};
 static const flex_int16_t yy_accept[476] =
     {   0,
-        0,    0,  102,  101,   99,  100,  101,  101,   98,   79,
-       74,  101,   67,   68,   85,   78,   64,   77,   73,   87,
-       90,   90,   65,   62,   80,   66,   81,   75,   89,   89,
-       39,   89,   89,   89,   89,   69,   70,   82,   63,   84,
-       89,   89,   89,   89,   89,   89,   89,   89,   40,   89,
-       89,   89,   89,   89,   89,   89,   89,   71,   83,   72,
-       76,    3,    3,    1,    3,    3,    3,    3,    3,    3,
+        0,    0,  102,  101,   99,  100,  101,  101,    4,   80,
+       75,  101,   68,   69,   86,   79,   65,   78,   74,   88,
+       91,   91,   66,   63,   81,   67,   82,   76,   90,   90,
+       40,   90,   90,   90,   90,   70,   71,   83,   64,   85,
+       90,   90,   90,   90,   90,   90,   90,   90,   41,   90,
+       90,   90,   90,   90,   90,   90,   90,   72,   84,   73,
+       77,    3,    3,    1,    3,    3,    3,    3,    3,    3,
         3,    3,    3,    3,    3,    3,    3,    3,    3,    3,
         3,    3,    3,    3,    3,    3,    3,    3,    3,    3,
         3,    3,    3,    3,    3,    3,    3,    3,    3,    3,
 
         3,    3,    3,    3,    3,    3,    3,    3,    3,    3,
         3,    3,    3,    3,    3,    3,    3,    3,    3,    3,
-        3,   60,    0,   96,   96,    0,   98,   51,   52,    0,
-       96,   96,    0,   86,   48,   41,   46,   42,   47,    0,
-       93,   88,   50,   93,   91,    0,    0,   95,    0,   90,
-       56,   57,   61,   59,   58,   55,   89,   89,   89,    0,
-        0,   89,   89,   53,   89,   11,   89,   89,   89,   89,
-       89,   89,   89,   89,   89,   89,    4,   89,   24,   25,
-       89,   89,   28,   89,   89,   89,   89,   89,   89,   89,
-       89,   54,    3,    3,    2,    1,    3,    3,    3,    3,
+        3,   61,    0,   97,   97,    0,    4,   52,   53,    0,
+       97,   97,    0,   87,   49,   42,   47,   43,   48,    0,
+       94,   89,   51,   94,   92,    0,    0,   96,    0,   91,
+       57,   58,   62,   60,   59,   56,   90,   90,   90,    0,
+        0,   90,   90,   54,   90,   15,   90,   90,   90,   90,
+       90,   90,   90,   90,   90,   90,    5,   90,   25,   26,
+       90,   90,   29,   90,   90,   90,   90,   90,   90,   90,
+       90,   55,    3,    3,    2,    1,    3,    3,    3,    3,
 
         3,    3,    3,    3,    3,    3,    3,    3,    3,    3,
         3,    3,    3,    3,    3,    3,    3,    3,    3,    3,
@@ -393,30 +393,30 @@ static const flex_int16_t yy_accept[476] =
         3,    3,    3,    3,    3,    3,    3,    3,    3,    3,
         3,    3,    3,    3,    3,    3,    3,    3,    3,    3,
         3,    3,    3,    3,    3,    3,    3,    3,    3,    3,
-        3,    3,    3,    3,    3,    3,    3,    3,   96,    0,
-        0,   49,   43,   93,    0,   94,   92,   45,   44,   89,
-       89,    0,   89,   10,   89,   89,   89,   89,    6,   16,
-       89,   89,   89,   89,   89,    5,   89,   89,   89,   89,
+        3,    3,    3,    3,    3,    3,    3,    3,   97,    0,
+        0,   50,   44,   94,    0,   95,   93,   46,   45,   90,
+       90,    0,   90,   14,   90,   90,   90,   90,    7,   19,
+       90,   90,   90,   90,   90,    6,   90,   90,   90,   90,
 
-       27,   89,   89,   89,   89,   89,   32,   89,   89,   89,
+       28,   90,   90,   90,   90,   90,   33,   90,   90,   90,
         3,    3,    3,    3,    3,    3,    3,    3,    3,    3,
         3,    3,    3,    3,    3,    3,    3,    3,    3,    3,
         3,    3,    3,    3,    3,    3,    3,    3,    3,    3,
         3,    3,    3,    3,    3,    3,    3,    3,    3,    3,
-        3,    3,    0,    0,    0,    0,    0,    0,   89,    8,
-        9,   89,   89,   89,   89,   17,   18,   89,   38,   89,
-       21,   89,   89,   89,   29,   89,   89,   89,   89,   89,
-       34,   89,    3,    3,    3,    3,    3,    3,    3,    3,
+        3,    3,    0,    0,    0,    0,    0,    0,   90,   12,
+       13,   90,   90,   90,   90,    9,   10,   90,   39,   90,
+       22,   90,   90,   90,   30,   90,   90,   90,   90,   90,
+       35,   90,    3,    3,    3,    3,    3,    3,    3,    3,
         3,    3,    3,    3,    3,    3,    3,    3,    3,    3,
 
         3,    3,    3,    3,    3,    3,    3,    3,    3,    3,
-        3,    3,    0,    0,    7,   89,   13,   14,   89,   89,
-       89,   89,   89,   89,   37,   30,   36,   89,   33,   35,
+        3,    3,    0,    0,   11,   90,   17,    8,   90,   90,
+       90,   90,   90,   90,   38,   31,   37,   90,   34,   36,
         3,    3,    3,    3,    3,    3,    3,    3,    3,    3,
-        3,    3,    3,    3,    3,    3,    3,    3,   97,   97,
-       12,   89,   19,   89,   22,   23,   26,   31,    3,    3,
-        3,    3,    3,    3,    3,    3,    3,    3,   89,   20,
-        3,    3,   15,    3,    0
+        3,    3,    3,    3,    3,    3,    3,    3,   98,   98,
+       16,   90,   20,   90,   23,   24,   27,   32,    3,    3,
+        3,    3,    3,    3,    3,    3,    3,    3,   90,   21,
+        3,    3,   18,    3,    0
     } ;
 
 static const YY_CHAR yy_ec[256] =
@@ -811,8 +811,8 @@ int yy_flex_debug = 0;
 #define YY_MORE_ADJ 0
 #define YY_RESTORE_YY_MORE_OFFSET
 char *yytext;
-#line 1 "test.l"
-#line 2 "test.l"
+#line 1 "scan.l"
+#line 2 "scan.l"
 #include <stdlib.h>
 #include <stdio.h>
 #include "parser.tab.h" // Get tokens from bison
@@ -824,7 +824,7 @@ int nesting = 0 ;
 
 unsigned int level = 0 ;
 int level_start[100];
-int linee =0;
+int linee =1;
 unsigned int first = 1 ;
 unsigned int flag = 0;
 unsigned int line =0;
@@ -1051,7 +1051,7 @@ YY_DECL
 		}
 
 	{
-#line 51 "test.l"
+#line 51 "scan.l"
 
 
 
@@ -1116,547 +1116,548 @@ do_action:	/* This label is used only to access EOF actions. */
 case 1:
 /* rule 1 can match eol */
 YY_RULE_SETUP
-#line 54 "test.l"
-{/* Ignore blank lines. */  ;} 			
+#line 54 "scan.l"
+{/* Ignore blank lines. */ linee++ ;} 			
 	YY_BREAK
 case 2:
 /* rule 2 can match eol */
 YY_RULE_SETUP
-#line 55 "test.l"
+#line 55 "scan.l"
 {/* Ignore blank lines. */ ;}
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 56 "test.l"
-{  process_indent(yytext); unputt(yyleng);/*Reads every line*/ }
+#line 56 "scan.l"
+{process_indent(yytext); unputt(yyleng);/*Reads every line*/}
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 59 "test.l"
-{level++ ; flag = 1;  return IF;}
+#line 57 "scan.l"
+{ /*Ignore comments*/}
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 60 "test.l"
-{level++ ; flag = 1;  return FOR;}
+#line 60 "scan.l"
+{level++ ; flag = 1;  return IF;}
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 61 "test.l"
-{level++ ; flag = 1;  return DEF;}
+#line 61 "scan.l"
+{level++ ; flag = 1;  return FOR;}
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 64 "test.l"
-{ return FALSE;}
+#line 62 "scan.l"
+{level++ ; flag = 1;  return DEF;}
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 65 "test.l"
-{ return NONE;}
+#line 63 "scan.l"
+{level++ ; flag = 1;  return CLASS;}
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 66 "test.l"
-{ return TRUE;}
+#line 64 "scan.l"
+{level++ ; flag = 1;  return ELIF;}
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 67 "test.l"
-{ return AND;}
+#line 65 "scan.l"
+{level++ ; flag = 1;  return ELSE;}
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 68 "test.l"
-{ return AS;}
+#line 67 "scan.l"
+{return FALSE;}
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 69 "test.l"
-{ return ASSERT;}
+#line 68 "scan.l"
+{return NONE;}
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 70 "test.l"
-{ return BREAK;}
+#line 69 "scan.l"
+{return TRUE;}
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 71 "test.l"
-{level++ ; flag = 1;  return CLASS;}
+#line 70 "scan.l"
+{return AND;}
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 72 "test.l"
-{ return CONTINUE;}
+#line 71 "scan.l"
+{return AS;}
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 73 "test.l"
-{ return DEL;}
+#line 72 "scan.l"
+{return ASSERT;}
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 74 "test.l"
-{level++ ; flag = 1;  return ELIF;}
+#line 73 "scan.l"
+{return BREAK;}
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 75 "test.l"
-{ level++ ; flag = 1;  return ELSE;}
+#line 74 "scan.l"
+{return CONTINUE;}
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 76 "test.l"
-{ return EXCEPT;}
+#line 75 "scan.l"
+{return DEL;}
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 77 "test.l"
-{ return FINALLY; }
+#line 76 "scan.l"
+{return EXCEPT;}
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 78 "test.l"
-{ return FROM; }
+#line 77 "scan.l"
+{return FINALLY; }
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 79 "test.l"
-{ return GLOBAL;}
+#line 78 "scan.l"
+{return FROM; }
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 80 "test.l"
-{ return IMPORT;}
+#line 79 "scan.l"
+{return GLOBAL;}
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
-#line 81 "test.l"
-{ return IN; }
+#line 80 "scan.l"
+{return IMPORT;}
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
-#line 82 "test.l"
-{ return IS; }
+#line 81 "scan.l"
+{return IN; }
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
-#line 83 "test.l"
-{ return LAMBDA; }
+#line 82 "scan.l"
+{return IS; }
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
-#line 84 "test.l"
-{ return NOT; }
+#line 83 "scan.l"
+{return LAMBDA;}
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
-#line 85 "test.l"
-{ return OR; }
+#line 84 "scan.l"
+{return NOT;}
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
-#line 86 "test.l"
-{ return PASS; }
+#line 85 "scan.l"
+{return OR;}
 	YY_BREAK
 case 30:
 YY_RULE_SETUP
-#line 87 "test.l"
-{ return RAISE; }
+#line 86 "scan.l"
+{return PASS;}
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
-#line 88 "test.l"
-{ return RETURN; }
+#line 87 "scan.l"
+{return RAISE;}
 	YY_BREAK
 case 32:
 YY_RULE_SETUP
-#line 89 "test.l"
-{ return TRY; }
+#line 88 "scan.l"
+{return RETURN;}
 	YY_BREAK
 case 33:
 YY_RULE_SETUP
-#line 90 "test.l"
-{ return WHILE; }
+#line 89 "scan.l"
+{return TRY;}
 	YY_BREAK
 case 34:
 YY_RULE_SETUP
-#line 91 "test.l"
-{ return WITH; }
+#line 90 "scan.l"
+{return WHILE;}
 	YY_BREAK
 case 35:
 YY_RULE_SETUP
-#line 92 "test.l"
-{ return YIELD; }
+#line 91 "scan.l"
+{return WITH;}
 	YY_BREAK
 case 36:
 YY_RULE_SETUP
-#line 93 "test.l"
-{ return RANGE;}
+#line 92 "scan.l"
+{return YIELD;}
 	YY_BREAK
 case 37:
 YY_RULE_SETUP
-#line 94 "test.l"
-{ return PRINT; }
+#line 93 "scan.l"
+{return RANGE;}
 	YY_BREAK
 case 38:
 YY_RULE_SETUP
-#line 95 "test.l"
-{ return EXEC; }
+#line 94 "scan.l"
+{return PRINT;}
 	YY_BREAK
 case 39:
 YY_RULE_SETUP
-#line 97 "test.l"
-{ return 'L'; }
+#line 95 "scan.l"
+{return EXEC;}
 	YY_BREAK
 case 40:
 YY_RULE_SETUP
-#line 98 "test.l"
-{ return 'l'; }
+#line 97 "scan.l"
+{return 'L';}
 	YY_BREAK
 case 41:
 YY_RULE_SETUP
-#line 100 "test.l"
-{ return INC;       }
+#line 98 "scan.l"
+{return 'l';}
 	YY_BREAK
 case 42:
 YY_RULE_SETUP
-#line 101 "test.l"
-{ return DEC;       }
+#line 100 "scan.l"
+{return INC;}
 	YY_BREAK
 case 43:
 YY_RULE_SETUP
-#line 103 "test.l"
-{ return ELLIPSIS; }
+#line 101 "scan.l"
+{return DEC;}
 	YY_BREAK
 case 44:
 YY_RULE_SETUP
-#line 104 "test.l"
-{ return RIGHT_ASSIGN; }
+#line 103 "scan.l"
+{return ELLIPSIS; }
 	YY_BREAK
 case 45:
 YY_RULE_SETUP
-#line 105 "test.l"
-{ return LEFT_ASSIGN; }
+#line 104 "scan.l"
+{return RIGHT_ASSIGN; }
 	YY_BREAK
 case 46:
 YY_RULE_SETUP
-#line 106 "test.l"
-{ return ADD_ASSIGN; }
+#line 105 "scan.l"
+{return LEFT_ASSIGN; }
 	YY_BREAK
 case 47:
 YY_RULE_SETUP
-#line 107 "test.l"
-{ return SUB_ASSIGN; }
+#line 106 "scan.l"
+{return ADD_ASSIGN; }
 	YY_BREAK
 case 48:
 YY_RULE_SETUP
-#line 108 "test.l"
-{ return MUL_ASSIGN; }
+#line 107 "scan.l"
+{return SUB_ASSIGN; }
 	YY_BREAK
 case 49:
 YY_RULE_SETUP
-#line 109 "test.l"
-{ return POW_ASSIGN; }
+#line 108 "scan.l"
+{return MUL_ASSIGN; }
 	YY_BREAK
 case 50:
 YY_RULE_SETUP
-#line 110 "test.l"
-{ return DIV_ASSIGN; }
+#line 109 "scan.l"
+{return POW_ASSIGN; }
 	YY_BREAK
 case 51:
 YY_RULE_SETUP
-#line 111 "test.l"
-{ return MOD_ASSIGN; }
+#line 110 "scan.l"
+{return DIV_ASSIGN; }
 	YY_BREAK
 case 52:
 YY_RULE_SETUP
-#line 112 "test.l"
-{ return AND_ASSIGN; }
+#line 111 "scan.l"
+{return MOD_ASSIGN; }
 	YY_BREAK
 case 53:
 YY_RULE_SETUP
-#line 113 "test.l"
-{ return XOR_ASSIGN; }
+#line 112 "scan.l"
+{return AND_ASSIGN; }
 	YY_BREAK
 case 54:
 YY_RULE_SETUP
-#line 114 "test.l"
-{ return OR_ASSIGN; }
+#line 113 "scan.l"
+{return XOR_ASSIGN; }
 	YY_BREAK
 case 55:
 YY_RULE_SETUP
-#line 115 "test.l"
-{ return RIGHT_OP; }
+#line 114 "scan.l"
+{return OR_ASSIGN; }
 	YY_BREAK
 case 56:
 YY_RULE_SETUP
-#line 116 "test.l"
-{ return LEFT_OP; }
+#line 115 "scan.l"
+{return RIGHT_OP; }
 	YY_BREAK
 case 57:
 YY_RULE_SETUP
-#line 117 "test.l"
-{ return LE_OP; }
+#line 116 "scan.l"
+{return LEFT_OP; }
 	YY_BREAK
 case 58:
 YY_RULE_SETUP
-#line 118 "test.l"
-{ return GE_OP; }
+#line 117 "scan.l"
+{return LE_OP; }
 	YY_BREAK
 case 59:
 YY_RULE_SETUP
-#line 119 "test.l"
-{ return EQ_OP; }
+#line 118 "scan.l"
+{return GE_OP; }
 	YY_BREAK
 case 60:
 YY_RULE_SETUP
-#line 120 "test.l"
-{ return NE_OP; }
+#line 119 "scan.l"
+{return EQ_OP; }
 	YY_BREAK
 case 61:
 YY_RULE_SETUP
-#line 121 "test.l"
-{return LR_OP;}
+#line 120 "scan.l"
+{return NE_OP; }
 	YY_BREAK
 case 62:
 YY_RULE_SETUP
-#line 123 "test.l"
-{return COL;}
+#line 121 "scan.l"
+{return LR_OP;}
 	YY_BREAK
 case 63:
 YY_RULE_SETUP
-#line 124 "test.l"
-{return '_';}
+#line 123 "scan.l"
+{return COL;}
 	YY_BREAK
 case 64:
 YY_RULE_SETUP
-#line 125 "test.l"
-{ return COMMA; }
+#line 124 "scan.l"
+{return '_';}
 	YY_BREAK
 case 65:
 YY_RULE_SETUP
-#line 126 "test.l"
-{ return COLON; }
+#line 125 "scan.l"
+{return COMMA;}
 	YY_BREAK
 case 66:
 YY_RULE_SETUP
-#line 127 "test.l"
-{ return EQUAL; }
+#line 126 "scan.l"
+{return COLON;}
 	YY_BREAK
 case 67:
 YY_RULE_SETUP
-#line 128 "test.l"
-{ return LPAR; }
+#line 127 "scan.l"
+{return EQUAL;}
 	YY_BREAK
 case 68:
 YY_RULE_SETUP
-#line 129 "test.l"
-{ return RPAR; }
+#line 128 "scan.l"
+{nesting++; return LPAR;}
 	YY_BREAK
 case 69:
 YY_RULE_SETUP
-#line 130 "test.l"
-{ return '['; }
+#line 129 "scan.l"
+{nesting--; return RPAR;}
 	YY_BREAK
 case 70:
 YY_RULE_SETUP
-#line 131 "test.l"
-{ return ']'; }
+#line 130 "scan.l"
+{return '[';}
 	YY_BREAK
 case 71:
 YY_RULE_SETUP
-#line 132 "test.l"
-{ return '{'; }
+#line 131 "scan.l"
+{return ']';}
 	YY_BREAK
 case 72:
 YY_RULE_SETUP
-#line 133 "test.l"
-{ return '}'; }
+#line 132 "scan.l"
+{return '{';}
 	YY_BREAK
 case 73:
 YY_RULE_SETUP
-#line 134 "test.l"
-{ return DOT; }
+#line 133 "scan.l"
+{return '}';}
 	YY_BREAK
 case 74:
 YY_RULE_SETUP
-#line 135 "test.l"
-{ return AND_EXP; }
+#line 134 "scan.l"
+{return DOT;}
 	YY_BREAK
 case 75:
 YY_RULE_SETUP
-#line 136 "test.l"
-{ return '@'; }
+#line 135 "scan.l"
+{return AND_EXP;}
 	YY_BREAK
 case 76:
 YY_RULE_SETUP
-#line 137 "test.l"
-{ return '~'; }
+#line 136 "scan.l"
+{return '@';}
 	YY_BREAK
 case 77:
 YY_RULE_SETUP
-#line 138 "test.l"
-{ return MINUS; }
+#line 137 "scan.l"
+{return '~';}
 	YY_BREAK
 case 78:
 YY_RULE_SETUP
-#line 139 "test.l"
-{ return PLUS; }
+#line 138 "scan.l"
+{return MINUS;}
 	YY_BREAK
 case 79:
 YY_RULE_SETUP
-#line 140 "test.l"
-{ return PERCENT; }
+#line 139 "scan.l"
+{return PLUS;}
 	YY_BREAK
 case 80:
 YY_RULE_SETUP
-#line 141 "test.l"
-{ return LESS_THAN_OP; }
+#line 140 "scan.l"
+{return PERCENT;}
 	YY_BREAK
 case 81:
 YY_RULE_SETUP
-#line 142 "test.l"
-{ return GREATER_THAN_OP; }
+#line 141 "scan.l"
+{return LESS_THAN_OP;}
 	YY_BREAK
 case 82:
 YY_RULE_SETUP
-#line 143 "test.l"
-{ return XOR; }
+#line 142 "scan.l"
+{return GREATER_THAN_OP;}
 	YY_BREAK
 case 83:
 YY_RULE_SETUP
-#line 144 "test.l"
-{ return OR_SIGN; }
+#line 143 "scan.l"
+{return XOR;}
 	YY_BREAK
 case 84:
 YY_RULE_SETUP
-#line 145 "test.l"
-{ return '`'; }
+#line 144 "scan.l"
+{return OR_SIGN;}
 	YY_BREAK
 case 85:
 YY_RULE_SETUP
-#line 146 "test.l"
-{ return STAR;}
+#line 145 "scan.l"
+{return '`'; }
 	YY_BREAK
 case 86:
 YY_RULE_SETUP
-#line 147 "test.l"
-{ return DOUBLESTAR; }
+#line 146 "scan.l"
+{return STAR;}
 	YY_BREAK
 case 87:
 YY_RULE_SETUP
-#line 148 "test.l"
-{ return SLASH; }
+#line 147 "scan.l"
+{return DOUBLESTAR;}
 	YY_BREAK
 case 88:
 YY_RULE_SETUP
-#line 149 "test.l"
-{ return DOUBLESLASH; }
+#line 148 "scan.l"
+{return SLASH;}
 	YY_BREAK
 case 89:
 YY_RULE_SETUP
-#line 151 "test.l"
-{
-						printf("IDENTIFIER: %s\n", yytext);
-						return IDENTIFIER;
-					}
+#line 149 "scan.l"
+{return DOUBLESLASH;}
 	YY_BREAK
 case 90:
 YY_RULE_SETUP
-#line 156 "test.l"
+#line 151 "scan.l"
 {
-						printf("DECINTEGER: %s\n", yytext);
-						return DECINTEGER;
-					}
+				printf("IDENTIFIER: %s\n", yytext);
+ 			
+				return IDENTIFIER;
+			}
 	YY_BREAK
 case 91:
 YY_RULE_SETUP
-#line 161 "test.l"
-{
-						printf("OCTINTEGER: %s\n", yytext);
-						return OCTINTEGER;
-					}
+#line 157 "scan.l"
+{	yylval.intVal = atoi(yytext);
+				printf("DECINTEGER: %s\n", yytext);
+				return DECINTEGER;
+			}
 	YY_BREAK
 case 92:
 YY_RULE_SETUP
-#line 166 "test.l"
+#line 162 "scan.l"
 {
-						printf("HEXINTEGER: %s\n", yytext);
-						return HEXINTEGER;
-					}
+				printf("OCTINTEGER: %s\n", yytext);
+				return OCTINTEGER;
+			}
 	YY_BREAK
 case 93:
 YY_RULE_SETUP
-#line 171 "test.l"
+#line 167 "scan.l"
 {
-						printf("POINTFLOAT: %s\n", yytext);
-						return POINTFLOAT;
-					}
+				printf("HEXINTEGER: %s\n", yytext);
+				return HEXINTEGER;
+			}
 	YY_BREAK
 case 94:
 YY_RULE_SETUP
-#line 176 "test.l"
+#line 172 "scan.l"
 {
-						printf("EXPONENTFLOAT: %s\n", yytext);
-						return EXPONENTFLOAT;
-					}
+				printf("POINTFLOAT: %s\n", yytext);
+				return POINTFLOAT;
+			}
 	YY_BREAK
 case 95:
 YY_RULE_SETUP
-#line 181 "test.l"
+#line 177 "scan.l"
 {
-						printf("IMAGNUMBER: %s\n", yytext);
-						return IMAGNUMBER;
-					}
+				printf("EXPONENTFLOAT: %s\n", yytext);
+				return EXPONENTFLOAT;
+			}
 	YY_BREAK
 case 96:
 YY_RULE_SETUP
-#line 187 "test.l"
+#line 182 "scan.l"
 {
-						printf("SHORTSTRING: %s\n", yytext);
-						return SHORTSTRING;
-					}
+				printf("IMAGNUMBER: %s\n", yytext);
+				return IMAGNUMBER;
+			}
 	YY_BREAK
 case 97:
-/* rule 97 can match eol */
 YY_RULE_SETUP
-#line 192 "test.l"
+#line 188 "scan.l"
 {
-						printf("LONGSTRING: %s\n", yytext);
-						return LONGSTRING;
-					}
+				printf("SHORTSTRING: %s\n", yytext);
+				return SHORTSTRING;
+			}
 	YY_BREAK
 case 98:
+/* rule 98 can match eol */
 YY_RULE_SETUP
-#line 197 "test.l"
-
+#line 193 "scan.l"
+{
+				printf("LONGSTRING: %s\n", yytext);
+				return LONGSTRING;
+			}
 	YY_BREAK
 case 99:
 /* rule 99 can match eol */
 YY_RULE_SETUP
-#line 199 "test.l"
+#line 200 "scan.l"
 {
-						linee++;
+				linee++;
 						
-					}
+			}
 	YY_BREAK
 case 100:
 YY_RULE_SETUP
-#line 205 "test.l"
+#line 206 "scan.l"
 {/* Do nothing */}
 	YY_BREAK
 case YY_STATE_EOF(INITIAL):
-#line 208 "test.l"
+#line 209 "scan.l"
 { return 0 ; }
 	YY_BREAK
 case 101:
 YY_RULE_SETUP
-#line 210 "test.l"
+#line 211 "scan.l"
 ECHO;
 	YY_BREAK
-#line 1660 "lex.yy.c"
+#line 1661 "lex.yy.c"
 
 	case YY_END_OF_BUFFER:
 		{
@@ -2662,7 +2663,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 210 "test.l"
+#line 211 "scan.l"
 
 //Python Indentation 
 void unputt(int leng){

@@ -1,6 +1,9 @@
-from x  import *
-from x import (f,x)
+class x:
+	x =10
+	for i in range(x,5):
+		print(y)
 
-for x in range(10,12):
-	x=10 
-x
+
+def test (x,y,(t,x)):
+	x=1
+	x=1

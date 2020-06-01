@@ -18,32 +18,32 @@ void process_indent(char* line) ;
 void unputt(int leng);
 %}
 
-IDENTIFIER 		[a-zA-Z_][a-zA-Z0-9_]*
+IDENTIFIER 	[a-zA-Z_][a-zA-Z0-9_]*
 
-DIGIT			[0-9]
+DIGIT		[0-9]
 NONZERODIGIT	[1-9]
-OCTDIGIT		[0-7]
-HEXDIGIT		{DIGIT}|[a-fA-F]
-DECINTEGER		{NONZERODIGIT}{DIGIT}*|"0"
-OCTINTEGER		"0"{OCTDIGIT}+
-HEXINTEGER		"0"("x"|"X"){HEXDIGIT}+
+OCTDIGIT	[0-7]
+HEXDIGIT	{DIGIT}|[a-fA-F]
+DECINTEGER	{NONZERODIGIT}{DIGIT}*|"0"
+OCTINTEGER	"0"{OCTDIGIT}+
+HEXINTEGER	"0"("x"|"X"){HEXDIGIT}+
 
-INTPART			{DIGIT}+
-FRACTION		"."{DIGIT}+
-POINTFLOAT		({INTPART}?{FRACTION})|({INTPART}".")|{FRACTION}
-EXPONENT		("e"|"E")("+"|"-")?{DIGIT}+
+INTPART		{DIGIT}+
+FRACTION	"."{DIGIT}+
+POINTFLOAT	({INTPART}?{FRACTION})|({INTPART}".")|{FRACTION}
+EXPONENT	("e"|"E")("+"|"-")?{DIGIT}+
 EXPONENTFLOAT	({INTPART}|{POINTFLOAT}){EXPONENT}
 
-IMAGNUMBER		({POINTFLOAT}|{EXPONENTFLOAT}|{INTPART})("j"|"J")
+IMAGNUMBER	({POINTFLOAT}|{EXPONENTFLOAT}|{INTPART})("j"|"J")
 
 STRINGPREFIX	("r"|"u"|"ur"|"R"|"U"|"UR"|"Ur"|"uR")
 SHORTSTRINGITEM	([^\n\'\"\\])|([\\].)
 LONGSTRINGITEM	([^\\])|([\\].)
-SHORTSTRING		{STRINGPREFIX}?([']{SHORTSTRINGITEM}*[ '])|(["]{SHORTSTRINGITEM}*[ "])
-LONGSTRING		{STRINGPREFIX}?(([']{3}{LONGSTRINGITEM}*[ ']{3})|(["]{3}{LONGSTRINGITEM}*[ "]{3}))
+SHORTSTRING	{STRINGPREFIX}?([']{SHORTSTRINGITEM}*[ '])|(["]{SHORTSTRINGITEM}*[ "])
+LONGSTRING	{STRINGPREFIX}?(([']{3}{LONGSTRINGITEM}*[ ']{3})|(["]{3}{LONGSTRINGITEM}*[ "]{3}))
 
-NEWLINE			\n
-WHITESPACE		[ \t\v\n\f]
+NEWLINE		\n
+WHITESPACE	[ \t\v\n\f]
 
 
 %option noyywrap
@@ -51,161 +51,162 @@ WHITESPACE		[ \t\v\n\f]
 %%
 
 
-^[ ]*\n	       {/* Ignore blank lines. */  ;} 			
-^[\t]*\n       {/* Ignore blank lines. */ ;}
-^.+  {  process_indent(yytext); unputt(yyleng);/*Reads every line*/ }
+^[ ]*\n	       		{/* Ignore blank lines. */ linee++ ;} 			
+^[\t]*\n       		{/* Ignore blank lines. */ ;}
+^.+  	       		{process_indent(yytext); unputt(yyleng);/*Reads every line*/}
+[#].*			{ /*Ignore comments*/}
 
+		
+"if" 			{level++ ; flag = 1;  return IF;}
+"for"   		{level++ ; flag = 1;  return FOR;}
+"def"			{level++ ; flag = 1;  return DEF;}
+"class"			{level++ ; flag = 1;  return CLASS;}
+"elif"			{level++ ; flag = 1;  return ELIF;}
+"else"			{level++ ; flag = 1;  return ELSE;}
 
-"if" 	{level++ ; flag = 1;  return IF;}
-"for"   {level++ ; flag = 1;  return FOR;}
-"def"	{level++ ; flag = 1;  return DEF;}
+"False"			{return FALSE;}
+"None"			{return NONE;}
+"True"			{return TRUE;}
+"and"			{return AND;}
+"as"			{return AS;}
+"assert"		{return ASSERT;}
+"break"			{return BREAK;}
+"continue"		{return CONTINUE;}
+"del"			{return DEL;}
+"except"		{return EXCEPT;}
+"finally"		{return FINALLY; }
+"from"			{return FROM; }
+"global"		{return GLOBAL;}
+"import"		{return IMPORT;}
+"in"			{return IN; }
+"is"			{return IS; }
+"lambda"		{return LAMBDA;}
+"not"			{return NOT;}
+"or"			{return OR;}
+"pass"			{return PASS;}
+"raise"			{return RAISE;}
+"return"		{return RETURN;}
+"try"			{return TRY;}
+"while"			{return WHILE;}
+"with"			{return WITH;}
+"yield"			{return YIELD;}
+"range"			{return RANGE;}
+"print"			{return PRINT;}
+"exec"			{return EXEC;}
 
+"L"			{return 'L';}
+"l"			{return 'l';}
 
-"False"				{ return FALSE;}
-"None"				{ return NONE;}
-"True"				{ return TRUE;}
-"and"				{ return AND;}
-"as"				{ return AS;}
-"assert"			{ return ASSERT;}
-"break"				{ return BREAK;}
-"class"				{level++ ; flag = 1;  return CLASS;}
-"continue"			{ return CONTINUE;}
-"del"				{ return DEL;}
-"elif"				{level++ ; flag = 1;  return ELIF;}
-"else"				{ level++ ; flag = 1;  return ELSE;}
-"except"			{ return EXCEPT;}
-"finally"			{ return FINALLY; }
-"from"				{ return FROM; }
-"global"			{ return GLOBAL;}
-"import"			{ return IMPORT;}
-"in"				{ return IN; }
-"is"				{ return IS; }
-"lambda"			{ return LAMBDA; }
-"not"				{ return NOT; }
-"or"				{ return OR; }
-"pass"				{ return PASS; }
-"raise"				{ return RAISE; }
-"return"			{ return RETURN; }
-"try"				{ return TRY; }
-"while"				{ return WHILE; }
-"with"				{ return WITH; }FLE
-"yield"				{ return YIELD; }
-"range"				{ return RANGE;}
-"print"				{ return PRINT; }
-"exec"				{ return EXEC; }
+"++"        		{return INC;}
+"--"        		{return DEC;}
 
-"L"				{ return 'L'; }
-"l"					{ return 'l'; }
+"..."			{return ELLIPSIS; }
+">>="			{return RIGHT_ASSIGN; }
+"<<="			{return LEFT_ASSIGN; }
+"+="			{return ADD_ASSIGN; }
+"-="			{return SUB_ASSIGN; }
+"*="			{return MUL_ASSIGN; }
+"**="			{return POW_ASSIGN; }
+"/="			{return DIV_ASSIGN; }
+"%="			{return MOD_ASSIGN; }
+"&="			{return AND_ASSIGN; }
+"^="			{return XOR_ASSIGN; }
+"|="			{return OR_ASSIGN; }
+">>"			{return RIGHT_OP; }
+"<<"			{return LEFT_OP; }
+"<="			{return LE_OP; }
+">="			{return GE_OP; }
+"=="			{return EQ_OP; }
+"!="			{return NE_OP; }
+"<>"			{return LR_OP;}
 
-"++"        { return INC;       }
-"--"        { return DEC;       }
-
-"..."				{ return ELLIPSIS; }
-">>="				{ return RIGHT_ASSIGN; }
-"<<="				{ return LEFT_ASSIGN; }
-"+="				{ return ADD_ASSIGN; }
-"-="				{ return SUB_ASSIGN; }
-"*="				{ return MUL_ASSIGN; }
-"**="				{ return POW_ASSIGN; }
-"/="				{ return DIV_ASSIGN; }
-"%="				{ return MOD_ASSIGN; }
-"&="				{ return AND_ASSIGN; }
-"^="				{ return XOR_ASSIGN; }
-"|="				{ return OR_ASSIGN; }
-">>"				{ return RIGHT_OP; }
-"<<"				{ return LEFT_OP; }
-"<="				{ return LE_OP; }
-">="				{ return GE_OP; }
-"=="				{ return EQ_OP; }
-"!="				{ return NE_OP; }
-"<>"				{return LR_OP;}
-
-";"					{return COL;}
-"_"					{return '_';}
-","					{ return COMMA; }
-":"					{ return COLON; }
-"="					{ return EQUAL; }
-"("					{ return LPAR; }
-")"					{ return RPAR; }
-"["					{ return '['; }
-"]"					{ return ']'; }
-"{"					{ return '{'; }
-"}"					{ return '}'; }
-"."					{ return DOT; }
-"&"					{ return AND_EXP; }
-"@"					{ return '@'; }
-"~"					{ return '~'; }
-"-"					{ return MINUS; }
-"+"					{ return PLUS; }
-"%"					{ return PERCENT; }
-"<"					{ return LESS_THAN_OP; }
-">"					{ return GREATER_THAN_OP; }
-"^"					{ return XOR; }
-"|"					{ return OR_SIGN; }
-"`"					{ return '`'; }
-"*"					{ return STAR;}
-"**"					{ return DOUBLESTAR; }
-"/"					{ return SLASH; }
-"//"					{ return DOUBLESLASH; }
+";"			{return COL;}
+"_"			{return '_';}
+","			{return COMMA;}
+":"			{return COLON;}
+"="			{return EQUAL;}
+"("			{nesting++; return LPAR;}
+")"			{nesting--; return RPAR;}
+"["			{return '[';}
+"]"			{return ']';}
+"{"			{return '{';}
+"}"			{return '}';}
+"."			{return DOT;}
+"&"			{return AND_EXP;}
+"@"			{return '@';}
+"~"			{return '~';}
+"-"			{return MINUS;}
+"+"			{return PLUS;}
+"%"			{return PERCENT;}
+"<"			{return LESS_THAN_OP;}
+">"			{return GREATER_THAN_OP;}
+"^"			{return XOR;}
+"|"			{return OR_SIGN;}
+"`"			{return '`'; }
+"*"			{return STAR;}
+"**"			{return DOUBLESTAR;}
+"/"			{return SLASH;}
+"//"			{return DOUBLESLASH;}
 				
 {IDENTIFIER}		{
-						printf("IDENTIFIER: %s\n", yytext);
-						return IDENTIFIER;
-					}
+				printf("IDENTIFIER: %s\n", yytext);
+ 			
+				return IDENTIFIER;
+			}
 
-{DECINTEGER}		{
-						printf("DECINTEGER: %s\n", yytext);
-						return DECINTEGER;
-					}
+{DECINTEGER}		{	yylval.intVal = atoi(yytext);
+				printf("DECINTEGER: %s\n", yytext);
+				return DECINTEGER;
+			}
 					
 {OCTINTEGER}		{
-						printf("OCTINTEGER: %s\n", yytext);
-						return OCTINTEGER;
-					}
+				printf("OCTINTEGER: %s\n", yytext);
+				return OCTINTEGER;
+			}
 					
 {HEXINTEGER}		{
-						printf("HEXINTEGER: %s\n", yytext);
-						return HEXINTEGER;
-					}
+				printf("HEXINTEGER: %s\n", yytext);
+				return HEXINTEGER;
+			}
 
 {POINTFLOAT}		{
-						printf("POINTFLOAT: %s\n", yytext);
-						return POINTFLOAT;
-					}
+				printf("POINTFLOAT: %s\n", yytext);
+				return POINTFLOAT;
+			}
 					
 {EXPONENTFLOAT}		{
-						printf("EXPONENTFLOAT: %s\n", yytext);
-						return EXPONENTFLOAT;
-					}
+				printf("EXPONENTFLOAT: %s\n", yytext);
+				return EXPONENTFLOAT;
+			}
 
 {IMAGNUMBER}		{
-						printf("IMAGNUMBER: %s\n", yytext);
-						return IMAGNUMBER;
-					}
+				printf("IMAGNUMBER: %s\n", yytext);
+				return IMAGNUMBER;
+			}
 					
 
 {SHORTSTRING}		{
-						printf("SHORTSTRING: %s\n", yytext);
-						return SHORTSTRING;
-					}
+				printf("SHORTSTRING: %s\n", yytext);
+				return SHORTSTRING;
+			}
 
 {LONGSTRING}		{
-						printf("LONGSTRING: %s\n", yytext);
-						return LONGSTRING;
-					}
+				printf("LONGSTRING: %s\n", yytext);
+				return LONGSTRING;
+			}
 					
-[#].*	
 
-{NEWLINE}				{
-						linee++;
+
+{NEWLINE}		{
+				linee++;
 						
-					}
+			}
  
 
-[ \r] {/* Do nothing */}
+[ \r] 			{/* Do nothing */}
 
 
-<<EOF>>  { return 0 ; }
+<<EOF>>  		{ return 0 ; }
 
 %%
 //Python Indentation 
