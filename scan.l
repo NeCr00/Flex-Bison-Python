@@ -129,11 +129,11 @@ WHITESPACE	[ \t\v\n\f]
 ")"			{nesting--; return RPAR;}
 "["			{return '[';}
 "]"			{return ']';}
-"{"			{return '{';}
-"}"			{return '}';}
+"{"			{return LBRA;}
+"}"			{return RBRA;}
 "."			{return DOT;}
 "&"			{return AND_EXP;}
-"@"			{return '@';}
+"@"			{return PAPAKI;}
 "~"			{return '~';}
 "-"			{return MINUS;}
 "+"			{return PLUS;}

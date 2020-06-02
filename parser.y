@@ -23,7 +23,7 @@
 
 %token IN IS LAMBDA NOT OR COLON PASS RAISE RETURN TRY WHILE WITH YIELD PRINT EXEC   INC DEC EQUAL
 
-%token  LPAR RPAR  LESS_THAN_OP GREATER_THAN_OP MINUS AND_EXP NEWLINE
+%token  LPAR RPAR  LESS_THAN_OP GREATER_THAN_OP MINUS AND_EXP NEWLINE LBRA RBRA PAPAKI
 
 
 %token ELLIPSIS RIGHT_ASSIGN LEFT_ASSIGN ADD_ASSIGN  EXA SUB_ASSIGN MUL_ASSIGN POW_ASSIGN DIV_ASSIGN MOD_ASSIGN AND_ASSIGN PERCENT OR_SIGN
@@ -59,8 +59,15 @@ statement:
 	| print_stmt
 	| funcdef
 	| classdef
-	| call;  
+	| call
+	| return_stmt
+	|lambda_form
+	; 
 
+
+return_stmt:
+		RETURN
+		| RETURN expression_list;
 call:
 	primary LPAR RPAR
 	| primary LPAR expression_list RPAR
@@ -74,7 +81,9 @@ primary:
 	;
 
 
-		
+lambda_form:
+	LAMBDA COLON expression
+	| LAMBDA parameter_list COLON expression;	
 
 //----------------------- Print field ------------------------------------
 
@@ -83,7 +92,8 @@ print_stmt:
 		| PRINT expression
 		| PRINT expression_list
 		| PRINT RIGHT_OP expression
-		| PRINT RIGHT_OP expression_list;
+		| PRINT RIGHT_OP expression_list
+		| PRINT LPAR call RPAR;
 
 
 		
@@ -94,9 +104,15 @@ print_stmt:
 
 expression_list:
 	expression_list COMMA expression
+	
 	|LPAR expression_list COMMA expression RPAR
 	| expression;
 
+atom:
+	literal
+	| identifier
+	| attr_identifier
+	| dict_display;
 
 expression : 
 	atom
@@ -110,14 +126,15 @@ expression :
 	| expression comparison_op expression
 	| expression logical_op expression
 	| expression bitwise_op expression;
+	
 
-atom:
-	literal
-	| identifier
-	| attr_identifier
+
+
 //----------------------- Assignment field ------------------------------------
 assignment_stmt:
-	assignment_stmt_targer_list expression_list;
+	assignment_stmt_targer_list expression_list
+	|assignment_stmt_targer_list call	
+	;
 		
 assignment_stmt_targer_list:
 	target_list EQUAL
@@ -128,10 +145,9 @@ target_list:
 	| target_list COMMA;
 
 target:
-	identifier
+	IDENTIFIER
 	|attr_identifier
 	|LPAR target_list RPAR;
-
 
 
 //----------------------- Operators field ------------------------------------
@@ -274,7 +290,7 @@ for_target:
 	identifier
 	|LPAR for_target_list RPAR;
 
-//================================== Function Field ================================
+//================================== Function  ================================
 
 funcdef:
 	DEF funcname LPAR RPAR COLON statement_list
@@ -287,8 +303,8 @@ decorators:
 	| decorators decorator;
 		
 decorator:
-	'@' dotted_name NEWLINE
-	| '@' dotted_name '(' ')' NEWLINE;
+	PAPAKI dotted_name NEWLINE
+	| PAPAKI dotted_name LPAR RPAR NEWLINE;
 
 dotted_name:
 	identifier
@@ -350,13 +366,30 @@ classname:
 	
 //----------------------- etc -------------------------------------------------
 
-attr_identifier:
-	identifier
-	| attr_identifier DOT identifier ;
+dict_display:
+	LBRA RBRA
+	| LBRA key_datum_list RBRA;
+		
+key_datum_list:
+	key_datum
+	| key_datum COMMA
+	| key_datum key_datums
+	| key_datum key_datums COMMA;
+
+key_datums:
+	COMMA key_datum
+	| key_datums COMMA key_datum;
+		
+key_datum:
+		expression COLON expression;
+		
 
 identifier:
 		IDENTIFIER;
 
+attr_identifier:
+	identifier
+	| attr_identifier DOT identifier ;
 	
 stringliteral:
 		SHORTSTRING | LONGSTRING;

@@ -1478,12 +1478,12 @@ YY_RULE_SETUP
 case 73:
 YY_RULE_SETUP
 #line 132 "scan.l"
-{return '{';}
+{return LBRA;}
 	YY_BREAK
 case 74:
 YY_RULE_SETUP
 #line 133 "scan.l"
-{return '}';}
+{return RBRA;}
 	YY_BREAK
 case 75:
 YY_RULE_SETUP
