@@ -26,7 +26,7 @@
 %token  LPAR RPAR  LESS_THAN_OP GREATER_THAN_OP MINUS AND_EXP NEWLINE
 
 
-%token ELLIPSIS RIGHT_ASSIGN LEFT_ASSIGN ADD_ASSIGN  SUB_ASSIGN MUL_ASSIGN POW_ASSIGN DIV_ASSIGN MOD_ASSIGN AND_ASSIGN PERCENT OR_SIGN
+%token ELLIPSIS RIGHT_ASSIGN LEFT_ASSIGN ADD_ASSIGN  EXA SUB_ASSIGN MUL_ASSIGN POW_ASSIGN DIV_ASSIGN MOD_ASSIGN AND_ASSIGN PERCENT OR_SIGN
 
 %token XOR_ASSIGN OR_ASSIGN RIGHT_OP LEFT_OP PTR_OP LE_OP GE_OP EQ_OP NE_OP STAR DOUBLESTAR SLASH DOUBLESLASH RANGE  LR_OP PLUS XOR NOT_SIGN 
 
@@ -49,18 +49,32 @@ program:
 
 statement_list : 
 	statement_list statement 
-	| statement
-	| expression_list ;
+	| statement;
 
 statement:
 	import_stmt 
-	| assignment
+	| assignment_stmt
 	| if_stmt
 	| for_stmt
-	| expression_stmt 
 	| print_stmt
-	|funcdef
-	|classdef;  
+	| funcdef
+	| classdef
+	| call;  
+
+call:
+	primary LPAR RPAR
+	| primary LPAR expression_list RPAR
+	| identifier EQUAL primary LPAR  RPAR
+	| identifier EQUAL primary LPAR expression_list RPAR;
+		
+
+primary:
+	identifier
+	|attr_identifier
+	;
+
+
+		
 
 //----------------------- Print field ------------------------------------
 
@@ -71,41 +85,61 @@ print_stmt:
 		| PRINT RIGHT_OP expression
 		| PRINT RIGHT_OP expression_list;
 
-//----------------------- Assignment field ------------------------------------
-assignment: 
-	identifier assignment_op expression
-	| INC identifier
-	| identifier INC
-	| DEC identifier
-	| identifier DEC;
+
 		
 //----------------------- Expressions field ------------------------------------
-expression_stmt: 
-	expression_list;
 
 
 
-expression_list: 
+
+expression_list:
 	expression_list COMMA expression
 	|LPAR expression_list COMMA expression RPAR
 	| expression;
 
 
 expression : 
-	LPAR expression RPAR
-	| literal
-	| identifier
+	atom
+	| LPAR expression RPAR
+	| INC expression
+	| DEC expression
+	| expression INC
+	| expression DEC
+	| expression assignment_op expression
 	| expression arithmetic_op expression
 	| expression comparison_op expression
 	| expression logical_op expression
 	| expression bitwise_op expression;
 
+atom:
+	literal
+	| identifier
+	| attr_identifier
+//----------------------- Assignment field ------------------------------------
+assignment_stmt:
+	assignment_stmt_targer_list expression_list;
+		
+assignment_stmt_targer_list:
+	target_list EQUAL
+	| assignment_stmt_targer_list target_list EQUAL;
+target_list:
+	target
+	| target_list COMMA target
+	| target_list COMMA;
+
+target:
+	identifier
+	|attr_identifier
+	|LPAR target_list RPAR;
+
+
+
 //----------------------- Operators field ------------------------------------
 
 	
 assignment_op:
-	 EQUAL
-	| ADD_ASSIGN
+	 
+	 ADD_ASSIGN
 	| SUB_ASSIGN
 	| MUL_ASSIGN
 	| POW_ASSIGN
@@ -216,29 +250,29 @@ name: IDENTIFIER;
 
 //=================================== If =============================================
 if_stmt:
-	IF expression COLON statement_list
-	| IF expression COLON statement_list ELSE COLON statement_list
-	| IF expression COLON statement_list elif_stmt
-	| IF expression COLON statement_list elif_stmt ELSE COLON statement_list;
+	IF  expression  COLON statement_list
+	| IF  expression COLON statement_list ELSE COLON statement_list
+	| IF expression  COLON statement_list elif_stmt
+	| IF  expression  COLON statement_list elif_stmt ELSE COLON statement_list;
 		
 elif_stmt:
-	ELIF expression COLON statement_list
-	| elif_stmt ELIF expression COLON statement_list;
+	ELIF  expression  COLON  statement_list
+	| elif_stmt ELIF  expression  COLON statement_list;
 //=================================== For ===========================================
 
 for_stmt:
-	FOR target_list IN expression_list COLON statement_list
-	|FOR target_list IN RANGE LPAR expression_list RPAR  COLON statement_list
-	| FOR target_list IN expression_list COLON statement_list ELSE COLON statement_list;
+	FOR for_target_list IN expression_list COLON statement_list
+	|FOR for_target_list IN RANGE LPAR expression_list RPAR  COLON statement_list
+	| FOR for_target_list IN expression_list COLON statement_list ELSE COLON statement_list;
 
-target_list:
-	target
-	| target_list COMMA target
-	| target_list COMMA;
+for_target_list:
+	for_target
+	| for_target_list COMMA target
+	| for_target_list COMMA;
 
-target:
+for_target:
 	identifier
-	|LPAR target_list RPAR;
+	|LPAR for_target_list RPAR;
 
 //================================== Function Field ================================
 
@@ -261,8 +295,8 @@ dotted_name:
 	| identifier dot_identifiers;
 		
 dot_identifiers:
-	'.' identifier
-	| dot_identifiers '.' identifier;
+	DOT identifier
+	| dot_identifiers DOT identifier;
 		
 parameter_list:
 	STAR identifier
@@ -315,6 +349,11 @@ classname:
 	identifier;
 	
 //----------------------- etc -------------------------------------------------
+
+attr_identifier:
+	identifier
+	| attr_identifier DOT identifier ;
+
 identifier:
 		IDENTIFIER;
 
@@ -338,8 +377,8 @@ imagnumber:
 
 
 int main() {
-  //extern int yydebug;
-  //  yydebug = 1;
+  extern int yydebug;
+    yydebug = 1;
   // Open a file 
   FILE *myfile = fopen("example.py", "r");
   //  is valid?

@@ -119,7 +119,7 @@ WHITESPACE	[ \t\v\n\f]
 "=="			{return EQ_OP; }
 "!="			{return NE_OP; }
 "<>"			{return LR_OP;}
-
+"!"			{return EXA;}
 ";"			{return COL;}
 "_"			{return '_';}
 ","			{return COMMA;}

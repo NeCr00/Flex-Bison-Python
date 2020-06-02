@@ -38,7 +38,7 @@
 # define YY_YY_PARSER_TAB_H_INCLUDED
 /* Debug traces.  */
 #ifndef YYDEBUG
-# define YYDEBUG 0
+# define YYDEBUG 1
 #endif
 #if YYDEBUG
 extern int yydebug;
@@ -101,41 +101,42 @@ extern int yydebug;
     RIGHT_ASSIGN = 307,
     LEFT_ASSIGN = 308,
     ADD_ASSIGN = 309,
-    SUB_ASSIGN = 310,
-    MUL_ASSIGN = 311,
-    POW_ASSIGN = 312,
-    DIV_ASSIGN = 313,
-    MOD_ASSIGN = 314,
-    AND_ASSIGN = 315,
-    PERCENT = 316,
-    OR_SIGN = 317,
-    XOR_ASSIGN = 318,
-    OR_ASSIGN = 319,
-    RIGHT_OP = 320,
-    LEFT_OP = 321,
-    PTR_OP = 322,
-    LE_OP = 323,
-    GE_OP = 324,
-    EQ_OP = 325,
-    NE_OP = 326,
-    STAR = 327,
-    DOUBLESTAR = 328,
-    SLASH = 329,
-    DOUBLESLASH = 330,
-    RANGE = 331,
-    LR_OP = 332,
-    PLUS = 333,
-    XOR = 334,
-    NOT_SIGN = 335,
-    DECINTEGER = 336,
-    OCTINTEGER = 337,
-    HEXINTEGER = 338,
-    POINTFLOAT = 339,
-    EXPONENTFLOAT = 340,
-    IMAGNUMBER = 341,
-    IDENTIFIER = 342,
-    SHORTSTRING = 343,
-    LONGSTRING = 344
+    EXA = 310,
+    SUB_ASSIGN = 311,
+    MUL_ASSIGN = 312,
+    POW_ASSIGN = 313,
+    DIV_ASSIGN = 314,
+    MOD_ASSIGN = 315,
+    AND_ASSIGN = 316,
+    PERCENT = 317,
+    OR_SIGN = 318,
+    XOR_ASSIGN = 319,
+    OR_ASSIGN = 320,
+    RIGHT_OP = 321,
+    LEFT_OP = 322,
+    PTR_OP = 323,
+    LE_OP = 324,
+    GE_OP = 325,
+    EQ_OP = 326,
+    NE_OP = 327,
+    STAR = 328,
+    DOUBLESTAR = 329,
+    SLASH = 330,
+    DOUBLESLASH = 331,
+    RANGE = 332,
+    LR_OP = 333,
+    PLUS = 334,
+    XOR = 335,
+    NOT_SIGN = 336,
+    DECINTEGER = 337,
+    OCTINTEGER = 338,
+    HEXINTEGER = 339,
+    POINTFLOAT = 340,
+    EXPONENTFLOAT = 341,
+    IMAGNUMBER = 342,
+    IDENTIFIER = 343,
+    SHORTSTRING = 344,
+    LONGSTRING = 345
   };
 #endif
 
@@ -150,7 +151,7 @@ union YYSTYPE
    char*           ident;
  
 
-#line 154 "parser.tab.h"
+#line 155 "parser.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;

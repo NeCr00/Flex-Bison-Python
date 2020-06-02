@@ -1,9 +1,13 @@
-class x:
-	x =10
-	for i in range(x,5):
-		print(y)
+class Person:
+  def __init__(self, fname, lname):
+    self.firstname = fname
+    self.lastname = lname
 
+  def printname(self):
+    print(self.firstname, ++self.lastname)
 
-def test (x,y,(t,x)):
-	x=1
-	x=1
+#Use the Person class to create an object, and then execute the printname method:
+
+x = Person("John", "Doe")
+x.printname()
+
