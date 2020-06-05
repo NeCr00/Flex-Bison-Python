@@ -43,6 +43,14 @@
 #if YYDEBUG
 extern int yydebug;
 #endif
+/* "%code requires" blocks.  */
+#line 18 "parser.y"
+
+
+#include "expression.h"
+
+
+#line 54 "parser.tab.h"
 
 /* Token type.  */
 #ifndef YYTOKENTYPE
@@ -100,46 +108,48 @@ extern int yydebug;
     LBRA = 306,
     RBRA = 307,
     PAPAKI = 308,
-    ELLIPSIS = 309,
-    RIGHT_ASSIGN = 310,
-    LEFT_ASSIGN = 311,
-    ADD_ASSIGN = 312,
-    EXA = 313,
-    SUB_ASSIGN = 314,
-    MUL_ASSIGN = 315,
-    POW_ASSIGN = 316,
-    DIV_ASSIGN = 317,
-    MOD_ASSIGN = 318,
-    AND_ASSIGN = 319,
-    PERCENT = 320,
-    OR_SIGN = 321,
-    XOR_ASSIGN = 322,
-    OR_ASSIGN = 323,
-    RIGHT_OP = 324,
-    LEFT_OP = 325,
-    PTR_OP = 326,
-    LE_OP = 327,
-    GE_OP = 328,
-    EQ_OP = 329,
-    NE_OP = 330,
-    STAR = 331,
-    DOUBLESTAR = 332,
-    SLASH = 333,
-    DOUBLESLASH = 334,
-    RANGE = 335,
-    LR_OP = 336,
-    PLUS = 337,
-    XOR = 338,
-    NOT_SIGN = 339,
-    DECINTEGER = 340,
-    OCTINTEGER = 341,
-    HEXINTEGER = 342,
-    POINTFLOAT = 343,
-    EXPONENTFLOAT = 344,
-    IMAGNUMBER = 345,
-    IDENTIFIER = 346,
-    SHORTSTRING = 347,
-    LONGSTRING = 348
+    QUOTATION = 309,
+    APOSTROPHE = 310,
+    ELLIPSIS = 311,
+    RIGHT_ASSIGN = 312,
+    LEFT_ASSIGN = 313,
+    ADD_ASSIGN = 314,
+    EXA = 315,
+    SUB_ASSIGN = 316,
+    MUL_ASSIGN = 317,
+    POW_ASSIGN = 318,
+    DIV_ASSIGN = 319,
+    MOD_ASSIGN = 320,
+    AND_ASSIGN = 321,
+    PERCENT = 322,
+    OR_SIGN = 323,
+    IMAGNUMBER = 324,
+    XOR_ASSIGN = 325,
+    OR_ASSIGN = 326,
+    RIGHT_OP = 327,
+    LEFT_OP = 328,
+    PTR_OP = 329,
+    LE_OP = 330,
+    GE_OP = 331,
+    EQ_OP = 332,
+    NE_OP = 333,
+    STAR = 334,
+    DOUBLESTAR = 335,
+    SLASH = 336,
+    DOUBLESLASH = 337,
+    RANGE = 338,
+    LR_OP = 339,
+    PLUS = 340,
+    XOR = 341,
+    NOT_SIGN = 342,
+    DECINTEGER = 343,
+    OCTINTEGER = 344,
+    HEXINTEGER = 345,
+    POINTFLOAT = 346,
+    EXPONENTFLOAT = 347,
+    IDENTIFIER = 348,
+    SHORTSTRING = 349,
+    LONGSTRING = 350
   };
 #endif
 
@@ -147,14 +157,12 @@ extern int yydebug;
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 15 "parser.y"
+#line 25 "parser.y"
 
-   int             intVal;
-   double          floatVal;
-   char*           ident;
- 
+    struct Number nval;
+    char  *text;
 
-#line 158 "parser.tab.h"
+#line 166 "parser.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;

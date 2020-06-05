@@ -1,8 +1,8 @@
 
 %{
- 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
   // Declare stuff from Flex that Bison needs to know about:
   extern int yylex();
@@ -10,36 +10,58 @@
   extern FILE *yyin;
  
   void yyerror(const char *s);
+
+
+
 %}
 
-%union {
-   int             intVal;
-   double          floatVal;
-   char*           ident;
- 
+%code requires {
+
+#include "expression.h"
+
 }
+
+%union
+{
+    struct Number nval;
+    char  *text;
+}
+
+
+
 
 %token FALSE NONE TRUE AND AS ASSERT BREAK CLASS CONTINUE DEF DEL ELIF ELSE EXCEPT FINALLY FOR FROM GLOBAL IF IMPORT COMMA DOT COL
 
 %token IN IS LAMBDA NOT OR COLON PASS RAISE RETURN TRY WHILE WITH YIELD PRINT EXEC   INC DEC EQUAL
 
-%token  LPAR RPAR  LESS_THAN_OP GREATER_THAN_OP MINUS AND_EXP NEWLINE LBRA RBRA PAPAKI
+%token  LPAR RPAR  LESS_THAN_OP GREATER_THAN_OP MINUS AND_EXP NEWLINE LBRA RBRA PAPAKI QUOTATION APOSTROPHE
 
 
-%token ELLIPSIS RIGHT_ASSIGN LEFT_ASSIGN ADD_ASSIGN  EXA SUB_ASSIGN MUL_ASSIGN POW_ASSIGN DIV_ASSIGN MOD_ASSIGN AND_ASSIGN PERCENT OR_SIGN
+%token ELLIPSIS RIGHT_ASSIGN LEFT_ASSIGN ADD_ASSIGN  EXA SUB_ASSIGN MUL_ASSIGN POW_ASSIGN DIV_ASSIGN MOD_ASSIGN AND_ASSIGN PERCENT OR_SIGN IMAGNUMBER
 
 %token XOR_ASSIGN OR_ASSIGN RIGHT_OP LEFT_OP PTR_OP LE_OP GE_OP EQ_OP NE_OP STAR DOUBLESTAR SLASH DOUBLESLASH RANGE  LR_OP PLUS XOR NOT_SIGN 
 
 
-%token <intVal> DECINTEGER 
-%token  OCTINTEGER   
-%token HEXINTEGER 
-%token POINTFLOAT 
-%token EXPONENTFLOAT 
-%token IMAGNUMBER 
-%token IDENTIFIER 
-%token SHORTSTRING
-%token LONGSTRING
+%token<nval> 	DECINTEGER 
+%token<nval> 	OCTINTEGER   
+%token<nval> 	HEXINTEGER 
+%token<nval> 	POINTFLOAT 
+%token<nval> 	EXPONENTFLOAT 
+%token<text> 	IDENTIFIER 
+%token<nval> 	SHORTSTRING
+%token<nval> 	LONGSTRING
+
+
+%type<nval>   integer
+%type<nval>   stringliteral
+%type<nval>   floatnumber
+%type<nval>   literal
+%type<nval>   atom
+%type<nval>   expression
+%type<nval>   print_stmt
+
+
+
 
 %%
 
@@ -61,7 +83,7 @@ statement:
 	| classdef
 	| call
 	| return_stmt
-	|lambda_form
+	| lambda_form
 	; 
 
 
@@ -90,6 +112,7 @@ lambda_form:
 print_stmt:
 		PRINT
 		| PRINT expression
+		{print($2);}
 		| PRINT expression_list
 		| PRINT RIGHT_OP expression
 		| PRINT RIGHT_OP expression_list
@@ -108,25 +131,33 @@ expression_list:
 	|LPAR expression_list COMMA expression RPAR
 	| expression;
 
-atom:
-	literal
-	| identifier
-	| attr_identifier
-	| dict_display;
 
 expression : 
 	atom
+	{$$ = $1;}
 	| LPAR expression RPAR
-	| INC expression
-	| DEC expression
-	| expression INC
-	| expression DEC
-	| expression assignment_op expression
+	{$$ = $2;}
+	| expression PLUS expression
+	{$$ = add_calc($1,$3); }
+	| expression MINUS expression
+	//{$$ = $2;}
+	| expression SLASH expression
+	//{$$ = $2;}
+	| expression STAR expression
+	//{$$ = $2;}
+	
+	| expression assignment_op expression	
 	| expression arithmetic_op expression
 	| expression comparison_op expression
 	| expression logical_op expression
 	| expression bitwise_op expression;
 	
+atom:
+	literal
+	{$$ = $1;}
+	| identifier
+	| attr_identifier
+	| dict_display;
 
 
 
@@ -168,11 +199,7 @@ assignment_op:
 	| LEFT_ASSIGN    ;          
 
 arithmetic_op: 
-	PLUS
-	| MINUS
-	| STAR
-	| SLASH
-	| PERCENT
+	PERCENT
 	| DOUBLESTAR
 	| DOUBLESLASH;
 
@@ -204,8 +231,10 @@ bitwise_op:
         
 literal:  
 	integer
+	{$$ = $1; }
 	| floatnumber
 	| stringliteral
+	{$$ = $1; }
 	| longinteger
 	| imagnumber;
 
@@ -392,25 +421,40 @@ attr_identifier:
 	| attr_identifier DOT identifier ;
 	
 stringliteral:
-		SHORTSTRING | LONGSTRING;
+	SHORTSTRING
+	{$$ = $1;} 
+	| LONGSTRING
+	 {$$ = $1;} 
+;
 
 longinteger:
 		integer 'l' | integer 'L';
 		
 integer:
-		DECINTEGER  | OCTINTEGER | HEXINTEGER;
+	DECINTEGER 
+	{$$ = $1; printf("%d\n", $$.ival);} 
+	| OCTINTEGER 
+	{$$ = $1;} 
+	| HEXINTEGER
+	{$$ = $1;} 
+;
 		
 floatnumber:
-		POINTFLOAT | EXPONENTFLOAT;
-	
+	POINTFLOAT 
+	{$$ = $1;} 
+	| EXPONENTFLOAT
+	{$$ = $1;} 
+;	
 imagnumber:
-		IMAGNUMBER;
+	IMAGNUMBER
+	//{$$ = $1;} ;
+;
 
 %%
 
 
 int main() {
-  extern int yydebug;
+   extern int yydebug;
     yydebug = 1;
   // Open a file 
   FILE *myfile = fopen("example.py", "r");
@@ -432,3 +476,7 @@ void yyerror(const char* s) {
 	fprintf(stderr, "Parse error: %s\n", s);
 	exit(1);
 }
+
+
+
+

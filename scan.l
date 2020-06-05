@@ -99,7 +99,8 @@ WHITESPACE	[ \t\v\n\f]
 
 "++"        		{return INC;}
 "--"        		{return DEC;}
-
+"\'"			{return APOSTROPHE;}
+"\""			{return QUOTATION;}
 "..."			{return ELLIPSIS; }
 ">>="			{return RIGHT_ASSIGN; }
 "<<="			{return LEFT_ASSIGN; }
@@ -148,33 +149,42 @@ WHITESPACE	[ \t\v\n\f]
 "/"			{return SLASH;}
 "//"			{return DOUBLESLASH;}
 				
-{IDENTIFIER}		{
+{IDENTIFIER}		{	
+				yylval.nval.name = (yytext);
+				yylval.nval.type = IDENT;
 				printf("IDENTIFIER: %s\n", yytext);
- 			
 				return IDENTIFIER;
 			}
 
-{DECINTEGER}		{	yylval.intVal = atoi(yytext);
+{DECINTEGER}		{	
+				yylval.nval.ival = atoi(yytext);
+				yylval.nval.type = INTEGER;
 				printf("DECINTEGER: %s\n", yytext);
 				return DECINTEGER;
 			}
 					
-{OCTINTEGER}		{
+{OCTINTEGER}		{	
+				yylval.nval.ival = atoi(yytext);
+				yylval.nval.type = INTEGER;
 				printf("OCTINTEGER: %s\n", yytext);
 				return OCTINTEGER;
 			}
 					
-{HEXINTEGER}		{
+{HEXINTEGER}		{	
+				yylval.nval.ival = atoi(yytext);
+				yylval.nval.type = INTEGER;
 				printf("HEXINTEGER: %s\n", yytext);
 				return HEXINTEGER;
 			}
 
-{POINTFLOAT}		{
+{POINTFLOAT}		{	yylval.nval.fval = atof(yytext);
+				yylval.nval.type = FLOAT;
 				printf("POINTFLOAT: %s\n", yytext);
 				return POINTFLOAT;
 			}
 					
-{EXPONENTFLOAT}		{
+{EXPONENTFLOAT}		{	yylval.nval.fval = atof(yytext);
+				yylval.nval.type = FLOAT;
 				printf("EXPONENTFLOAT: %s\n", yytext);
 				return EXPONENTFLOAT;
 			}
@@ -185,7 +195,8 @@ WHITESPACE	[ \t\v\n\f]
 			}
 					
 
-{SHORTSTRING}		{
+{SHORTSTRING}		{	yylval.nval.name = yytext;
+				yylval.nval.type = STRING;
 				printf("SHORTSTRING: %s\n", yytext);
 				return SHORTSTRING;
 			}

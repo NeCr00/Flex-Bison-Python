@@ -354,8 +354,8 @@ static void yynoreturn yy_fatal_error ( const char* msg  );
 	(yy_hold_char) = *yy_cp; \
 	*yy_cp = '\0'; \
 	(yy_c_buf_p) = yy_cp;
-#define YY_NUM_RULES 102
-#define YY_END_OF_BUFFER 103
+#define YY_NUM_RULES 104
+#define YY_END_OF_BUFFER 105
 /* This struct is not used in this scanner,
    but its presence is necessary. */
 struct yy_trans_info
@@ -365,27 +365,27 @@ struct yy_trans_info
 	};
 static const flex_int16_t yy_accept[476] =
     {   0,
-        0,    0,  103,  102,  100,  101,   63,  102,    4,   81,
-       76,  102,   69,   70,   87,   80,   66,   79,   75,   89,
-       92,   92,   67,   64,   82,   68,   83,   77,   91,   91,
-       40,   91,   91,   91,   91,   71,   72,   84,   65,   86,
-       91,   91,   91,   91,   91,   91,   91,   91,   41,   91,
-       91,   91,   91,   91,   91,   91,   91,   73,   85,   74,
-       78,    3,    3,    1,    3,    3,    3,    3,    3,    3,
+        0,    0,  105,  104,  102,  103,   65,   45,    4,   83,
+       78,   44,   71,   72,   89,   82,   68,   81,   77,   91,
+       94,   94,   69,   66,   84,   70,   85,   79,   93,   93,
+       40,   93,   93,   93,   93,   73,   74,   86,   67,   88,
+       93,   93,   93,   93,   93,   93,   93,   93,   41,   93,
+       93,   93,   93,   93,   93,   93,   93,   75,   87,   76,
+       80,    3,    3,    1,    3,    3,    3,    3,    3,    3,
         3,    3,    3,    3,    3,    3,    3,    3,    3,    3,
         3,    3,    3,    3,    3,    3,    3,    3,    3,    3,
         3,    3,    3,    3,    3,    3,    3,    3,    3,    3,
 
         3,    3,    3,    3,    3,    3,    3,    3,    3,    3,
         3,    3,    3,    3,    3,    3,    3,    3,    3,    3,
-        3,   61,    0,   98,   98,    0,    4,   52,   53,    0,
-       98,   98,    0,   88,   49,   42,   47,   43,   48,    0,
-       95,   90,   51,   95,   93,    0,    0,   97,    0,   92,
-       57,   58,   62,   60,   59,   56,   91,   91,   91,    0,
-        0,   91,   91,   54,   91,   15,   91,   91,   91,   91,
-       91,   91,   91,   91,   91,   91,    5,   91,   25,   26,
-       91,   91,   29,   91,   91,   91,   91,   91,   91,   91,
-       91,   55,    3,    3,    2,    1,    3,    3,    3,    3,
+        3,   63,    0,  100,  100,    0,    4,   54,   55,    0,
+      100,  100,    0,   90,   51,   42,   49,   43,   50,    0,
+       97,   92,   53,   97,   95,    0,    0,   99,    0,   94,
+       59,   60,   64,   62,   61,   58,   93,   93,   93,    0,
+        0,   93,   93,   56,   93,   15,   93,   93,   93,   93,
+       93,   93,   93,   93,   93,   93,    5,   93,   25,   26,
+       93,   93,   29,   93,   93,   93,   93,   93,   93,   93,
+       93,   57,    3,    3,    2,    1,    3,    3,    3,    3,
 
         3,    3,    3,    3,    3,    3,    3,    3,    3,    3,
         3,    3,    3,    3,    3,    3,    3,    3,    3,    3,
@@ -393,29 +393,29 @@ static const flex_int16_t yy_accept[476] =
         3,    3,    3,    3,    3,    3,    3,    3,    3,    3,
         3,    3,    3,    3,    3,    3,    3,    3,    3,    3,
         3,    3,    3,    3,    3,    3,    3,    3,    3,    3,
-        3,    3,    3,    3,    3,    3,    3,    3,   98,    0,
-        0,   50,   44,   95,    0,   96,   94,   46,   45,   91,
-       91,    0,   91,   14,   91,   91,   91,   91,    7,   19,
-       91,   91,   91,   91,   91,    6,   91,   91,   91,   91,
+        3,    3,    3,    3,    3,    3,    3,    3,  100,    0,
+        0,   52,   46,   97,    0,   98,   96,   48,   47,   93,
+       93,    0,   93,   14,   93,   93,   93,   93,    7,   19,
+       93,   93,   93,   93,   93,    6,   93,   93,   93,   93,
 
-       28,   91,   91,   91,   91,   91,   33,   91,   91,   91,
+       28,   93,   93,   93,   93,   93,   33,   93,   93,   93,
         3,    3,    3,    3,    3,    3,    3,    3,    3,    3,
         3,    3,    3,    3,    3,    3,    3,    3,    3,    3,
         3,    3,    3,    3,    3,    3,    3,    3,    3,    3,
         3,    3,    3,    3,    3,    3,    3,    3,    3,    3,
-        3,    3,    0,    0,    0,    0,    0,    0,   91,   12,
-       13,   91,   91,   91,   91,    9,   10,   91,   39,   91,
-       22,   91,   91,   91,   30,   91,   91,   91,   91,   91,
-       35,   91,    3,    3,    3,    3,    3,    3,    3,    3,
+        3,    3,    0,    0,    0,    0,    0,    0,   93,   12,
+       13,   93,   93,   93,   93,    9,   10,   93,   39,   93,
+       22,   93,   93,   93,   30,   93,   93,   93,   93,   93,
+       35,   93,    3,    3,    3,    3,    3,    3,    3,    3,
         3,    3,    3,    3,    3,    3,    3,    3,    3,    3,
 
         3,    3,    3,    3,    3,    3,    3,    3,    3,    3,
-        3,    3,    0,    0,   11,   91,   17,    8,   91,   91,
-       91,   91,   91,   91,   38,   31,   37,   91,   34,   36,
+        3,    3,    0,    0,   11,   93,   17,    8,   93,   93,
+       93,   93,   93,   93,   38,   31,   37,   93,   34,   36,
         3,    3,    3,    3,    3,    3,    3,    3,    3,    3,
-        3,    3,    3,    3,    3,    3,    3,    3,   99,   99,
-       16,   91,   20,   91,   23,   24,   27,   32,    3,    3,
-        3,    3,    3,    3,    3,    3,    3,    3,   91,   21,
+        3,    3,    3,    3,    3,    3,    3,    3,  101,  101,
+       16,   93,   20,   93,   23,   24,   27,   32,    3,    3,
+        3,    3,    3,    3,    3,    3,    3,    3,   93,   21,
         3,    3,   18,    3,    0
     } ;
 
@@ -1332,337 +1332,357 @@ YY_RULE_SETUP
 	YY_BREAK
 case 44:
 YY_RULE_SETUP
-#line 103 "scan.l"
-{return ELLIPSIS; }
+#line 102 "scan.l"
+{return APOSTROPHE;}
 	YY_BREAK
 case 45:
 YY_RULE_SETUP
-#line 104 "scan.l"
-{return RIGHT_ASSIGN; }
+#line 103 "scan.l"
+{return QUOTATION;}
 	YY_BREAK
 case 46:
 YY_RULE_SETUP
-#line 105 "scan.l"
-{return LEFT_ASSIGN; }
+#line 104 "scan.l"
+{return ELLIPSIS; }
 	YY_BREAK
 case 47:
 YY_RULE_SETUP
-#line 106 "scan.l"
-{return ADD_ASSIGN; }
+#line 105 "scan.l"
+{return RIGHT_ASSIGN; }
 	YY_BREAK
 case 48:
 YY_RULE_SETUP
-#line 107 "scan.l"
-{return SUB_ASSIGN; }
+#line 106 "scan.l"
+{return LEFT_ASSIGN; }
 	YY_BREAK
 case 49:
 YY_RULE_SETUP
-#line 108 "scan.l"
-{return MUL_ASSIGN; }
+#line 107 "scan.l"
+{return ADD_ASSIGN; }
 	YY_BREAK
 case 50:
 YY_RULE_SETUP
-#line 109 "scan.l"
-{return POW_ASSIGN; }
+#line 108 "scan.l"
+{return SUB_ASSIGN; }
 	YY_BREAK
 case 51:
 YY_RULE_SETUP
-#line 110 "scan.l"
-{return DIV_ASSIGN; }
+#line 109 "scan.l"
+{return MUL_ASSIGN; }
 	YY_BREAK
 case 52:
 YY_RULE_SETUP
-#line 111 "scan.l"
-{return MOD_ASSIGN; }
+#line 110 "scan.l"
+{return POW_ASSIGN; }
 	YY_BREAK
 case 53:
 YY_RULE_SETUP
-#line 112 "scan.l"
-{return AND_ASSIGN; }
+#line 111 "scan.l"
+{return DIV_ASSIGN; }
 	YY_BREAK
 case 54:
 YY_RULE_SETUP
-#line 113 "scan.l"
-{return XOR_ASSIGN; }
+#line 112 "scan.l"
+{return MOD_ASSIGN; }
 	YY_BREAK
 case 55:
 YY_RULE_SETUP
-#line 114 "scan.l"
-{return OR_ASSIGN; }
+#line 113 "scan.l"
+{return AND_ASSIGN; }
 	YY_BREAK
 case 56:
 YY_RULE_SETUP
-#line 115 "scan.l"
-{return RIGHT_OP; }
+#line 114 "scan.l"
+{return XOR_ASSIGN; }
 	YY_BREAK
 case 57:
 YY_RULE_SETUP
-#line 116 "scan.l"
-{return LEFT_OP; }
+#line 115 "scan.l"
+{return OR_ASSIGN; }
 	YY_BREAK
 case 58:
 YY_RULE_SETUP
-#line 117 "scan.l"
-{return LE_OP; }
+#line 116 "scan.l"
+{return RIGHT_OP; }
 	YY_BREAK
 case 59:
 YY_RULE_SETUP
-#line 118 "scan.l"
-{return GE_OP; }
+#line 117 "scan.l"
+{return LEFT_OP; }
 	YY_BREAK
 case 60:
 YY_RULE_SETUP
-#line 119 "scan.l"
-{return EQ_OP; }
+#line 118 "scan.l"
+{return LE_OP; }
 	YY_BREAK
 case 61:
 YY_RULE_SETUP
-#line 120 "scan.l"
-{return NE_OP; }
+#line 119 "scan.l"
+{return GE_OP; }
 	YY_BREAK
 case 62:
 YY_RULE_SETUP
-#line 121 "scan.l"
-{return LR_OP;}
+#line 120 "scan.l"
+{return EQ_OP; }
 	YY_BREAK
 case 63:
 YY_RULE_SETUP
-#line 122 "scan.l"
-{return EXA;}
+#line 121 "scan.l"
+{return NE_OP; }
 	YY_BREAK
 case 64:
 YY_RULE_SETUP
-#line 123 "scan.l"
-{return COL;}
+#line 122 "scan.l"
+{return LR_OP;}
 	YY_BREAK
 case 65:
 YY_RULE_SETUP
-#line 124 "scan.l"
-{return '_';}
+#line 123 "scan.l"
+{return EXA;}
 	YY_BREAK
 case 66:
 YY_RULE_SETUP
-#line 125 "scan.l"
-{return COMMA;}
+#line 124 "scan.l"
+{return COL;}
 	YY_BREAK
 case 67:
 YY_RULE_SETUP
-#line 126 "scan.l"
-{return COLON;}
+#line 125 "scan.l"
+{return '_';}
 	YY_BREAK
 case 68:
 YY_RULE_SETUP
-#line 127 "scan.l"
-{return EQUAL;}
+#line 126 "scan.l"
+{return COMMA;}
 	YY_BREAK
 case 69:
 YY_RULE_SETUP
-#line 128 "scan.l"
-{nesting++; return LPAR;}
+#line 127 "scan.l"
+{return COLON;}
 	YY_BREAK
 case 70:
 YY_RULE_SETUP
-#line 129 "scan.l"
-{nesting--; return RPAR;}
+#line 128 "scan.l"
+{return EQUAL;}
 	YY_BREAK
 case 71:
 YY_RULE_SETUP
-#line 130 "scan.l"
-{return '[';}
+#line 129 "scan.l"
+{nesting++; return LPAR;}
 	YY_BREAK
 case 72:
 YY_RULE_SETUP
-#line 131 "scan.l"
-{return ']';}
+#line 130 "scan.l"
+{nesting--; return RPAR;}
 	YY_BREAK
 case 73:
 YY_RULE_SETUP
-#line 132 "scan.l"
-{return LBRA;}
+#line 131 "scan.l"
+{return '[';}
 	YY_BREAK
 case 74:
 YY_RULE_SETUP
-#line 133 "scan.l"
-{return RBRA;}
+#line 132 "scan.l"
+{return ']';}
 	YY_BREAK
 case 75:
 YY_RULE_SETUP
-#line 134 "scan.l"
-{return DOT;}
+#line 133 "scan.l"
+{return LBRA;}
 	YY_BREAK
 case 76:
 YY_RULE_SETUP
-#line 135 "scan.l"
-{return AND_EXP;}
+#line 134 "scan.l"
+{return RBRA;}
 	YY_BREAK
 case 77:
 YY_RULE_SETUP
-#line 136 "scan.l"
-{return '@';}
+#line 135 "scan.l"
+{return DOT;}
 	YY_BREAK
 case 78:
 YY_RULE_SETUP
-#line 137 "scan.l"
-{return '~';}
+#line 136 "scan.l"
+{return AND_EXP;}
 	YY_BREAK
 case 79:
 YY_RULE_SETUP
-#line 138 "scan.l"
-{return MINUS;}
+#line 137 "scan.l"
+{return PAPAKI;}
 	YY_BREAK
 case 80:
 YY_RULE_SETUP
-#line 139 "scan.l"
-{return PLUS;}
+#line 138 "scan.l"
+{return '~';}
 	YY_BREAK
 case 81:
 YY_RULE_SETUP
-#line 140 "scan.l"
-{return PERCENT;}
+#line 139 "scan.l"
+{return MINUS;}
 	YY_BREAK
 case 82:
 YY_RULE_SETUP
-#line 141 "scan.l"
-{return LESS_THAN_OP;}
+#line 140 "scan.l"
+{return PLUS;}
 	YY_BREAK
 case 83:
 YY_RULE_SETUP
-#line 142 "scan.l"
-{return GREATER_THAN_OP;}
+#line 141 "scan.l"
+{return PERCENT;}
 	YY_BREAK
 case 84:
 YY_RULE_SETUP
-#line 143 "scan.l"
-{return XOR;}
+#line 142 "scan.l"
+{return LESS_THAN_OP;}
 	YY_BREAK
 case 85:
 YY_RULE_SETUP
-#line 144 "scan.l"
-{return OR_SIGN;}
+#line 143 "scan.l"
+{return GREATER_THAN_OP;}
 	YY_BREAK
 case 86:
 YY_RULE_SETUP
-#line 145 "scan.l"
-{return '`'; }
+#line 144 "scan.l"
+{return XOR;}
 	YY_BREAK
 case 87:
 YY_RULE_SETUP
-#line 146 "scan.l"
-{return STAR;}
+#line 145 "scan.l"
+{return OR_SIGN;}
 	YY_BREAK
 case 88:
 YY_RULE_SETUP
-#line 147 "scan.l"
-{return DOUBLESTAR;}
+#line 146 "scan.l"
+{return '`'; }
 	YY_BREAK
 case 89:
 YY_RULE_SETUP
-#line 148 "scan.l"
-{return SLASH;}
+#line 147 "scan.l"
+{return STAR;}
 	YY_BREAK
 case 90:
 YY_RULE_SETUP
-#line 149 "scan.l"
-{return DOUBLESLASH;}
+#line 148 "scan.l"
+{return DOUBLESTAR;}
 	YY_BREAK
 case 91:
 YY_RULE_SETUP
-#line 151 "scan.l"
-{
-				printf("IDENTIFIER: %s\n", yytext);
- 			
-				return IDENTIFIER;
-			}
+#line 149 "scan.l"
+{return SLASH;}
 	YY_BREAK
 case 92:
 YY_RULE_SETUP
-#line 157 "scan.l"
-{	yylval.intVal = atoi(yytext);
-				printf("DECINTEGER: %s\n", yytext);
-				return DECINTEGER;
-			}
+#line 150 "scan.l"
+{return DOUBLESLASH;}
 	YY_BREAK
 case 93:
 YY_RULE_SETUP
-#line 162 "scan.l"
-{
-				printf("OCTINTEGER: %s\n", yytext);
-				return OCTINTEGER;
+#line 152 "scan.l"
+{	
+				yylval.nval.name = (yytext);
+				yylval.nval.type = IDENT;
+				printf("IDENTIFIER: %s\n", yytext);
+				return IDENTIFIER;
 			}
 	YY_BREAK
 case 94:
 YY_RULE_SETUP
-#line 167 "scan.l"
-{
-				printf("HEXINTEGER: %s\n", yytext);
-				return HEXINTEGER;
+#line 159 "scan.l"
+{	
+				yylval.nval.ival = atoi(yytext);
+				yylval.nval.type = INTEGER;
+				printf("DECINTEGER: %s\n", yytext);
+				return DECINTEGER;
 			}
 	YY_BREAK
 case 95:
 YY_RULE_SETUP
-#line 172 "scan.l"
-{
-				printf("POINTFLOAT: %s\n", yytext);
-				return POINTFLOAT;
+#line 166 "scan.l"
+{	
+				yylval.nval.ival = atoi(yytext);
+				yylval.nval.type = INTEGER;
+				printf("OCTINTEGER: %s\n", yytext);
+				return OCTINTEGER;
 			}
 	YY_BREAK
 case 96:
 YY_RULE_SETUP
-#line 177 "scan.l"
-{
-				printf("EXPONENTFLOAT: %s\n", yytext);
-				return EXPONENTFLOAT;
+#line 173 "scan.l"
+{	
+				yylval.nval.ival = atoi(yytext);
+				yylval.nval.type = INTEGER;
+				printf("HEXINTEGER: %s\n", yytext);
+				return HEXINTEGER;
 			}
 	YY_BREAK
 case 97:
 YY_RULE_SETUP
-#line 182 "scan.l"
+#line 180 "scan.l"
+{	yylval.nval.fval = atof(yytext);
+				yylval.nval.type = FLOAT;
+				printf("POINTFLOAT: %s\n", yytext);
+				return POINTFLOAT;
+			}
+	YY_BREAK
+case 98:
+YY_RULE_SETUP
+#line 186 "scan.l"
+{	yylval.nval.fval = atof(yytext);
+				yylval.nval.type = FLOAT;
+				printf("EXPONENTFLOAT: %s\n", yytext);
+				return EXPONENTFLOAT;
+			}
+	YY_BREAK
+case 99:
+YY_RULE_SETUP
+#line 192 "scan.l"
 {
 				printf("IMAGNUMBER: %s\n", yytext);
 				return IMAGNUMBER;
 			}
 	YY_BREAK
-case 98:
+case 100:
 YY_RULE_SETUP
-#line 188 "scan.l"
-{
+#line 198 "scan.l"
+{	yylval.nval.name = yytext;
+				yylval.nval.type = STRING;
 				printf("SHORTSTRING: %s\n", yytext);
 				return SHORTSTRING;
 			}
 	YY_BREAK
-case 99:
-/* rule 99 can match eol */
+case 101:
+/* rule 101 can match eol */
 YY_RULE_SETUP
-#line 193 "scan.l"
+#line 204 "scan.l"
 {
 				printf("LONGSTRING: %s\n", yytext);
 				return LONGSTRING;
 			}
 	YY_BREAK
-case 100:
-/* rule 100 can match eol */
+case 102:
+/* rule 102 can match eol */
 YY_RULE_SETUP
-#line 200 "scan.l"
+#line 211 "scan.l"
 {
 				linee++;
 						
 			}
 	YY_BREAK
-case 101:
+case 103:
 YY_RULE_SETUP
-#line 206 "scan.l"
+#line 217 "scan.l"
 {/* Do nothing */}
 	YY_BREAK
 case YY_STATE_EOF(INITIAL):
-#line 209 "scan.l"
+#line 220 "scan.l"
 { return 0 ; }
 	YY_BREAK
-case 102:
+case 104:
 YY_RULE_SETUP
-#line 211 "scan.l"
+#line 222 "scan.l"
 ECHO;
 	YY_BREAK
-#line 1666 "lex.yy.c"
+#line 1686 "lex.yy.c"
 
 	case YY_END_OF_BUFFER:
 		{
@@ -2668,7 +2688,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 211 "scan.l"
+#line 222 "scan.l"
 
 //Python Indentation 
 void unputt(int leng){
