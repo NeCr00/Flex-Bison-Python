@@ -816,7 +816,7 @@ char *yytext;
 #include <stdlib.h>
 #include <stdio.h>
 #include "parser.tab.h" // Get tokens from bison
-
+#include <string.h>
 
 
 
@@ -1579,73 +1579,80 @@ case 93:
 YY_RULE_SETUP
 #line 152 "scan.l"
 {	
-				yylval.nval.name = (yytext);
+				strcpy(yylval.nval.name, yytext);
 				yylval.nval.type = IDENT;
+				yylval.nval.data_type = LITERAL;
 				printf("IDENTIFIER: %s\n", yytext);
 				return IDENTIFIER;
 			}
 	YY_BREAK
 case 94:
 YY_RULE_SETUP
-#line 159 "scan.l"
+#line 160 "scan.l"
 {	
 				yylval.nval.ival = atoi(yytext);
 				yylval.nval.type = INTEGER;
+				yylval.nval.data_type = LITERAL;
 				printf("DECINTEGER: %s\n", yytext);
 				return DECINTEGER;
 			}
 	YY_BREAK
 case 95:
 YY_RULE_SETUP
-#line 166 "scan.l"
+#line 168 "scan.l"
 {	
 				yylval.nval.ival = atoi(yytext);
 				yylval.nval.type = INTEGER;
+				yylval.nval.data_type = LITERAL;
 				printf("OCTINTEGER: %s\n", yytext);
 				return OCTINTEGER;
 			}
 	YY_BREAK
 case 96:
 YY_RULE_SETUP
-#line 173 "scan.l"
+#line 176 "scan.l"
 {	
 				yylval.nval.ival = atoi(yytext);
 				yylval.nval.type = INTEGER;
+				yylval.nval.data_type = LITERAL;
 				printf("HEXINTEGER: %s\n", yytext);
 				return HEXINTEGER;
 			}
 	YY_BREAK
 case 97:
 YY_RULE_SETUP
-#line 180 "scan.l"
+#line 184 "scan.l"
 {	yylval.nval.fval = atof(yytext);
 				yylval.nval.type = FLOAT;
+				yylval.nval.data_type = LITERAL;
 				printf("POINTFLOAT: %s\n", yytext);
 				return POINTFLOAT;
 			}
 	YY_BREAK
 case 98:
 YY_RULE_SETUP
-#line 186 "scan.l"
+#line 191 "scan.l"
 {	yylval.nval.fval = atof(yytext);
 				yylval.nval.type = FLOAT;
+				yylval.nval.data_type = LITERAL;
 				printf("EXPONENTFLOAT: %s\n", yytext);
 				return EXPONENTFLOAT;
 			}
 	YY_BREAK
 case 99:
 YY_RULE_SETUP
-#line 192 "scan.l"
-{
+#line 198 "scan.l"
+{	
 				printf("IMAGNUMBER: %s\n", yytext);
 				return IMAGNUMBER;
 			}
 	YY_BREAK
 case 100:
 YY_RULE_SETUP
-#line 198 "scan.l"
-{	yylval.nval.name = yytext;
+#line 204 "scan.l"
+{	strcpy(yylval.nval.string, yytext);
 				yylval.nval.type = STRING;
+				yylval.nval.data_type = LITERAL;
 				printf("SHORTSTRING: %s\n", yytext);
 				return SHORTSTRING;
 			}
@@ -1653,8 +1660,12 @@ YY_RULE_SETUP
 case 101:
 /* rule 101 can match eol */
 YY_RULE_SETUP
-#line 204 "scan.l"
-{
+#line 211 "scan.l"
+{	
+				
+				strcpy(yylval.nval.string, yytext);
+				yylval.nval.type = STRING;
+				yylval.nval.data_type = LITERAL	;
 				printf("LONGSTRING: %s\n", yytext);
 				return LONGSTRING;
 			}
@@ -1662,7 +1673,7 @@ YY_RULE_SETUP
 case 102:
 /* rule 102 can match eol */
 YY_RULE_SETUP
-#line 211 "scan.l"
+#line 222 "scan.l"
 {
 				linee++;
 						
@@ -1670,19 +1681,19 @@ YY_RULE_SETUP
 	YY_BREAK
 case 103:
 YY_RULE_SETUP
-#line 217 "scan.l"
+#line 228 "scan.l"
 {/* Do nothing */}
 	YY_BREAK
 case YY_STATE_EOF(INITIAL):
-#line 220 "scan.l"
+#line 231 "scan.l"
 { return 0 ; }
 	YY_BREAK
 case 104:
 YY_RULE_SETUP
-#line 222 "scan.l"
+#line 233 "scan.l"
 ECHO;
 	YY_BREAK
-#line 1686 "lex.yy.c"
+#line 1697 "lex.yy.c"
 
 	case YY_END_OF_BUFFER:
 		{
@@ -2688,7 +2699,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 222 "scan.l"
+#line 233 "scan.l"
 
 //Python Indentation 
 void unputt(int leng){

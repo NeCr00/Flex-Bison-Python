@@ -48,7 +48,7 @@ extern int yydebug;
 
 
 #include "expression.h"
-
+struct Array variables;
 
 #line 54 "parser.tab.h"
 
@@ -159,8 +159,8 @@ union YYSTYPE
 {
 #line 25 "parser.y"
 
-    struct Number nval;
-    char  *text;
+    struct Variable nval;
+   
 
 #line 166 "parser.tab.h"
 

@@ -18,13 +18,13 @@
 %code requires {
 
 #include "expression.h"
-
+struct Array variables;
 }
 
 %union
 {
-    struct Number nval;
-    char  *text;
+    struct Variable nval;
+   
 }
 
 
@@ -47,23 +47,34 @@
 %token<nval> 	HEXINTEGER 
 %token<nval> 	POINTFLOAT 
 %token<nval> 	EXPONENTFLOAT 
-%token<text> 	IDENTIFIER 
+%token<nval> 	IDENTIFIER 
 %token<nval> 	SHORTSTRING
 %token<nval> 	LONGSTRING
 
-
-%type<nval>   integer
-%type<nval>   stringliteral
-%type<nval>   floatnumber
-%type<nval>   literal
-%type<nval>   atom
-%type<nval>   expression
-%type<nval>   print_stmt
+%type<nval> 	identifier
+%type<nval>   	integer
+%type<nval>   	stringliteral 	 	 	
+%type<nval>   	floatnumber
+%type<nval>   	literal
+%type<nval>   	atom
+%type<nval>   	expression
+%type<nval>  	print_stmt
+%type<nval>   	target
+%type<nval>	target_list
+%type<nval> 	assignment_stmt
+%type<nval>	assignment_stmt_targer_list
+%type<nval> 	expression_list
+%type<nval> 	attr_identifier
+%type<nval> 	longinteger
 
 
 
 
 %%
+start:
+	program
+	//{free(&variables);}
+	;
 
 program: 
 	//empty
@@ -112,7 +123,7 @@ lambda_form:
 print_stmt:
 		PRINT
 		| PRINT expression
-		{print($2);}
+		{print($2,&variables); }
 		| PRINT expression_list
 		| PRINT RIGHT_OP expression
 		| PRINT RIGHT_OP expression_list
@@ -129,16 +140,17 @@ expression_list:
 	expression_list COMMA expression
 	
 	|LPAR expression_list COMMA expression RPAR
-	| expression;
+	| expression
+	{$$ = $1; };
 
 
 expression : 
 	atom
-	{$$ = $1;}
+	{$$ = $1; }
 	| LPAR expression RPAR
 	{$$ = $2;}
 	| expression PLUS expression
-	{$$ = add_calc($1,$3); }
+	{printf("%s eweqweqweqeqwValue\n\n",$3.string); $$ = add_calc($1,$3,&variables);  }
 	| expression MINUS expression
 	//{$$ = $2;}
 	| expression SLASH expression
@@ -156,6 +168,9 @@ atom:
 	literal
 	{$$ = $1;}
 	| identifier
+	{$$ = $1; }
+	|integer
+	{$$ = $1; }
 	| attr_identifier
 	| dict_display;
 
@@ -164,19 +179,23 @@ atom:
 //----------------------- Assignment field ------------------------------------
 assignment_stmt:
 	assignment_stmt_targer_list expression_list
+	{insertArray(&variables,value_assign($1,$2)); }
 	|assignment_stmt_targer_list call	
 	;
 		
 assignment_stmt_targer_list:
 	target_list EQUAL
+	{$$ = $1; }
 	| assignment_stmt_targer_list target_list EQUAL;
 target_list:
 	target
+	{$$ = $1; }
 	| target_list COMMA target
 	| target_list COMMA;
 
 target:
 	IDENTIFIER
+	{$$ = $1; }
 	|attr_identifier
 	|LPAR target_list RPAR;
 
@@ -230,9 +249,10 @@ bitwise_op:
 
         
 literal:  
-	integer
+	//integer
+	//{$$ = $1; }
+	 floatnumber
 	{$$ = $1; }
-	| floatnumber
 	| stringliteral
 	{$$ = $1; }
 	| longinteger
@@ -288,7 +308,7 @@ import_stmt_identifiers:
 	| import_stmt_identifiers COMMA identifier
 	| import_stmt_identifiers COMMA identifier AS name;
 
-name: IDENTIFIER;
+name: IDENTIFIER ;
 
 
 //----------------------- Compound_stmt field ------------------------------------------------
@@ -414,11 +434,15 @@ key_datum:
 		
 
 identifier:
-		IDENTIFIER;
+		IDENTIFIER
+		{$$ = $1;  } ;
 
 attr_identifier:
 	identifier
-	| attr_identifier DOT identifier ;
+	{$$ = $1; }
+	| attr_identifier DOT identifier 
+	{$$ = $1;  }
+;
 	
 stringliteral:
 	SHORTSTRING
@@ -428,11 +452,16 @@ stringliteral:
 ;
 
 longinteger:
-		integer 'l' | integer 'L';
+	integer 'l' 
+	{$$ = $1;}
+	| integer 'L'
+	{$$ = $1;}
+	;
+
 		
 integer:
 	DECINTEGER 
-	{$$ = $1; printf("%d\n", $$.ival);} 
+	{$$ = $1;} 
 	| OCTINTEGER 
 	{$$ = $1;} 
 	| HEXINTEGER
@@ -447,15 +476,18 @@ floatnumber:
 ;	
 imagnumber:
 	IMAGNUMBER
-	//{$$ = $1;} ;
+	//{$$ = $1;} 
 ;
 
 %%
 
 
 int main() {
+
+  
+  initArray(&variables, 5);  // initially 5 elements
    extern int yydebug;
-    yydebug = 1;
+    //yydebug = 1;
   // Open a file 
   FILE *myfile = fopen("example.py", "r");
   //  is valid?
@@ -468,7 +500,7 @@ int main() {
   
   // Parse through the input:
   yyparse();
-  
+ 
 }
 
 

@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "parser.tab.h" // Get tokens from bison
-
+#include <string.h>
 
 
 
@@ -150,8 +150,9 @@ WHITESPACE	[ \t\v\n\f]
 "//"			{return DOUBLESLASH;}
 				
 {IDENTIFIER}		{	
-				yylval.nval.name = (yytext);
+				strcpy(yylval.nval.name, yytext);
 				yylval.nval.type = IDENT;
+				yylval.nval.data_type = LITERAL;
 				printf("IDENTIFIER: %s\n", yytext);
 				return IDENTIFIER;
 			}
@@ -159,6 +160,7 @@ WHITESPACE	[ \t\v\n\f]
 {DECINTEGER}		{	
 				yylval.nval.ival = atoi(yytext);
 				yylval.nval.type = INTEGER;
+				yylval.nval.data_type = LITERAL;
 				printf("DECINTEGER: %s\n", yytext);
 				return DECINTEGER;
 			}
@@ -166,6 +168,7 @@ WHITESPACE	[ \t\v\n\f]
 {OCTINTEGER}		{	
 				yylval.nval.ival = atoi(yytext);
 				yylval.nval.type = INTEGER;
+				yylval.nval.data_type = LITERAL;
 				printf("OCTINTEGER: %s\n", yytext);
 				return OCTINTEGER;
 			}
@@ -173,35 +176,43 @@ WHITESPACE	[ \t\v\n\f]
 {HEXINTEGER}		{	
 				yylval.nval.ival = atoi(yytext);
 				yylval.nval.type = INTEGER;
+				yylval.nval.data_type = LITERAL;
 				printf("HEXINTEGER: %s\n", yytext);
 				return HEXINTEGER;
 			}
 
 {POINTFLOAT}		{	yylval.nval.fval = atof(yytext);
 				yylval.nval.type = FLOAT;
+				yylval.nval.data_type = LITERAL;
 				printf("POINTFLOAT: %s\n", yytext);
 				return POINTFLOAT;
 			}
 					
 {EXPONENTFLOAT}		{	yylval.nval.fval = atof(yytext);
 				yylval.nval.type = FLOAT;
+				yylval.nval.data_type = LITERAL;
 				printf("EXPONENTFLOAT: %s\n", yytext);
 				return EXPONENTFLOAT;
 			}
 
-{IMAGNUMBER}		{
+{IMAGNUMBER}		{	
 				printf("IMAGNUMBER: %s\n", yytext);
 				return IMAGNUMBER;
 			}
 					
 
-{SHORTSTRING}		{	yylval.nval.name = yytext;
+{SHORTSTRING}		{	strcpy(yylval.nval.string, yytext);
 				yylval.nval.type = STRING;
+				yylval.nval.data_type = LITERAL;
 				printf("SHORTSTRING: %s\n", yytext);
 				return SHORTSTRING;
 			}
 
-{LONGSTRING}		{
+{LONGSTRING}		{	
+				
+				strcpy(yylval.nval.string, yytext);
+				yylval.nval.type = STRING;
+				yylval.nval.data_type = LITERAL	;
 				printf("LONGSTRING: %s\n", yytext);
 				return LONGSTRING;
 			}
