@@ -29,11 +29,17 @@ void freeArray(struct Array *a) {
 
 
 
-struct Variable value_assign (struct Variable var, struct Variable num){
-	var.data_type == VAR;
+struct Variable value_assign (struct Variable var, struct Variable num, struct Array *a){
+	
+	delete(a,var);
+	var = find_value(a, var,0);
+	
+	num = find_value(a, num,0);
+	
 
 	if(num.type == INTEGER){
 		var.ival = num.ival;
+		printf("111111111111111132323\n\n\n\n");
 		var.type = INTEGER;	}
 
 	else if(num.type == FLOAT){
@@ -43,6 +49,7 @@ struct Variable value_assign (struct Variable var, struct Variable num){
 		strcpy(var.string,num.string);
 		var.type = STRING;	}
 
+ 	var.data_type = VAR;
 
 return var;
 	
@@ -51,10 +58,10 @@ return var;
 struct Variable add_calc (struct Variable num1 , struct Variable num2, struct Array *a)
 { 	
 	if(num1.type == IDENT )
-		num1 = find_value(a,num1);
+		num1 = find_value(a,num1,1);
 
 	if(num2.type == IDENT )
-		num2 = find_value(a,num2);
+		num2 = find_value(a,num2,1);
 
 	if ( num1.type != num2.type){
 
@@ -92,14 +99,132 @@ struct Variable add_calc (struct Variable num1 , struct Variable num2, struct Ar
 			strcat(num1.string,num2.string);
 			return num1;		}
 
-}								}
+	}								
+}
+
+struct Variable minus_calc (struct Variable num1 , struct Variable num2, struct Array *a)
+{ 	
+	if(num1.type == IDENT )
+		num1 = find_value(a,num1,1);
+
+	if(num2.type == IDENT )
+		num2 = find_value(a,num2,1);
+
+	if ( num1.type != num2.type){
+
+		if(num1.type == INTEGER && num2.type == FLOAT){
+			num2.fval = (float)num1.ival - num2.fval;
+			return num2;	}
+
+		else if(num2.type == INTEGER && num1.type == FLOAT){
+			num1.fval = (float)num2.ival - num1.fval; 
+			return num1;	}
 		
+		else{
+			fprintf(stderr, "Data type error: unsupported operand type(s)");
+			exit(1);	}
+	}
+								
+		
+	else {
+		if(num1.type == INTEGER){
+			num1.ival = num1.ival - num2.ival;
+			return num1;
+						}
+		else if(num1.type == FLOAT){
+			num1.fval = num1.fval - num2.fval;	
+			return num1;		}
+		else{
+			fprintf(stderr, "Data type error: unsupported operand type(s)");
+			exit(1);	}
+
+	}								
+}		
+
+struct Variable div_calc (struct Variable num1 , struct Variable num2, struct Array *a)
+{ 	
+	if(num1.type == IDENT )
+		num1 = find_value(a,num1,1);
+
+	if(num2.type == IDENT )
+		num2 = find_value(a,num2,1);
+
+	if ( num1.type != num2.type){
+
+		if(num1.type == INTEGER && num2.type == FLOAT){
+			num2.fval = (float)num1.ival / num2.fval;
+			return num2;	}
+
+		else if(num2.type == INTEGER && num1.type == FLOAT){
+			num1.fval = (float)num2.ival / num1.fval; 
+			return num1;	}
+		
+		else{
+			fprintf(stderr, "Data type error: unsupported operand type(s)");
+			exit(1);	}
+	}
+								
+		
+	else {
+		if(num1.type == INTEGER){
+			num1.ival = num1.ival / num2.ival;
+			return num1;
+						}
+		else if(num1.type == FLOAT){
+			num1.fval = num1.fval / num2.fval;	
+			return num1;		}
+		else{
+			fprintf(stderr, "Data type error: unsupported operand type(s)");
+			exit(1);	}
+
+	}								
+}
+
+
+struct Variable mul_calc (struct Variable num1 , struct Variable num2, struct Array *a)
+{ 	
+	if(num1.type == IDENT )
+		num1 = find_value(a,num1,1);
+
+	if(num2.type == IDENT )
+		num2 = find_value(a,num2,1);
+
+	if ( num1.type != num2.type){
+
+		if(num1.type == INTEGER && num2.type == FLOAT){
+			num2.fval = (float)num1.ival * num2.fval;
+			return num2;	}
+
+		else if(num2.type == INTEGER && num1.type == FLOAT){
+			num1.fval = (float)num2.ival * num1.fval; 
+			return num1;	}
+		
+		else{
+			fprintf(stderr, "Data type error: unsupported operand type(s)");
+			exit(1);	}
+	}
+								
+		
+	else {
+		if(num1.type == INTEGER){
+			num1.ival = num1.ival * num2.ival;
+			return num1;
+						}
+		else if(num1.type == FLOAT){
+			num1.fval = num1.fval * num2.fval;	
+			return num1;		}
+		else{
+			fprintf(stderr, "Data type error: unsupported operand type(s)");
+			exit(1);	}
+
+	}								
+}
 
 
 void print ( struct Variable num, struct Array *a){
 	
 	if(num.type == IDENT)
-		num = find_value(a,num);
+		num = find_value(a,num,1);
 		
 	if(num.type == INTEGER)
 		printf("%d\n",num.ival);
@@ -116,19 +241,32 @@ void print ( struct Variable num, struct Array *a){
 
 }
 
-struct Variable find_value(struct Array *a, struct Variable num){
+struct Variable find_value(struct Array *a, struct Variable num,int check){
 	int i=0;
+	//struct Variable temp
 	while(i<a->used){
 		
 		if(strcmp(a->array[i].name,num.name) ==0){
 			a->array[i].data_type = VAR;
 			return a->array[i];
-						}
+		}
 		i++;					
-							}
-	fprintf(stderr, "Error: Variable %s has not defined !",num.name);
-	exit(1);
+	}
+	if(check){
+	fprintf(stderr, "Error: Variable %s has not been defined !",num.name);
+	exit(1);}
 	return num;
 }
 
-	
+void delete (struct Array *a, struct Variable num){
+	int i=0;
+	struct Variable temp;
+	while(i<a->used){
+		
+		if(strcmp(a->array[i].name,num.name) ==0){
+			a->array[i]=temp	;		
+		}
+		i++;					
+	}
+
+}

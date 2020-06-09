@@ -150,13 +150,13 @@ expression :
 	| LPAR expression RPAR
 	{$$ = $2;}
 	| expression PLUS expression
-	{printf("%s eweqweqweqeqwValue\n\n",$3.string); $$ = add_calc($1,$3,&variables);  }
+	{$$ = add_calc($1,$3,&variables);  }
 	| expression MINUS expression
-	//{$$ = $2;}
+	{$$ = minus_calc($1,$3,&variables);  }
 	| expression SLASH expression
-	//{$$ = $2;}
+	{$$ = div_calc($1,$3,&variables);  }
 	| expression STAR expression
-	//{$$ = $2;}
+	{$$ = mul_calc($1,$3,&variables);  }
 	
 	| expression assignment_op expression	
 	| expression arithmetic_op expression
@@ -179,7 +179,7 @@ atom:
 //----------------------- Assignment field ------------------------------------
 assignment_stmt:
 	assignment_stmt_targer_list expression_list
-	{insertArray(&variables,value_assign($1,$2)); }
+	{insertArray(&variables,value_assign($1,$2,&variables)); }
 	|assignment_stmt_targer_list call	
 	;
 		
@@ -482,14 +482,14 @@ imagnumber:
 %%
 
 
-int main() {
+int main(int argc, char** argv) {
 
   
   initArray(&variables, 5);  // initially 5 elements
    extern int yydebug;
     //yydebug = 1;
   // Open a file 
-  FILE *myfile = fopen("example.py", "r");
+  FILE *myfile = fopen(argv[1], "r");
   //  is valid?
   if (!myfile) {
     

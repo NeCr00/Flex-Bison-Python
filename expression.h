@@ -33,10 +33,14 @@ void insertArray(struct Array *a, struct Variable element) ;
 void freeArray(struct Array *a) ;
 
 //---------------------------------- Expressions functions --------------------------------
-struct Variable value_assign (struct Variable var, struct Variable num);
+struct Variable value_assign (struct Variable var, struct Variable num, struct Array *a);
 struct Variable add_calc (struct Variable num1 , struct Variable num2,struct Array *a);
+struct Variable minus_calc (struct Variable num1 , struct Variable num2,struct Array *a);
+struct Variable div_calc (struct Variable num1 , struct Variable num2,struct Array *a);
+struct Variable mul_calc (struct Variable num1 , struct Variable num2,struct Array *a);
 void print ( struct Variable num, struct Array *a);
-struct Variable find_value(struct Array *a, struct Variable num);
+struct Variable find_value(struct Array *a, struct Variable num,int check);
 void clean_buff(struct Variable num);
+void delete (struct Array *a, struct Variable num);
 #endif
 
