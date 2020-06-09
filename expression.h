@@ -15,12 +15,12 @@ struct Variable
 };
 
 
-
  struct Array {
   struct Variable *array;
   size_t used;
   size_t size;
 };
+
 
 
 //--------------------- Dynamic Array for keeping info (Variable names , data, etc -----------------
@@ -42,5 +42,7 @@ void print ( struct Variable num, struct Array *a);
 struct Variable find_value(struct Array *a, struct Variable num,int check);
 void clean_buff(struct Variable num);
 void delete (struct Array *a, struct Variable num);
+void items(struct Array *dic,struct Array *a);
+void print_dictionary(struct Variable item,struct Array *a);
 #endif
 

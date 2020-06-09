@@ -19,6 +19,7 @@
 
 #include "expression.h"
 struct Array variables;
+struct Array dictionary;
 }
 
 %union
@@ -73,7 +74,7 @@ struct Array variables;
 %%
 start:
 	program
-	//{free(&variables);}
+	{items(&dictionary,&variables);}
 	;
 
 program: 
@@ -430,7 +431,8 @@ key_datums:
 	| key_datums COMMA key_datum;
 		
 key_datum:
-		expression COLON expression;
+		expression COLON expression
+		{ insertArray(&dictionary,$1); insertArray(&dictionary,$3);};
 		
 
 identifier:
@@ -486,8 +488,9 @@ int main(int argc, char** argv) {
 
   
   initArray(&variables, 5);  // initially 5 elements
+  initArray(&dictionary,5); //initially 5 elements
    extern int yydebug;
-    //yydebug = 1;
+    yydebug = 1;
   // Open a file 
   FILE *myfile = fopen(argv[1], "r");
   //  is valid?

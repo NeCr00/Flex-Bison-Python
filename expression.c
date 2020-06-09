@@ -270,3 +270,34 @@ void delete (struct Array *a, struct Variable num){
 	}
 
 }
+
+void items(struct Array *dic,struct Array *a){
+	int i=0;
+	printf("{");
+	while(i< dic->used){
+		if(i % 2 ==0){
+			printf("(");
+			print_dictionary(dic->array[i],a);}
+		else{
+			print_dictionary(dic->array[i],a);
+			printf(")");}
+		i++;	
+		if(i< dic->used)
+			printf(",");
+	}
+	printf("}\n");
+}
+
+void print_dictionary(struct Variable item,struct Array *a){
+	if(item.type == IDENT)
+		item = find_value(a,item,1);
+		
+	if(item.type == INTEGER)
+		printf("%d",item.ival);
+	
+	else if (item.type == FLOAT)
+		printf("%f",item.fval);
+
+	else
+		printf("%s",item.string);
+}

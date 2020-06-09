@@ -1,6 +1,2 @@
-x = 1
-print(x)
-
-x = 5
-print(x)
-print(d)
+x=1
+d={'name':1,x:2,"ffff":"dddddd"}
