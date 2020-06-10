@@ -33,12 +33,12 @@ struct Array dictionary;
 
 %token FALSE NONE TRUE AND AS ASSERT BREAK CLASS CONTINUE DEF DEL ELIF ELSE EXCEPT FINALLY FOR FROM GLOBAL IF IMPORT COMMA DOT COL
 
-%token IN IS LAMBDA NOT OR COLON PASS RAISE RETURN TRY WHILE WITH YIELD PRINT EXEC   INC DEC EQUAL
+%token IN IS LAMBDA NOT OR COLON PASS RAISE RETURN TRY WHILE WITH YIELD PRINT EXEC   INC DEC EQUAL SETDEFAULT
 
-%token  LPAR RPAR  LESS_THAN_OP GREATER_THAN_OP MINUS AND_EXP NEWLINE LBRA RBRA PAPAKI QUOTATION APOSTROPHE
+%token  LPAR RPAR  LESS_THAN_OP GREATER_THAN_OP MINUS AND_EXP NEWLINE LBRA RBRA PAPAKI QUOTATION APOSTROPHE ITEMS
 
 
-%token ELLIPSIS RIGHT_ASSIGN LEFT_ASSIGN ADD_ASSIGN  EXA SUB_ASSIGN MUL_ASSIGN POW_ASSIGN DIV_ASSIGN MOD_ASSIGN AND_ASSIGN PERCENT OR_SIGN IMAGNUMBER
+%token ELLIPSIS RIGHT_ASSIGN LEFT_ASSIGN ADD_ASSIGN  EXA SUB_ASSIGN MUL_ASSIGN POW_ASSIGN DIV_ASSIGN MOD_ASSIGN AND_ASSIGN PERCENT OR_SIGN 
 
 %token XOR_ASSIGN OR_ASSIGN RIGHT_OP LEFT_OP PTR_OP LE_OP GE_OP EQ_OP NE_OP STAR DOUBLESTAR SLASH DOUBLESLASH RANGE  LR_OP PLUS XOR NOT_SIGN 
 
@@ -51,7 +51,9 @@ struct Array dictionary;
 %token<nval> 	IDENTIFIER 
 %token<nval> 	SHORTSTRING
 %token<nval> 	LONGSTRING
+%token<nval> 	IMAGNUMBER
 
+%type<nval>  	imagnumber
 %type<nval> 	identifier
 %type<nval>   	integer
 %type<nval>   	stringliteral 	 	 	
@@ -67,14 +69,15 @@ struct Array dictionary;
 %type<nval> 	expression_list
 %type<nval> 	attr_identifier
 %type<nval> 	longinteger
-
-
-
+%type<nval>  	call
+%type<nval>  	primary
+%type<nval>  	dict_display
+%type<nval>  	dict_setdefault
 
 %%
 start:
 	program
-	{items(&dictionary,&variables);}
+	{}
 	;
 
 program: 
@@ -96,6 +99,8 @@ statement:
 	| call
 	| return_stmt
 	| lambda_form
+	| dict_setdefault
+	| dict_items
 	; 
 
 
@@ -104,14 +109,20 @@ return_stmt:
 		| RETURN expression_list;
 call:
 	primary LPAR RPAR
+	{$$ = $1;}
 	| primary LPAR expression_list RPAR
+	{$$ = $1;}
 	| identifier EQUAL primary LPAR  RPAR
-	| identifier EQUAL primary LPAR expression_list RPAR;
+	{$$ = $1;}
+	| identifier EQUAL primary LPAR expression_list RPAR
+	{$$ = $1;};
 		
 
 primary:
 	identifier
+	{$$ = $1;}
 	|attr_identifier
+	{$$ = $1;}
 	;
 
 
@@ -126,10 +137,13 @@ print_stmt:
 		| PRINT expression
 		{print($2,&variables); }
 		| PRINT expression_list
+		{print($2,&variables); }
 		| PRINT RIGHT_OP expression
+		{print($3,&variables); }
 		| PRINT RIGHT_OP expression_list
-		| PRINT LPAR call RPAR;
-
+		{print($3,&variables); }
+		| PRINT LPAR call RPAR
+		{print($3,&variables); };
 
 		
 //----------------------- Expressions field ------------------------------------
@@ -139,8 +153,9 @@ print_stmt:
 
 expression_list:
 	expression_list COMMA expression
-	
+	{$$ = $3;}
 	|LPAR expression_list COMMA expression RPAR
+	{$$ = $4;}
 	| expression
 	{$$ = $1; };
 
@@ -173,7 +188,11 @@ atom:
 	|integer
 	{$$ = $1; }
 	| attr_identifier
-	| dict_display;
+	{$$ = $1; }
+	| dict_display
+	{$$ = $1; }
+	|dict_setdefault
+	{$$ = $1; };
 
 
 
@@ -198,7 +217,9 @@ target:
 	IDENTIFIER
 	{$$ = $1; }
 	|attr_identifier
-	|LPAR target_list RPAR;
+	{$$ = $1; }
+	|LPAR target_list RPAR
+	{$$ = $2; };
 
 
 //----------------------- Operators field ------------------------------------
@@ -257,7 +278,9 @@ literal:
 	| stringliteral
 	{$$ = $1; }
 	| longinteger
-	| imagnumber;
+	{$$ = $1; }
+	| imagnumber
+	{$$ = $1; };
 
 
 
@@ -416,6 +439,14 @@ classname:
 	
 //----------------------- etc -------------------------------------------------
 
+dict_items:
+identifier DOT ITEMS LPAR RPAR
+{items(&dictionary,&variables);};
+
+dict_setdefault:
+	identifier DOT SETDEFAULT LPAR expression COMMA expression RPAR
+	{setDefault($5,$7,&dictionary,&variables);};
+
 dict_display:
 	LBRA RBRA
 	| LBRA key_datum_list RBRA;
@@ -441,7 +472,7 @@ identifier:
 
 attr_identifier:
 	identifier
-	{$$ = $1; }
+	{$$ = $1; }	
 	| attr_identifier DOT identifier 
 	{$$ = $1;  }
 ;
@@ -478,7 +509,7 @@ floatnumber:
 ;	
 imagnumber:
 	IMAGNUMBER
-	//{$$ = $1;} 
+	{$$ = $1;} 
 ;
 
 %%
@@ -490,7 +521,7 @@ int main(int argc, char** argv) {
   initArray(&variables, 5);  // initially 5 elements
   initArray(&dictionary,5); //initially 5 elements
    extern int yydebug;
-    yydebug = 1;
+   // yydebug = 1;
   // Open a file 
   FILE *myfile = fopen(argv[1], "r");
   //  is valid?

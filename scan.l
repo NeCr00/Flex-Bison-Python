@@ -63,7 +63,7 @@ WHITESPACE	[ \t\v\n\f]
 "class"			{level++ ; flag = 1;  return CLASS;}
 "elif"			{level++ ; flag = 1;  return ELIF;}
 "else"			{level++ ; flag = 1;  return ELSE;}
-
+"setdefault"	{return SETDEFAULT;}
 "False"			{return FALSE;}
 "None"			{return NONE;}
 "True"			{return TRUE;}
@@ -93,7 +93,7 @@ WHITESPACE	[ \t\v\n\f]
 "range"			{return RANGE;}
 "print"			{return PRINT;}
 "exec"			{return EXEC;}
-
+"items"			{return ITEMS;}
 "L"			{return 'L';}
 "l"			{return 'l';}
 
@@ -153,7 +153,6 @@ WHITESPACE	[ \t\v\n\f]
 				strcpy(yylval.nval.name, yytext);
 				yylval.nval.type = IDENT;
 				yylval.nval.data_type = LITERAL;
-				printf("IDENTIFIER: %s\n", yytext);
 				return IDENTIFIER;
 			}
 
@@ -161,7 +160,6 @@ WHITESPACE	[ \t\v\n\f]
 				yylval.nval.ival = atoi(yytext);
 				yylval.nval.type = INTEGER;
 				yylval.nval.data_type = LITERAL;
-				printf("DECINTEGER: %s\n", yytext);
 				return DECINTEGER;
 			}
 					
@@ -169,7 +167,6 @@ WHITESPACE	[ \t\v\n\f]
 				yylval.nval.ival = atoi(yytext);
 				yylval.nval.type = INTEGER;
 				yylval.nval.data_type = LITERAL;
-				printf("OCTINTEGER: %s\n", yytext);
 				return OCTINTEGER;
 			}
 					
@@ -177,26 +174,25 @@ WHITESPACE	[ \t\v\n\f]
 				yylval.nval.ival = atoi(yytext);
 				yylval.nval.type = INTEGER;
 				yylval.nval.data_type = LITERAL;
-				printf("HEXINTEGER: %s\n", yytext);
 				return HEXINTEGER;
 			}
 
 {POINTFLOAT}		{	yylval.nval.fval = atof(yytext);
 				yylval.nval.type = FLOAT;
 				yylval.nval.data_type = LITERAL;
-				printf("POINTFLOAT: %s\n", yytext);
+				
 				return POINTFLOAT;
 			}
 					
 {EXPONENTFLOAT}		{	yylval.nval.fval = atof(yytext);
 				yylval.nval.type = FLOAT;
 				yylval.nval.data_type = LITERAL;
-				printf("EXPONENTFLOAT: %s\n", yytext);
+				
 				return EXPONENTFLOAT;
 			}
 
 {IMAGNUMBER}		{	
-				printf("IMAGNUMBER: %s\n", yytext);
+				
 				return IMAGNUMBER;
 			}
 					
@@ -204,7 +200,7 @@ WHITESPACE	[ \t\v\n\f]
 {SHORTSTRING}		{	strcpy(yylval.nval.string, yytext);
 				yylval.nval.type = STRING;
 				yylval.nval.data_type = LITERAL;
-				printf("SHORTSTRING: %s\n", yytext);
+				
 				return SHORTSTRING;
 			}
 
@@ -213,7 +209,7 @@ WHITESPACE	[ \t\v\n\f]
 				strcpy(yylval.nval.string, yytext);
 				yylval.nval.type = STRING;
 				yylval.nval.data_type = LITERAL	;
-				printf("LONGSTRING: %s\n", yytext);
+				
 				return LONGSTRING;
 			}
 					

@@ -44,5 +44,7 @@ void clean_buff(struct Variable num);
 void delete (struct Array *a, struct Variable num);
 void items(struct Array *dic,struct Array *a);
 void print_dictionary(struct Variable item,struct Array *a);
+void setDefault(struct Variable item1, struct Variable item2, struct Array *dic, struct Array *a);
+int find_key(struct Variable item, struct Variable key);
 #endif
 
