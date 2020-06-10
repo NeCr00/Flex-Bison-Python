@@ -8,10 +8,11 @@
   extern int yylex();
   extern int yyparse();
   extern FILE *yyin;
- 
+  extern int yylineno;
+   
   void yyerror(const char *s);
 
-
+int line;
 
 %}
 
@@ -25,7 +26,7 @@ struct Array dictionary;
 %union
 {
     struct Variable nval;
-   
+	
 }
 
 
@@ -75,18 +76,16 @@ struct Array dictionary;
 %type<nval>  	dict_setdefault
 
 %%
-start:
-	program
-	{}
-	;
+
 
 program: 
 	//empty
-	| statement_list;
+	| statement_list
+	;
 
 statement_list : 
 	statement_list statement 
-	| statement;
+	| statement{line++;};
 
 statement:
 	import_stmt 
@@ -522,6 +521,7 @@ int main(int argc, char** argv) {
   initArray(&dictionary,5); //initially 5 elements
    extern int yydebug;
    // yydebug = 1;
+
   // Open a file 
   FILE *myfile = fopen(argv[1], "r");
   //  is valid?
@@ -539,7 +539,7 @@ int main(int argc, char** argv) {
 
 
 void yyerror(const char* s) {
-	fprintf(stderr, "Parse error: %s\n", s);
+	fprintf(stderr, "Parse error in line %d\n", yylineno);
 	exit(1);
 }
 

@@ -1,3 +1,4 @@
+%option yylineno
 %{
 #include <stdlib.h>
 #include <stdio.h>
@@ -17,7 +18,7 @@ unsigned int line =0;
 void process_indent(char* line) ;
 void unputt(int leng);
 %}
-
+%option yylineno
 IDENTIFIER 	[a-zA-Z_][a-zA-Z0-9_]*
 
 DIGIT		[0-9]
@@ -197,7 +198,7 @@ WHITESPACE	[ \t\v\n\f]
 			}
 					
 
-{SHORTSTRING}		{	strcpy(yylval.nval.string, yytext);
+{SHORTSTRING}	{strcpy(yylval.nval.string, yytext);
 				yylval.nval.type = STRING;
 				yylval.nval.data_type = LITERAL;
 				
@@ -217,7 +218,7 @@ WHITESPACE	[ \t\v\n\f]
 
 {NEWLINE}		{
 				linee++;
-						
+				//return NEWLINE;	
 			}
  
 

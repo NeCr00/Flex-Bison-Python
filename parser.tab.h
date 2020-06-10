@@ -45,7 +45,7 @@
 extern int yydebug;
 #endif
 /* "%code requires" blocks.  */
-#line 18 "parser.y"
+#line 19 "parser.y"
 
 
 #include "expression.h"
@@ -166,10 +166,10 @@ struct Array dictionary;
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 26 "parser.y"
+#line 27 "parser.y"
 
     struct Variable nval;
-   
+	
 
 #line 175 "parser.tab.h"
 
