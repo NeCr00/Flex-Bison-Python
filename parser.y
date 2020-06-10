@@ -168,7 +168,7 @@ expression :
 	| expression PLUS expression
 	{$$ = add_calc($1,$3,&variables);  }
 	| expression MINUS expression
-	{$$ = minus_calc($1,$3,&variables);  }
+	{$$ = minus_calc($1,$3,&variables); printf("value is : %f\n",$$.fval); }
 	| expression SLASH expression
 	{$$ = div_calc($1,$3,&variables);  }
 	| expression STAR expression
@@ -199,7 +199,7 @@ atom:
 //----------------------- Assignment field ------------------------------------
 assignment_stmt:
 	assignment_stmt_targer_list expression_list
-	{insertArray(&variables,value_assign($1,$2,&variables)); }
+	{insertArray(&variables,value_assign($1,$2,&variables)); printf("value isddd : %f\n",$2.fval); }
 	|assignment_stmt_targer_list call	
 	;
 		

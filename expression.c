@@ -33,8 +33,8 @@ struct Variable value_assign(struct Variable var, struct Variable num, struct Ar
 
 	delete (a, var);
 	var = find_value(a, var, 0);
-
-	num = find_value(a, num, 0);
+	if(num.type == IDENT)
+		num = find_value(a, num, 0);
 
 	if (num.type == INTEGER)
 	{
@@ -269,12 +269,12 @@ struct Variable mul_calc(struct Variable num1, struct Variable num2, struct Arra
 	}
 }
 
-void print(struct Variable num, struct Array *a)
-{
+void print(struct Variable num, struct Array *a) 
+{	
 
 	if (num.type == IDENT)
 		num = find_value(a, num, 1);
-
+	
 	if (num.type == INTEGER)
 		printf("%d\n", num.ival);
 
@@ -283,7 +283,7 @@ void print(struct Variable num, struct Array *a)
 
 	else
 	{
-		if (num.string[0] == '"')
+		if (num.string[0] == '"' || num.string[0] == 39  ) //39 equals to ' in ascii. This if removes ' " 
 		{
 			memmove(&num.string[0], &num.string[1], strlen(num.string));
 			num.string[strlen(num.string) - 1] = 0;
@@ -292,13 +292,13 @@ void print(struct Variable num, struct Array *a)
 	}
 }
 
-struct Variable find_value(struct Array *a, struct Variable num, int check)
+struct Variable find_value(struct Array *a, struct Variable num, int check) //Searching value if already has been assigned
 {
 	int i = 0;
 	//struct Variable temp
 	while (i < a->used)
 	{
-
+		
 		if (strcmp(a->array[i].name, num.name) == 0)
 		{
 			a->array[i].data_type = VAR;
@@ -306,15 +306,16 @@ struct Variable find_value(struct Array *a, struct Variable num, int check)
 		}
 		i++;
 	}
+	
 	if (check)
 	{
-		fprintf(stderr, "Error: Variable %s has not been defined !", num.name);
+		fprintf(stderr, "Error: Variable %s has not been defined !", num.name); 
 		exit(1);
 	}
 	return num;
 }
 
-void delete (struct Array *a, struct Variable num)
+void delete (struct Array *a, struct Variable num) //Deletes a var,active when we want to reassign a new value in existing var
 {
 	int i = 0;
 	struct Variable temp;
@@ -329,7 +330,7 @@ void delete (struct Array *a, struct Variable num)
 	}
 }
 
-void items(struct Array *dic, struct Array *a)
+void items(struct Array *dic, struct Array *a) //Dictionary items() method
 {
 	int i = 0;
 	printf("{");

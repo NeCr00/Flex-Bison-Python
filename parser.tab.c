@@ -1994,7 +1994,7 @@ yyreduce:
 
   case 41:
 #line 171 "parser.y"
-        {(yyval.nval) = minus_calc((yyvsp[-2].nval),(yyvsp[0].nval),&variables);  }
+        {(yyval.nval) = minus_calc((yyvsp[-2].nval),(yyvsp[0].nval),&variables); printf("value is : %f\n",(yyval.nval).fval); }
 #line 1999 "parser.tab.c"
     break;
 
@@ -2048,7 +2048,7 @@ yyreduce:
 
   case 55:
 #line 202 "parser.y"
-        {insertArray(&variables,value_assign((yyvsp[-1].nval),(yyvsp[0].nval),&variables)); }
+        {insertArray(&variables,value_assign((yyvsp[-1].nval),(yyvsp[0].nval),&variables)); printf("value isddd : %f\n",(yyvsp[0].nval).fval); }
 #line 2053 "parser.tab.c"
     break;
 
