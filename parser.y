@@ -36,7 +36,7 @@ struct Array dictionary;
 
 %token IN IS LAMBDA NOT OR COLON PASS RAISE RETURN TRY WHILE WITH YIELD PRINT EXEC   INC DEC EQUAL SETDEFAULT
 
-%token  LPAR RPAR  LESS_THAN_OP GREATER_THAN_OP MINUS AND_EXP NEWLINE LBRA RBRA PAPAKI QUOTATION APOSTROPHE ITEMS
+%token   LPAR RPAR  LESS_THAN_OP GREATER_THAN_OP MINUS AND_EXP NEWLINE LBRA RBRA PAPAKI QUOTATION APOSTROPHE ITEMS
 
 
 %token ELLIPSIS RIGHT_ASSIGN LEFT_ASSIGN ADD_ASSIGN  EXA SUB_ASSIGN MUL_ASSIGN POW_ASSIGN DIV_ASSIGN MOD_ASSIGN AND_ASSIGN PERCENT OR_SIGN 
@@ -198,7 +198,7 @@ atom:
 //----------------------- Assignment field ------------------------------------
 assignment_stmt:
 	assignment_stmt_targer_list expression_list
-	{insertArray(&variables,value_assign($1,$2,&variables)); printf("value isddd : %f\n",$2.fval); }
+	{insertArray(&variables,value_assign($1,$2,&variables));  }
 	|assignment_stmt_targer_list call	
 	;
 		
@@ -465,16 +465,19 @@ key_datum:
 		{ insertArray(&dictionary,$1); insertArray(&dictionary,$3);};
 		
 
-identifier:
-		IDENTIFIER
-		{$$ = $1;  } ;
-
 attr_identifier:
 	identifier
 	{$$ = $1; }	
 	| attr_identifier DOT identifier 
 	{$$ = $1;  }
+	| identifier DOT identifier 
 ;
+
+identifier:
+		IDENTIFIER
+		{$$ = $1;  } ;
+
+
 	
 stringliteral:
 	SHORTSTRING
@@ -520,7 +523,7 @@ int main(int argc, char** argv) {
   initArray(&variables, 5);  // initially 5 elements
   initArray(&dictionary,5); //initially 5 elements
    extern int yydebug;
-   // yydebug = 1;
+   //yydebug = 1;
 
   // Open a file 
   FILE *myfile = fopen(argv[1], "r");
