@@ -21,6 +21,7 @@ int line;
 #include "expression.h"
 struct Array variables;
 struct Array dictionary;
+struct Array functions;
 }
 
 %union
@@ -36,12 +37,16 @@ struct Array dictionary;
 
 %token IN IS LAMBDA NOT OR COLON PASS RAISE RETURN TRY WHILE WITH YIELD PRINT EXEC   INC DEC EQUAL SETDEFAULT
 
-%token   LPAR RPAR  LESS_THAN_OP GREATER_THAN_OP MINUS AND_EXP NEWLINE LBRA RBRA PAPAKI QUOTATION APOSTROPHE ITEMS
+%token   LPAR RPAR  LESS_THAN_OP GREATER_THAN_OP  AND_EXP NEWLINE LBRA RBRA PAPAKI QUOTATION APOSTROPHE ITEMS
 
 
 %token ELLIPSIS RIGHT_ASSIGN LEFT_ASSIGN ADD_ASSIGN  EXA SUB_ASSIGN MUL_ASSIGN POW_ASSIGN DIV_ASSIGN MOD_ASSIGN AND_ASSIGN PERCENT OR_SIGN 
 
-%token XOR_ASSIGN OR_ASSIGN RIGHT_OP LEFT_OP PTR_OP LE_OP GE_OP EQ_OP NE_OP STAR DOUBLESTAR SLASH DOUBLESLASH RANGE  LR_OP PLUS XOR NOT_SIGN 
+%token XOR_ASSIGN OR_ASSIGN RIGHT_OP LEFT_OP PTR_OP LE_OP GE_OP EQ_OP NE_OP  DOUBLESTAR  DOUBLESLASH RANGE  LR_OP  XOR NOT_SIGN 
+
+
+%left  PLUS MINUS
+%left  STAR SLASH 
 
 
 %token<nval> 	DECINTEGER 
@@ -74,6 +79,11 @@ struct Array dictionary;
 %type<nval>  	primary
 %type<nval>  	dict_display
 %type<nval>  	dict_setdefault
+
+%type<nval>  	lam_parameters
+%type<nval>  	lambda_form
+%type<nval>  	funcname
+
 
 %%
 
@@ -108,13 +118,13 @@ return_stmt:
 		| RETURN expression_list;
 call:
 	primary LPAR RPAR
-	{$$ = $1;}
+	{$$ = $1; fun_check(&functions,$1);}
 	| primary LPAR expression_list RPAR
-	{$$ = $1;}
+	{$$ = $1; fun_check(&functions,$1);}
 	| identifier EQUAL primary LPAR  RPAR
-	{$$ = $1;}
+	{$$ = $1; fun_check(&functions,$3);}
 	| identifier EQUAL primary LPAR expression_list RPAR
-	{$$ = $1;};
+	{$$ = $1; fun_check(&functions,$3);}
 		
 
 primary:
@@ -125,9 +135,21 @@ primary:
 	;
 
 
+	
+
 lambda_form:
 	LAMBDA COLON expression
-	| LAMBDA parameter_list COLON expression;	
+	| LAMBDA lam_parameters COLON expression
+	;
+
+
+lam_parameters:
+	|identifier
+	{$$ = $1; $$.type = LAM ;insertArray(&variables, $$); }
+	|attr_identifier
+	|lam_parameters COMMA identifier
+	|lam_parameters COMMA attr_identifier;
+
 
 //----------------------- Print field ------------------------------------
 
@@ -159,25 +181,27 @@ expression_list:
 	{$$ = $1; };
 
 
-expression : 
+expression: 
 	atom
 	{$$ = $1; }
-	| LPAR expression RPAR
-	{$$ = $2;}
+	
 	| expression PLUS expression
-	{$$ = add_calc($1,$3,&variables);  }
+	{$$ = add_calc($1,$3,&variables,1);  }
 	| expression MINUS expression
-	{$$ = minus_calc($1,$3,&variables); printf("value is : %f\n",$$.fval); }
-	| expression SLASH expression
-	{$$ = div_calc($1,$3,&variables);  }
+	{$$ = minus_calc($1,$3,&variables,1);  }
 	| expression STAR expression
-	{$$ = mul_calc($1,$3,&variables);  }
+	{$$ = mul_calc($1,$3,&variables,1); }
+	| expression SLASH expression
+	{$$ = div_calc($1,$3,&variables,1);  }
+	
 	
 	| expression assignment_op expression	
 	| expression arithmetic_op expression
 	| expression comparison_op expression
 	| expression logical_op expression
 	| expression bitwise_op expression;
+	| LPAR expression RPAR
+	{$$ = $2;}
 	
 atom:
 	literal
@@ -199,13 +223,19 @@ atom:
 assignment_stmt:
 	assignment_stmt_targer_list expression_list
 	{insertArray(&variables,value_assign($1,$2,&variables));  }
+
 	|assignment_stmt_targer_list call	
+
+	|assignment_stmt_targer_list lambda_form
+	{insertArray(&variables,value_assign($1,$2,&variables));}
 	;
 		
 assignment_stmt_targer_list:
 	target_list EQUAL
 	{$$ = $1; }
 	| assignment_stmt_targer_list target_list EQUAL;
+
+	
 target_list:
 	target
 	{$$ = $1; }
@@ -421,7 +451,8 @@ parameters:
 	| parameters COMMA parameter;
 		
 funcname:
-	identifier;
+	identifier
+{$$ = $1; $$.type = FUNCTION; insertArray(&functions, $$);};
 
 //=================================== Class ===========================================
 
@@ -521,9 +552,11 @@ int main(int argc, char** argv) {
 
   
   initArray(&variables, 5);  // initially 5 elements
-  initArray(&dictionary,5); //initially 5 elements
+  initArray(&dictionary,5);
+  initArray(&functions,5);  //initially 5 elements
+
    extern int yydebug;
-   //yydebug = 1;
+   yydebug = 1;
 
   // Open a file 
   FILE *myfile = fopen(argv[1], "r");

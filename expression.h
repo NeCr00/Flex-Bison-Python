@@ -3,7 +3,7 @@
 
 struct Variable
 {
-    enum { INTEGER, FLOAT, IDENT, STRING } type;
+    enum { INTEGER, FLOAT, IDENT, STRING, LAM, FUNCTION } type;
     enum { VAR =1, LITERAL =2 } data_type;
     union
     {
@@ -34,10 +34,10 @@ void freeArray(struct Array *a) ;
 
 //---------------------------------- Expressions functions --------------------------------
 struct Variable value_assign (struct Variable var, struct Variable num, struct Array *a);
-struct Variable add_calc (struct Variable num1 , struct Variable num2,struct Array *a);
-struct Variable minus_calc (struct Variable num1 , struct Variable num2,struct Array *a);
-struct Variable div_calc (struct Variable num1 , struct Variable num2,struct Array *a);
-struct Variable mul_calc (struct Variable num1 , struct Variable num2,struct Array *a);
+struct Variable add_calc (struct Variable num1 , struct Variable num2,struct Array *a, int check);
+struct Variable minus_calc (struct Variable num1 , struct Variable num2,struct Array *a,int check);
+struct Variable div_calc (struct Variable num1 , struct Variable num2,struct Array *a,int check);
+struct Variable mul_calc (struct Variable num1 , struct Variable num2,struct Array *a,int check);
 void print ( struct Variable num, struct Array *a);
 struct Variable find_value(struct Array *a, struct Variable num,int check);
 void clean_buff(struct Variable num);
@@ -46,5 +46,6 @@ void items(struct Array *dic,struct Array *a);
 void print_dictionary(struct Variable item,struct Array *a);
 void setDefault(struct Variable item1, struct Variable item2, struct Array *dic, struct Array *a);
 int find_key(struct Variable item, struct Variable key);
+void fun_check(struct Array *functions, struct Variable fun);
 #endif
 

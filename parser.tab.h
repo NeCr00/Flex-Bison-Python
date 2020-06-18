@@ -1,4 +1,4 @@
-/* A Bison parser, made by GNU Bison 3.5.3.  */
+/* A Bison parser, made by GNU Bison 3.6.1.  */
 
 /* Bison interface for Yacc-like parsers in C
 
@@ -31,8 +31,9 @@
    This special exception was added by the Free Software Foundation in
    version 2.2 of Bison.  */
 
-/* Undocumented macros, especially those whose name start with YY_,
-   are private implementation details.  Do not rely on them.  */
+/* DO NOT RELY ON FEATURES THAT ARE NOT DOCUMENTED in the manual,
+   especially those whose name start with YY_ or yy_.  They are
+   private implementation details that can be changed or removed.  */
 
 #ifndef YY_YY_PARSER_TAB_H_INCLUDED
 # define YY_YY_PARSER_TAB_H_INCLUDED
@@ -50,122 +51,128 @@ extern int yydebug;
 #include "expression.h"
 struct Array variables;
 struct Array dictionary;
+struct Array functions;
 
-#line 55 "parser.tab.h"
+#line 57 "parser.tab.h"
 
-/* Token type.  */
+/* Token kinds.  */
 #ifndef YYTOKENTYPE
 # define YYTOKENTYPE
   enum yytokentype
   {
-    FALSE = 258,
-    NONE = 259,
-    TRUE = 260,
-    AND = 261,
-    AS = 262,
-    ASSERT = 263,
-    BREAK = 264,
-    CLASS = 265,
-    CONTINUE = 266,
-    DEF = 267,
-    DEL = 268,
-    ELIF = 269,
-    ELSE = 270,
-    EXCEPT = 271,
-    FINALLY = 272,
-    FOR = 273,
-    FROM = 274,
-    GLOBAL = 275,
-    IF = 276,
-    IMPORT = 277,
-    COMMA = 278,
-    DOT = 279,
-    COL = 280,
-    IN = 281,
-    IS = 282,
-    LAMBDA = 283,
-    NOT = 284,
-    OR = 285,
-    COLON = 286,
-    PASS = 287,
-    RAISE = 288,
-    RETURN = 289,
-    TRY = 290,
-    WHILE = 291,
-    WITH = 292,
-    YIELD = 293,
-    PRINT = 294,
-    EXEC = 295,
-    INC = 296,
-    DEC = 297,
-    EQUAL = 298,
-    SETDEFAULT = 299,
-    LPAR = 300,
-    RPAR = 301,
-    LESS_THAN_OP = 302,
-    GREATER_THAN_OP = 303,
-    MINUS = 304,
-    AND_EXP = 305,
-    NEWLINE = 306,
-    LBRA = 307,
-    RBRA = 308,
-    PAPAKI = 309,
-    QUOTATION = 310,
-    APOSTROPHE = 311,
-    ITEMS = 312,
-    ELLIPSIS = 313,
-    RIGHT_ASSIGN = 314,
-    LEFT_ASSIGN = 315,
-    ADD_ASSIGN = 316,
-    EXA = 317,
-    SUB_ASSIGN = 318,
-    MUL_ASSIGN = 319,
-    POW_ASSIGN = 320,
-    DIV_ASSIGN = 321,
-    MOD_ASSIGN = 322,
-    AND_ASSIGN = 323,
-    PERCENT = 324,
-    OR_SIGN = 325,
-    XOR_ASSIGN = 326,
-    OR_ASSIGN = 327,
-    RIGHT_OP = 328,
-    LEFT_OP = 329,
-    PTR_OP = 330,
-    LE_OP = 331,
-    GE_OP = 332,
-    EQ_OP = 333,
-    NE_OP = 334,
-    STAR = 335,
-    DOUBLESTAR = 336,
-    SLASH = 337,
-    DOUBLESLASH = 338,
-    RANGE = 339,
-    LR_OP = 340,
-    PLUS = 341,
-    XOR = 342,
-    NOT_SIGN = 343,
-    DECINTEGER = 344,
-    OCTINTEGER = 345,
-    HEXINTEGER = 346,
-    POINTFLOAT = 347,
-    EXPONENTFLOAT = 348,
-    IDENTIFIER = 349,
-    SHORTSTRING = 350,
-    LONGSTRING = 351,
-    IMAGNUMBER = 352
+    YYEMPTY = -2,
+    YYEOF = 0,                     /* "end of file"  */
+    YYerror = 256,                 /* error  */
+    YYUNDEF = 257,                 /* "invalid token"  */
+    FALSE = 258,                   /* FALSE  */
+    NONE = 259,                    /* NONE  */
+    TRUE = 260,                    /* TRUE  */
+    AND = 261,                     /* AND  */
+    AS = 262,                      /* AS  */
+    ASSERT = 263,                  /* ASSERT  */
+    BREAK = 264,                   /* BREAK  */
+    CLASS = 265,                   /* CLASS  */
+    CONTINUE = 266,                /* CONTINUE  */
+    DEF = 267,                     /* DEF  */
+    DEL = 268,                     /* DEL  */
+    ELIF = 269,                    /* ELIF  */
+    ELSE = 270,                    /* ELSE  */
+    EXCEPT = 271,                  /* EXCEPT  */
+    FINALLY = 272,                 /* FINALLY  */
+    FOR = 273,                     /* FOR  */
+    FROM = 274,                    /* FROM  */
+    GLOBAL = 275,                  /* GLOBAL  */
+    IF = 276,                      /* IF  */
+    IMPORT = 277,                  /* IMPORT  */
+    COMMA = 278,                   /* COMMA  */
+    DOT = 279,                     /* DOT  */
+    COL = 280,                     /* COL  */
+    IN = 281,                      /* IN  */
+    IS = 282,                      /* IS  */
+    LAMBDA = 283,                  /* LAMBDA  */
+    NOT = 284,                     /* NOT  */
+    OR = 285,                      /* OR  */
+    COLON = 286,                   /* COLON  */
+    PASS = 287,                    /* PASS  */
+    RAISE = 288,                   /* RAISE  */
+    RETURN = 289,                  /* RETURN  */
+    TRY = 290,                     /* TRY  */
+    WHILE = 291,                   /* WHILE  */
+    WITH = 292,                    /* WITH  */
+    YIELD = 293,                   /* YIELD  */
+    PRINT = 294,                   /* PRINT  */
+    EXEC = 295,                    /* EXEC  */
+    INC = 296,                     /* INC  */
+    DEC = 297,                     /* DEC  */
+    EQUAL = 298,                   /* EQUAL  */
+    SETDEFAULT = 299,              /* SETDEFAULT  */
+    LPAR = 300,                    /* LPAR  */
+    RPAR = 301,                    /* RPAR  */
+    LESS_THAN_OP = 302,            /* LESS_THAN_OP  */
+    GREATER_THAN_OP = 303,         /* GREATER_THAN_OP  */
+    AND_EXP = 304,                 /* AND_EXP  */
+    NEWLINE = 305,                 /* NEWLINE  */
+    LBRA = 306,                    /* LBRA  */
+    RBRA = 307,                    /* RBRA  */
+    PAPAKI = 308,                  /* PAPAKI  */
+    QUOTATION = 309,               /* QUOTATION  */
+    APOSTROPHE = 310,              /* APOSTROPHE  */
+    ITEMS = 311,                   /* ITEMS  */
+    ELLIPSIS = 312,                /* ELLIPSIS  */
+    RIGHT_ASSIGN = 313,            /* RIGHT_ASSIGN  */
+    LEFT_ASSIGN = 314,             /* LEFT_ASSIGN  */
+    ADD_ASSIGN = 315,              /* ADD_ASSIGN  */
+    EXA = 316,                     /* EXA  */
+    SUB_ASSIGN = 317,              /* SUB_ASSIGN  */
+    MUL_ASSIGN = 318,              /* MUL_ASSIGN  */
+    POW_ASSIGN = 319,              /* POW_ASSIGN  */
+    DIV_ASSIGN = 320,              /* DIV_ASSIGN  */
+    MOD_ASSIGN = 321,              /* MOD_ASSIGN  */
+    AND_ASSIGN = 322,              /* AND_ASSIGN  */
+    PERCENT = 323,                 /* PERCENT  */
+    OR_SIGN = 324,                 /* OR_SIGN  */
+    XOR_ASSIGN = 325,              /* XOR_ASSIGN  */
+    OR_ASSIGN = 326,               /* OR_ASSIGN  */
+    RIGHT_OP = 327,                /* RIGHT_OP  */
+    LEFT_OP = 328,                 /* LEFT_OP  */
+    PTR_OP = 329,                  /* PTR_OP  */
+    LE_OP = 330,                   /* LE_OP  */
+    GE_OP = 331,                   /* GE_OP  */
+    EQ_OP = 332,                   /* EQ_OP  */
+    NE_OP = 333,                   /* NE_OP  */
+    DOUBLESTAR = 334,              /* DOUBLESTAR  */
+    DOUBLESLASH = 335,             /* DOUBLESLASH  */
+    RANGE = 336,                   /* RANGE  */
+    LR_OP = 337,                   /* LR_OP  */
+    XOR = 338,                     /* XOR  */
+    NOT_SIGN = 339,                /* NOT_SIGN  */
+    PLUS = 340,                    /* PLUS  */
+    MINUS = 341,                   /* MINUS  */
+    STAR = 342,                    /* STAR  */
+    SLASH = 343,                   /* SLASH  */
+    DECINTEGER = 344,              /* DECINTEGER  */
+    OCTINTEGER = 345,              /* OCTINTEGER  */
+    HEXINTEGER = 346,              /* HEXINTEGER  */
+    POINTFLOAT = 347,              /* POINTFLOAT  */
+    EXPONENTFLOAT = 348,           /* EXPONENTFLOAT  */
+    IDENTIFIER = 349,              /* IDENTIFIER  */
+    SHORTSTRING = 350,             /* SHORTSTRING  */
+    LONGSTRING = 351,              /* LONGSTRING  */
+    IMAGNUMBER = 352               /* IMAGNUMBER  */
   };
+  typedef enum yytokentype yytoken_kind_t;
 #endif
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 27 "parser.y"
+#line 28 "parser.y"
 
     struct Variable nval;
 	
 
-#line 169 "parser.tab.h"
+#line 176 "parser.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;

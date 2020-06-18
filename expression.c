@@ -33,7 +33,7 @@ struct Variable value_assign(struct Variable var, struct Variable num, struct Ar
 
 	delete (a, var);
 	var = find_value(a, var, 0);
-	if(num.type == IDENT)
+	if (num.type == IDENT)
 		num = find_value(a, num, 0);
 
 	if (num.type == INTEGER)
@@ -58,13 +58,13 @@ struct Variable value_assign(struct Variable var, struct Variable num, struct Ar
 	return var;
 }
 
-struct Variable add_calc(struct Variable num1, struct Variable num2, struct Array *a)
+struct Variable add_calc(struct Variable num1, struct Variable num2, struct Array *a, int check)
 {
 	if (num1.type == IDENT)
-		num1 = find_value(a, num1, 1);
+		num1 = find_value(a, num1, check);
 
 	if (num2.type == IDENT)
-		num2 = find_value(a, num2, 1);
+		num2 = find_value(a, num2, check);
 
 	if (num1.type != num2.type)
 	{
@@ -81,7 +81,9 @@ struct Variable add_calc(struct Variable num1, struct Variable num2, struct Arra
 			return num1;
 		}
 
-		else
+		
+
+		else if( !(num2.type == LAM | num1.type == LAM))
 		{
 			fprintf(stderr, "Data type error: unsupported operand type(s)");
 			exit(1);
@@ -119,13 +121,13 @@ struct Variable add_calc(struct Variable num1, struct Variable num2, struct Arra
 	}
 }
 
-struct Variable minus_calc(struct Variable num1, struct Variable num2, struct Array *a)
+struct Variable minus_calc(struct Variable num1, struct Variable num2, struct Array *a, int check)
 {
 	if (num1.type == IDENT)
-		num1 = find_value(a, num1, 1);
+		num1 = find_value(a, num1, check);
 
 	if (num2.type == IDENT)
-		num2 = find_value(a, num2, 1);
+		num2 = find_value(a, num2, check);
 
 	if (num1.type != num2.type)
 	{
@@ -139,6 +141,10 @@ struct Variable minus_calc(struct Variable num1, struct Variable num2, struct Ar
 		else if (num2.type == INTEGER && num1.type == FLOAT)
 		{
 			num1.fval = (float)num2.ival - num1.fval;
+			return num1;
+		}
+		else if (num2.type == LAM | num1.type == LAM)
+		{
 			return num1;
 		}
 
@@ -169,13 +175,13 @@ struct Variable minus_calc(struct Variable num1, struct Variable num2, struct Ar
 	}
 }
 
-struct Variable div_calc(struct Variable num1, struct Variable num2, struct Array *a)
+struct Variable div_calc(struct Variable num1, struct Variable num2, struct Array *a, int check)
 {
 	if (num1.type == IDENT)
-		num1 = find_value(a, num1, 1);
+		num1 = find_value(a, num1, check);
 
 	if (num2.type == IDENT)
-		num2 = find_value(a, num2, 1);
+		num2 = find_value(a, num2, check);
 
 	if (num1.type != num2.type)
 	{
@@ -189,6 +195,10 @@ struct Variable div_calc(struct Variable num1, struct Variable num2, struct Arra
 		else if (num2.type == INTEGER && num1.type == FLOAT)
 		{
 			num1.fval = (float)num2.ival / num1.fval;
+			return num1;
+		}
+		else if (num2.type == LAM | num1.type == LAM)
+		{
 			return num1;
 		}
 
@@ -219,13 +229,13 @@ struct Variable div_calc(struct Variable num1, struct Variable num2, struct Arra
 	}
 }
 
-struct Variable mul_calc(struct Variable num1, struct Variable num2, struct Array *a)
+struct Variable mul_calc(struct Variable num1, struct Variable num2, struct Array *a, int check)
 {
 	if (num1.type == IDENT)
-		num1 = find_value(a, num1, 1);
+		num1 = find_value(a, num1, check);
 
 	if (num2.type == IDENT)
-		num2 = find_value(a, num2, 1);
+		num2 = find_value(a, num2, check);
 
 	if (num1.type != num2.type)
 	{
@@ -239,6 +249,11 @@ struct Variable mul_calc(struct Variable num1, struct Variable num2, struct Arra
 		else if (num2.type == INTEGER && num1.type == FLOAT)
 		{
 			num1.fval = (float)num2.ival * num1.fval;
+			return num1;
+		}
+
+		else if (num2.type == LAM | num1.type == LAM)
+		{
 			return num1;
 		}
 
@@ -269,12 +284,12 @@ struct Variable mul_calc(struct Variable num1, struct Variable num2, struct Arra
 	}
 }
 
-void print(struct Variable num, struct Array *a) 
-{	
+void print(struct Variable num, struct Array *a)
+{
 
 	if (num.type == IDENT)
 		num = find_value(a, num, 1);
-	
+
 	if (num.type == INTEGER)
 		printf("%d\n", num.ival);
 
@@ -283,7 +298,7 @@ void print(struct Variable num, struct Array *a)
 
 	else
 	{
-		if (num.string[0] == '"' || num.string[0] == 39  ) //39 equals to ' in ascii. This if removes ' " 
+		if (num.string[0] == '"' || num.string[0] == 39) //39 equals to ' in ascii. This if removes ' "
 		{
 			memmove(&num.string[0], &num.string[1], strlen(num.string));
 			num.string[strlen(num.string) - 1] = 0;
@@ -298,7 +313,7 @@ struct Variable find_value(struct Array *a, struct Variable num, int check) //Se
 	//struct Variable temp
 	while (i < a->used)
 	{
-		
+
 		if (strcmp(a->array[i].name, num.name) == 0)
 		{
 			a->array[i].data_type = VAR;
@@ -306,10 +321,10 @@ struct Variable find_value(struct Array *a, struct Variable num, int check) //Se
 		}
 		i++;
 	}
-	
+
 	if (check)
 	{
-		fprintf(stderr, "Error: Variable %s has not been defined !", num.name); 
+		fprintf(stderr, "Error: Variable %s has not been defined !", num.name);
 		exit(1);
 	}
 	return num;
@@ -356,33 +371,33 @@ void items(struct Array *dic, struct Array *a) //Dictionary items() method
 void setDefault(struct Variable item1, struct Variable item2, struct Array *dic, struct Array *a)
 {
 	//find the key
-	int i = 0, found = 0,element =0;
+	int i = 0, found = 0, element = 0;
 	while (i < dic->used)
-	{	
-		
+	{
+
 		if (i % 2 == 0)
 		{
 			found = find_key(item1, dic->array[i]);
-			element =i;
-			
+			element = i;
 		}
 		i++;
 	}
 
-	if (found){
+	if (found)
+	{
 		print_dictionary(dic->array[element + 1], a);
-		printf("\n");}
+		printf("\n");
+	}
 	else
 	{
 		insertArray(dic, item1);
 		insertArray(dic, item2);
-		
 	}
 }
 
 void print_dictionary(struct Variable item, struct Array *a)
 {
-	
+
 	if (item.type == IDENT)
 		item = find_value(a, item, 1);
 
@@ -412,5 +427,25 @@ int find_key(struct Variable item, struct Variable key)
 		else
 
 			return 0;
+	}
+}
+
+void fun_check(struct Array *functions, struct Variable fun){
+	int i = 0;
+	int check =0;
+	while (i < functions->used)
+	{
+
+		if (strcmp(functions->array[i].name, fun.name) == 0)
+		{
+			check =1;
+		}
+		i++;
+	}
+
+	if (!check)
+	{
+		fprintf(stderr, "Error: Function %s has not been defined !", fun.name);
+		exit(1);
 	}
 }
