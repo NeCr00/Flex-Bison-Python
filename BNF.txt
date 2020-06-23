@@ -16,37 +16,37 @@
 
 <statement> ::=
 
-		<import_stmt> 
+	<import_stmt> 
 
-	|	<assignment_stmt>
+	| <assignment_stmt>
 
-	| 	<if_stmt>
+	| <if_stmt>
 
-	|	<for_stmt>
+	| <for_stmt>
 
-	| 	<print_stmt>
+	| <print_stmt>
 
-	|	<funcdef>
+	| <funcdef>
 
-	| 	<classdef>
+	| <classdef>
 
-	|	<call>
+	| <call>
 
-	| 	<return_stmt>
+	| <return_stmt>
 
-	| 	<lambda_form
+	| <lambda_form>
 
-	|	<dict_setdefault>
+	| <dict_setdefault>
 
-	| 	<dict_items>
+	| <dict_items>
 	
 
 
 <return_stmt> ::=
 
-		RETURN
+	RETURN
 
-		| RETURN <expression_list>
+	| RETURN <expression_list>
 
 
 <call> ::=
@@ -64,7 +64,7 @@
 
 	<identifier>
 	
-	|<attr_identifier>
+	| <attr_identifier>
 	
 	
 
@@ -79,17 +79,17 @@
 
 <print_stmt> ::=
 
-		PRINT
+	PRINT
 
-		| PRINT <expression>
+	| PRINT <expression>
 	
-		| PRINT <expression_list>
+	| PRINT <expression_list>
 	
-		| PRINT RIGHT_OP <expression>
+	| PRINT RIGHT_OP <expression>
 		
-		| PRINT RIGHT_OP <expression_list>
+	| PRINT RIGHT_OP <expression_list>
 		
-		| PRINT LPAR <call> RPAR
+	| PRINT LPAR <call> RPAR
 		
 
 		
@@ -128,7 +128,7 @@
 
 	| <expression> <comparison_op> <expression>
 
-	| <expression> logical_op> <expression>
+	| <expression> <logical_op> <expression>
 
 	| <expression> <bitwise_op> <expression>
 	
@@ -179,7 +179,7 @@
 	
 	|<attr_identifier>
 
-	|LPAR <target>_list> RPAR
+	|LPAR <target_list> RPAR
 
 
 
@@ -188,7 +188,7 @@
 	
 <assignment_op> ::=
 	 
-	 ADD_ASSIGN
+	ADD_ASSIGN
 	| SUB_ASSIGN
 	| MUL_ASSIGN
 	| POW_ASSIGN
@@ -325,7 +325,7 @@
 
 <name> ::=
 
-	 <identifier> 
+	<identifier> 
 
 
 //----------------------- Compound_stmt field ------------------------------------------------
@@ -354,7 +354,7 @@
 
 	FOR <for_target_list> IN <expression_list> COLON <statement_list>
 
-	|FOR <for_target_list> IN RANGE LPAR <expression_list> RPAR  COLON  <statement_list>
+	| FOR <for_target_list> IN RANGE LPAR <expression_list> RPAR  COLON  <statement_list>
 
 	| FOR <for_target_list> IN <expression_list> COLON  <statement_list> ELSE COLON  <statement_list>
 
@@ -517,23 +517,23 @@
 
 	<key_datum>
 
-	| <key_datum > COMMA
+	| <key_datum> COMMA
 
-	| <key_datum > <key_datums>
+	| <key_datum> <key_datums>
 
-	| <key_datum > <key_datums> COMMA
+	| <key_datum> <key_datums> COMMA
 
 
 <key_datums> ::=
 
 	COMMA <key_datum>
 
-	| <key_datums> COMMA <key_datum > 
+	| <key_datums> COMMA <key_datum> 
 
 		
 <key_datum> ::=
 
-		<expression> COLON <expression>
+	<expression> COLON <expression>
 		
 		
 <attr_identifier> ::=
