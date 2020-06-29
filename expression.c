@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "expression.h"
-
+extern int yylineno;
 void initArray(struct Array *a, size_t initialSize)
 {
 	a->array = (struct Variable *)malloc(initialSize * sizeof(struct Variable));
@@ -85,7 +85,7 @@ struct Variable add_calc(struct Variable num1, struct Variable num2, struct Arra
 
 		else if( !(num2.type == LAM | num1.type == LAM))
 		{
-			fprintf(stderr, "Data type error: unsupported operand type(s)");
+			fprintf(stderr, "Line: %d --> Data type error: unsupported operand type(s)\n",yylineno);
 			exit(1);
 		}
 	}
@@ -150,7 +150,7 @@ struct Variable minus_calc(struct Variable num1, struct Variable num2, struct Ar
 
 		else
 		{
-			fprintf(stderr, "Data type error: unsupported operand type(s)");
+			fprintf(stderr, "Line: %d --> Data type error: unsupported operand type(s)\n",yylineno);
 			exit(1);
 		}
 	}
@@ -169,8 +169,7 @@ struct Variable minus_calc(struct Variable num1, struct Variable num2, struct Ar
 		}
 		else
 		{
-			fprintf(stderr, "Data type error: unsupported operand type(s)");
-			exit(1);
+			fprintf(stderr, "Line: %d --> Data type error: unsupported operand type(s)\n",yylineno);			exit(1);
 		}
 	}
 }
@@ -204,7 +203,7 @@ struct Variable div_calc(struct Variable num1, struct Variable num2, struct Arra
 
 		else
 		{
-			fprintf(stderr, "Data type error: unsupported operand type(s)");
+			fprintf(stderr, "Line: %d --> Data type error: unsupported operand type(s)\n",yylineno);
 			exit(1);
 		}
 	}
@@ -223,7 +222,7 @@ struct Variable div_calc(struct Variable num1, struct Variable num2, struct Arra
 		}
 		else
 		{
-			fprintf(stderr, "Data type error: unsupported operand type(s)");
+			fprintf(stderr, "Line: %d --> Data type error: unsupported operand type(s)\n",yylineno);
 			exit(1);
 		}
 	}
@@ -259,7 +258,7 @@ struct Variable mul_calc(struct Variable num1, struct Variable num2, struct Arra
 
 		else
 		{
-			fprintf(stderr, "Data type error: unsupported operand type(s)");
+			fprintf(stderr, "Line: %d --> Data type error: unsupported operand type(s)\n",yylineno);
 			exit(1);
 		}
 	}
@@ -278,7 +277,7 @@ struct Variable mul_calc(struct Variable num1, struct Variable num2, struct Arra
 		}
 		else
 		{
-			fprintf(stderr, "Data type error: unsupported operand type(s)");
+			fprintf(stderr, "Line: %d -->Data type error: unsupported operand type(s)\n");
 			exit(1);
 		}
 	}
@@ -324,7 +323,7 @@ struct Variable find_value(struct Array *a, struct Variable num, int check) //Se
 
 	if (check)
 	{
-		fprintf(stderr, "Error: Variable %s has not been defined !", num.name);
+		fprintf(stderr, "Line: %d --> Error: Variable %s has not been defined\n", yylineno,num.name);
 		exit(1);
 	}
 	return num;
@@ -379,6 +378,7 @@ void setDefault(struct Variable item1, struct Variable item2, struct Array *dic,
 		{
 			found = find_key(item1, dic->array[i]);
 			element = i;
+			if (found) break;
 		}
 		i++;
 	}
@@ -413,16 +413,17 @@ void print_dictionary(struct Variable item, struct Array *a)
 
 int find_key(struct Variable item, struct Variable key)
 {
+	
+	if (item.type == INTEGER && key.ival == item.ival);
+		
 
-	if (item.type == INTEGER)
-		return key.ival == item.ival;
-
-	else if (item.type == FLOAT)
-		return key.fval == item.fval;
+	else if (item.type == FLOAT && key.fval == item.fval)
+		return 1;
 
 	else
 	{
 		if (strcmp(item.string, key.string) == 0)
+			
 			return 1;
 		else
 
@@ -430,22 +431,3 @@ int find_key(struct Variable item, struct Variable key)
 	}
 }
 
-void fun_check(struct Array *functions, struct Variable fun){
-	int i = 0;
-	int check =0;
-	while (i < functions->used)
-	{
-
-		if (strcmp(functions->array[i].name, fun.name) == 0)
-		{
-			check =1;
-		}
-		i++;
-	}
-
-	if (!check)
-	{
-		fprintf(stderr, "Error: Function %s has not been defined !", fun.name);
-		exit(1);
-	}
-}

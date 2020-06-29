@@ -1,0 +1,611 @@
+
+
+<program> ::=
+
+	//empty
+	
+	| <statement_list>
+	
+
+<statement_list>  ::= 
+
+	<statement_list> <statement> 
+
+	| <statement>
+
+
+<statement> ::=
+
+		<import_stmt> 
+
+	|	<assignment_stmt>
+
+	| 	<if_stmt>
+
+	|	<for_stmt>
+
+	| 	<print_stmt>
+
+	|	<funcdef>
+
+	| 	<classdef>
+
+	|	<call>
+
+	| 	<return_stmt>
+
+	| 	<lambda_form
+
+	|	<dict_setdefault>
+
+	| 	<dict_items>
+	
+
+
+<return_stmt> ::=
+
+		RETURN
+
+		| RETURN <expression_list>
+
+
+<call> ::=
+
+	<primary> LPAR RPAR
+
+	| <primary> LPAR <expression_list> RPAR
+
+	| <identifier> EQUAL <primary> LPAR  RPAR
+	
+	| <identifier> EQUAL <primary> LPAR <expression_list> RPAR
+	
+		
+<primary> ::=
+
+	<identifier>
+	
+	|<attr_identifier>
+	
+	
+
+
+<lambda_form> ::=
+
+	LAMBDA COLON <expression>
+
+	| LAMBDA <parameter_list> COLON <expression>	
+
+//----------------------- Print field ------------------------------------
+
+<print_stmt> ::=
+
+		PRINT
+
+		| PRINT <expression>
+	
+		| PRINT <expression_list>
+	
+		| PRINT RIGHT_OP <expression>
+		
+		| PRINT RIGHT_OP <expression_list>
+		
+		| PRINT LPAR <call> RPAR
+		
+
+		
+
+//----------------------- Assignment field ------------------------------------
+<assignment_stmt> ::=
+
+	<assignment_stmt_targer_list> <expression_list>
+	
+	|<assignment_stmt_targer_list> <call>	
+	
+		
+<assignment_stmt_targer_list> ::=
+
+	<target_list> EQUAL
+
+	| <assignment_stmt_targer_list> <target_list> EQUAL
+
+
+<target_list> ::=
+
+	<target>
+
+	| <target_list> COMMA <target>
+
+	| <target_list> COMMA
+
+
+<target> ::=
+
+	<identifier>
+	
+	|<attr_identifier>
+
+	|LPAR <target>_list> RPAR
+
+
+
+//----------------------- Import filed --------------------------------------
+<import_stmt> ::= 
+
+	IMPORT <module>
+
+	| IMPORT <module> AS <name>
+
+	| IMPORT <modules> <modules>
+
+	| IMPORT <modules> AS <name> <modules>
+
+	| FROM <relative_module> IMPORT <identifier>
+
+	| FROM <relative_module> IMPORT <identifier> AS <name>
+
+	| FROM <relative_module> IMPORT <identifier> <import_stmt_identifiers>
+
+	| FROM <relative_module> IMPORT <identifier> AS <name> <import_stmt_identifiers>
+
+	| FROM <relative_module> IMPORT LPAR <identifier> RPAR
+
+	| FROM <relative_module> IMPORT LPAR <identifier> AS <name> RPAR
+
+	| FROM <relative_module> IMPORT LPAR <identifier> <import_stmt_identifiers> RPAR
+
+	| FROM <relative_module> IMPORT LPAR <identifier> AS <name> <import_stmt_identifiers> RPAR
+
+	| FROM <relative_module> IMPORT LPAR <identifier> COMMA RPAR
+
+	| FROM <relative_module> IMPORT LPAR <identifier> AS <name> COMMA RPAR
+
+	| FROM <relative_module> IMPORT LPAR <identifier> <import_stmt_identifiers> COMMA RPAR
+
+	| FROM <relative_module> IMPORT LPAR <identifier> AS <name> <import_stmt_identifiers> COMMA RPAR
+
+	| FROM <relative_module> IMPORT STAR	
+
+
+<module> ::= 
+
+	<module> DOT <identifier> 
+
+	| <identifier>
+
+<relative_module> ::=
+
+	<module> 
+
+	| <dots> <module>
+
+	| <dots>
+
+
+<dots> ::= 
+
+	DOT
+
+	| <dots> DOT
+
+<modules> ::= 
+
+	<modules> COMMA <module>
+
+	| <modules> COMMA <module> AS <name>
+
+	| COMMA<module>
+
+	| COMMA<module> AS <name>
+
+
+<import_stmt_identifiers> ::=
+
+	COMMA <identifier>
+
+	| COMMA <identifier> AS <name>
+
+	| <import_stmt_identifiers> COMMA <identifier>
+
+	| <import_stmt_identifiers> COMMA <identifier> AS <name>
+
+<name> ::=
+
+	 <identifier> 
+
+
+//----------------------- Compound_stmt field ------------------------------------------------
+
+//=================================== If =============================================
+<if_stmt> ::=
+
+	IF  <expression>  COLON <statement_list>
+
+	| IF  <expression> COLON <statement_list> ELSE COLON<statement_list>
+
+	| IF <expression>  COLON <statement_list> <elif_stmt>
+
+	| IF  <expression>  COLON <statement_list> <elif_stmt> ELSE COLON  <statement_list>
+
+		
+<elif_stmt> ::=
+
+	ELIF  <expression>  COLON   <statement_list>
+
+	| elif_stmt ELIF  <expression>  COLON  <statement_list>
+
+//=================================== For ===========================================
+
+<for_stmt> ::=
+
+	FOR <for_target_list> IN <expression_list> COLON <statement_list>
+
+	|FOR <for_target_list> IN RANGE LPAR <expression_list> RPAR  COLON  <statement_list>
+
+	| FOR <for_target_list> IN <expression_list> COLON  <statement_list> ELSE COLON  <statement_list>
+
+
+<for_target_list> ::=
+
+	<for_target>
+
+	| <for_target_list> COMMA <target>
+
+	| <for_target_list> COMMA
+
+
+<for_target> ::=
+
+	<identifier>
+
+	|LPAR <for_target_list> RPAR
+
+
+//================================== Function  ================================
+
+<funcdef> ::=
+
+	DEF <funcname> LPAR RPAR COLON <statement_list>
+
+	|<decorators> DEF <funcname> LPAR RPAR COLON <statement_list>
+
+	| DEF <funcname> LPAR <parameter>_list RPAR COLON <statement_list>
+
+	| <decorators> DEF <funcname> LPAR <parameter_list> RPAR COLON <statement_list>
+
+		
+<decorators> ::=
+
+	<decorator>
+
+	| <decorators> <decorator>
+		
+<decorator> ::=
+
+	PAPAKI <dotted_name> NEWLINE
+
+	| PAPAKI <dotted_name> LPAR RPAR NEWLINE
+
+
+<dotted_name> ::=
+
+	<identifier>
+
+	| <identifier> <dot_identifiers>
+
+		
+<dot_identifiers> ::=
+
+	DOT <identifier>
+
+	| <dot_identifier> DOT <identifier>
+		
+
+<parameter_list> ::=
+
+	STAR <identifier>
+
+	| STAR <identifier> COMMA DOUBLESTAR <identifier>
+
+	| DOUBLESTAR <identifier>
+
+	| <defparameter>
+
+	| <defparameter> COMMA
+
+	| <defparameters> STAR <identifier>
+
+	| <defparameters> STAR <identifier> COMMA DOUBLESTAR <identifier>
+
+	| <defparameters> DOUBLESTAR <identifier>
+
+	| <defparameters> <defparameter>
+
+	| <defparameters> <defparameter> COMMA
+		
+<defparameter> ::=
+
+	<parameter>
+
+	| <parameter> EQUAL expression
+		
+<defparameters> ::=
+	<defparameter> COMMA
+	| <defparameters> <defparameter> COMMA
+	
+<sublist> ::=
+
+	<parameter>
+
+	| <parameter> COMMA
+
+	| <parameter> <parameters>
+
+	| <parameter> <parameters> COMMA
+
+
+<parameters> ::=
+
+	COMMA <parameter>
+
+	| <parameters> COMMA <parameter	
+	
+<parameter> ::=
+
+	<identifier>
+
+	| LPAR <sublist> RPAR
+		
+		
+
+<funcname> ::=
+
+	<identifier>
+
+<//=================================== Class ===========================================
+
+<classdef> ::=
+
+	CLASS <classname> COLON <statement_list>
+
+	| CLASS classname> <inheritance COLON> <statement_list>
+		
+
+<inheritance> ::=
+
+	LPAR RPAR
+
+	| LPAR <expression_list> RPAR
+
+		
+<classname> ::=
+
+	<identifier>
+	
+//----------------------- etc -------------------------------------------------
+
+<dict_items> ::=
+
+	<identifier> DOT ITEMS LPAR RPAR
+
+
+<dict_setdefault> ::=
+
+	<identifier> DOT SETDEFAULT LPAR <expression> COMMA <expression> RPAR
+
+
+<dict_display> ::=
+
+	LBRA RBRA
+
+	| LBRA <key_datum_list> RBRA
+
+		
+<key_datum_list> ::=
+
+	<key_datum>
+
+	| <key_datum > COMMA
+
+	| <key_datum > <key_datums>
+
+	| <key_datum > <key_datums> COMMA
+
+
+<key_datums> ::=
+
+	COMMA <key_datum>
+
+	| <key_datums> COMMA <key_datum > 
+
+		
+<key_datum> ::=
+
+		<expression> COLON <expression>
+
+
+
+<expression_list> ::=
+
+	<expression_list> COMMA expression
+
+	|LPAR <expression_list> COMMA <expression> RPAR
+
+	|<expression>
+	
+
+
+<expression > ::= 
+
+	<atom>
+	
+	| LPAR <expression> RPAR
+
+	| <expression> PLUS <expression>
+	
+	| <expression> MINUS <expression>
+
+	| <expression> SLASH <expression>
+
+	| <expression> STAR <expression>
+
+	| <expression> <assignment_op> <expression>	
+
+	| <expression> <arithmetic_op> <expression>
+
+	| <expression> <comparison_op> <expression>
+
+	| <expression> logical_op> <expression>
+
+	| <expression> <bitwise_op> <expression>
+	
+<atom> ::=
+
+	<literal>
+	
+	| <identifier>
+	
+	| <integer>
+	
+	| <attr_identifier>
+	
+	| <dict_display>
+	
+	| <dict_setdefault>
+	
+
+
+<literal> ::=  
+
+	 <string>
+	
+	| <longinteger>
+	
+	| <imagnumber>
+
+
+<attr_identifier> ::=
+
+	<identifier>
+		
+	| attr_<identifier> DOT <identifier> 
+	
+	| <identifier> DOT <identifier> 
+
+
+	
+<stringliteral> ::=
+	<shortstring>
+	|<longstring>
+	  
+<shortstring>::=
+	 <any source character except '"' or newline>
+
+longstringitem ::= 
+             <any source character except '\' '>	
+
+imagnumber ::= (floatnumber | intpart) ("j" | "J")
+		
+longinteger ::= 
+             integer ("l" | "L")
+  
+integer ::= 
+             decimalinteger | octinteger | hexinteger
+  
+decimalinteger ::= 
+             nonzerodigit digit* | "0"
+  
+octinteger ::= 
+             "0" octdigit+
+  
+hexinteger ::= 
+             "0" ("x" | "X") hexdigit+
+  
+nonzerodigit ::= 
+             "1"..."9"
+  
+octdigit ::= 
+             "0"..."7"
+  
+hexdigit ::= 
+             digit | "a"..."f" | "A"..."F"
+
+		
+floatnumber ::= 
+             pointfloat | exponentfloat
+  
+pointfloat ::= 
+             [intpart] fraction | intpart "."
+  
+exponentfloat ::= 
+             (intpart | pointfloat)
+              exponent
+  
+intpart ::= 
+             digit+
+  
+fraction ::= 
+             "." digit+
+  
+exponent ::= 
+             ("e" | "E") ["+" | "-"] digit+
+
+identifier ::= 
+             (letter|"_") (letter | digit | "_")*
+  
+    (where the matched string is not a keyword)
+
+letter ::= 
+             lowercase | uppercase
+  
+lowercase ::= 
+             "a"|"b"|...|"z"
+  
+uppercase ::= 
+             "A"|"B"|...|"Z"
+  
+digit ::= 
+             "0"|"1"|...|"9"
+
+<assignment_op> ::=
+	 
+	 ADD_ASSIGN
+	| SUB_ASSIGN
+	| MUL_ASSIGN
+	| POW_ASSIGN
+	| DIV_ASSIGN
+	| MOD_ASSIGN
+	| AND_ASSIGN
+	| XOR_ASSIGN
+	| OR_ASSIGN
+	| RIGHT_ASSIGN
+	| LEFT_ASSIGN             
+
+<arithmetic_op> ::= 
+	PERCENT
+	| DOUBLESTAR
+	| DOUBLESLASH
+
+<comparison_op> ::= 
+	EQ_OP
+	| NE_OP
+	| GREATER_THAN_OP
+	| LESS_THAN_OP
+	| LE_OP
+	| GE_OP
+
+<logical_op> ::= 
+	AND
+	| NOT
+	| OR
+	| IS 
+	| IN
+	| IS NOT
+	| NOT IN
+
+<bitwise_op> ::= 
+	AND_EXP
+	| OR_SIGN
+	| XOR
+	| NOT_SIGN
+	| LEFT_OP
+	| RIGHT_OP

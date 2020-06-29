@@ -12,7 +12,6 @@
    
   void yyerror(const char *s);
 
-int line;
 
 %}
 
@@ -29,7 +28,6 @@ struct Array functions;
     struct Variable nval;
 	
 }
-
 
 
 
@@ -69,9 +67,9 @@ struct Array functions;
 %type<nval>   	expression
 %type<nval>  	print_stmt
 %type<nval>   	target
-%type<nval>	target_list
+%type<nval>		target_list
 %type<nval> 	assignment_stmt
-%type<nval>	assignment_stmt_targer_list
+%type<nval>		assignment_stmt_targer_list
 %type<nval> 	expression_list
 %type<nval> 	attr_identifier
 %type<nval> 	longinteger
@@ -82,7 +80,7 @@ struct Array functions;
 
 %type<nval>  	lam_parameters
 %type<nval>  	lambda_form
-%type<nval>  	funcname
+%type<nval>  	funcname 
 
 
 %%
@@ -90,12 +88,14 @@ struct Array functions;
 
 program: 
 	//empty
+	{printf("Success! You are awesome. \n");}
 	| statement_list
+	{printf("Success! You are awesome. \n");}
 	;
 
 statement_list : 
 	statement_list statement 
-	| statement{line++;};
+	| statement;
 
 statement:
 	import_stmt 
@@ -107,24 +107,27 @@ statement:
 	| classdef
 	| call
 	| return_stmt
+	| break_stmt
 	| lambda_form
 	| dict_setdefault
 	| dict_items
 	; 
 
+break_stmt:
+	BREAK;
 
 return_stmt:
 		RETURN
 		| RETURN expression_list;
 call:
 	primary LPAR RPAR
-	{$$ = $1; fun_check(&functions,$1);}
+	
 	| primary LPAR expression_list RPAR
-	{$$ = $1; fun_check(&functions,$1);}
+	
 	| identifier EQUAL primary LPAR  RPAR
-	{$$ = $1; fun_check(&functions,$3);}
+	
 	| identifier EQUAL primary LPAR expression_list RPAR
-	{$$ = $1; fun_check(&functions,$3);}
+	
 		
 
 primary:
@@ -144,7 +147,7 @@ lambda_form:
 
 
 lam_parameters:
-	|identifier
+	identifier
 	{$$ = $1; $$.type = LAM ;insertArray(&variables, $$); }
 	|attr_identifier
 	|lam_parameters COMMA identifier
@@ -156,15 +159,15 @@ lam_parameters:
 print_stmt:
 		PRINT
 		| PRINT expression
-		{print($2,&variables); }
+		{printf(">>  "); print($2,&variables); }
 		| PRINT expression_list
-		{print($2,&variables); }
+		{printf(">>  "); print($2,&variables); }
 		| PRINT RIGHT_OP expression
-		{print($3,&variables); }
+		{printf(">>  "); print($3,&variables); }
 		| PRINT RIGHT_OP expression_list
-		{print($3,&variables); }
+		{printf(">>  "); print($3,&variables); }
 		| PRINT LPAR call RPAR
-		{print($3,&variables); };
+		{printf(">>  "); print($3,&variables); };
 
 		
 //----------------------- Expressions field ------------------------------------
@@ -184,7 +187,6 @@ expression_list:
 expression: 
 	atom
 	{$$ = $1; }
-	
 	| expression PLUS expression
 	{$$ = add_calc($1,$3,&variables,1);  }
 	| expression MINUS expression
@@ -241,7 +243,6 @@ target_list:
 	{$$ = $1; }
 	| target_list COMMA target
 	| target_list COMMA;
-
 target:
 	IDENTIFIER
 	{$$ = $1; }
@@ -376,6 +377,7 @@ if_stmt:
 elif_stmt:
 	ELIF  expression  COLON  statement_list
 	| elif_stmt ELIF  expression  COLON statement_list;
+
 //=================================== For ===========================================
 
 for_stmt:
@@ -452,7 +454,7 @@ parameters:
 		
 funcname:
 	identifier
-{$$ = $1; $$.type = FUNCTION; insertArray(&functions, $$);};
+
 
 //=================================== Class ===========================================
 
@@ -495,13 +497,13 @@ key_datum:
 		expression COLON expression
 		{ insertArray(&dictionary,$1); insertArray(&dictionary,$3);};
 		
-
+//======================================================================================
 attr_identifier:
 	identifier
 	{$$ = $1; }	
 	| attr_identifier DOT identifier 
 	{$$ = $1;  }
-	| identifier DOT identifier 
+	|identifier DOT identifier
 ;
 
 identifier:
@@ -553,10 +555,10 @@ int main(int argc, char** argv) {
   
   initArray(&variables, 5);  // initially 5 elements
   initArray(&dictionary,5);
-  initArray(&functions,5);  //initially 5 elements
+
 
    extern int yydebug;
-   yydebug = 1;
+   //yydebug = 1;
 
   // Open a file 
   FILE *myfile = fopen(argv[1], "r");
@@ -575,7 +577,7 @@ int main(int argc, char** argv) {
 
 
 void yyerror(const char* s) {
-	fprintf(stderr, "Parse error in line %d\n", yylineno);
+	fprintf(stderr, "Line: %d --> Parser error\n", yylineno);
 	exit(1);
 }
 

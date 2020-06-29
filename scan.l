@@ -271,12 +271,14 @@ void process_indent(char* line) {
     return ;
   }
   else if(flag){
-	printf("Line:%d --> Indentation error\n",linee);
+	printf("Line:%d --> Indentation error\n",yylineno);
+	exit(1);
 	return;}	
 
    if (indent > level_start[level] && !flag) {
 	
-    printf("Line:%d --> Indentation error\n",linee);
+    printf("Line:%d --> Indentation error\n",yylineno);
+	exit(1);
     return ;
   }
    
@@ -289,8 +291,9 @@ void process_indent(char* line) {
 
   if(temp>=0)
 	level = temp ;
-  else
-	printf("Line:%d --> Indentation error\n",linee);
+  else{
+	printf("Line:%d --> Indentation error\n",yylineno);
+	exit(1);}
 return;
 
 
