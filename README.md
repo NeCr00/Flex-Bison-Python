@@ -47,10 +47,7 @@ Note: If you want to compile with debug mode enabled, use the following command 
     
 -   Run the compiled file using the following command:
     
-    bash
-    
-
-1.  `./a_random_name example.py`
+-   `./a_random_name example.py`
     
 
 The compiled file will analyze and tokenize the Python source code and check for proper indentation before executing the code.
